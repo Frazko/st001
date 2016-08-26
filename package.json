@@ -1,0 +1,23 @@
+{
+  "name": "stickers_app",
+  "version": "0.0.1",
+  "description": "Interchange your album stickers",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Frazko/st001.git"
+  },
+  "author": "Frazko MC",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Frazko/st001/issues"
+  },
+  "homepage": "https://github.com/Frazko/st001#readme",
+  "devDependencies": {
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.15.0"
+  }
+}
