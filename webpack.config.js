@@ -17,6 +17,10 @@ module.exports = {
             test: /\.jsx?/,
             include: path.resolve(__dirname, 'src'),
             loader: 'babel'
+        },{
+            test: /\.scss$/,
+            include: path.resolve(__dirname, 'src'),
+            loader: 'style!css!sass'
         }]
     },
     watch: true

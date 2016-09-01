@@ -1,5 +1,7 @@
 import React from 'react';
 
+import FacebookButton from './components/FacebookButton.jsx';
+
 
 class App extends React.Component {
 	constructor(props) {
@@ -21,7 +23,7 @@ class App extends React.Component {
 		});
 
 
-		return <div> { messagesNodes } </div>;
+		return <div><FacebookButton fb={FB} /> { messagesNodes } </div>;
 	}
 }
 
