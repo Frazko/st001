@@ -1,6 +1,24 @@
-$color: red;
-
-
-body{
+$color: white;
+body {
 	background-color: $color;
+}
+
+ul {
+	list-style-type: none;
+}
+
+.btn {
+	background-color: #dd0000;
+	font-size: 18px;
+	color: #FFFFFF;
+	padding: 8px 18px;
+	border-radius: 8px;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border: 0px solid #000000;
+}
+
+.btn-primary {
+	background-color: #339933;
+
 }

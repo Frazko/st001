@@ -7,7 +7,10 @@ export default class FacebookButton extends React.Component {
       this.FB = props.fb;
 
       this.state = {
-         message: ""
+         message: "",
+         friendsList:[],
+         isLoggedIn:false,
+         loginBtn:"Entrar"
       };
 
    }
@@ -15,43 +18,113 @@ export default class FacebookButton extends React.Component {
    componentDidMount() {
       this.FB.Event.subscribe('auth.logout', 
          this.onLogout.bind(this));
+
       this.FB.Event.subscribe('auth.statusChange', 
          this.onStatusChange.bind(this));
-   }
-      
-   onStatusChange(response) {
-      console.log( response );
-      var self = this;
 
-      if( response.status === "connected" ) {
-         this.FB.api('/me', function(response) {
-            var message = "Welcome " + response.name;
-            self.setState({
-               message: message
-            });
-         })
+
+   }
+
+   onLogin(){
+      console.log('click');
+      if (!this.state.isLoggedIn){
+
+         this.FB.login((response) => {
+          if (response.authResponse) {
+           console.log('Welcome!  Fetching your information.... ');
+           this.FB.api('/me', (response)=> {
+              console.log('Good to see you, ' + response.name + '.');
+           });
+        } else {
+           console.log('User cancelled login or did not fully authorize.');
+        }
+     }, {scope: 'user_friends, public_profile, user_birthday, email, user_about_me'});
+
+      }else{
+         this.logout();
       }
    }
 
+   logout(){
+    console.log('logout()');
+    this.FB.logout((response) => {
+       console.log('User is now logged out', response);
+    });
+ }
+
+ onStatusChange(response) {
+   console.log( response );
+
+   if( response.status === "connected" ) {
+      this.state.isLoggedIn = true;
+      this.state.loginBtn = "Salir";
+
+
+      this.FB.api('/me', 
+         response => {
+            var message = "Welcome " + response.name;
+            this.setState({
+               message: message
+            });
+         });
+
+      this.FB.api('/me/picture?width=180&height=180', 
+         (response)=> {      
+            // var picUrl = '<img src="http://graph.facebook.com/' + response.id + '/picture" />';
+            //  http://graph.facebook.com/10154055323235269/picture
+            console.log(response.data.url);
+            this.setState({
+               profilePic:  response.data.url
+            });
+         });
+
+      this.FB.api('/me/friends', 
+         {fields: 'name,id,location,birthday'}, 
+         (response)=> {
+            console.log('friends opts');
+            //console.log(response);
+            // console.log( this.friendsList(response.data));
+            
+            
+            this.setState({
+               friendsList:  this.friendsList(response.data)  
+            });
+            /**/
+
+            console.log( this.state.friendsList );
+
+         });
+   }
+}
+
+
+   friendsList(list){
+      return list.map((value)=> <li> <img src={"http://graph.facebook.com/"+value.id+"/picture"}/></li>);
+   }
+
    onLogout(response) {
+      console.log('onLogout --- ');
       this.setState({
-         message: ""
+         message: "",
+         profilePic:  "",
+         isLoggedIn:false,
+         loginBtn:"Entrar",
+         friendsList:[]
       });
    }
 
-   render() {
-      return (
-         <div>
-            <div 
-               className="fb-login-button" 
-               data-max-rows="1" 
-               data-size="xlarge" 
-               data-show-faces="false" 
-               data-auto-logout-link="true"
-               >
-            </div>
-            <div>{this.state.message}</div>
-         </div>
+
+
+render() {
+   return (
+      <div>
+      <div><img src={this.state.profilePic} /></div>
+      <div>{this.state.message}</div>
+
+      <button className="btn btn-primary" onClick={this.onLogin.bind(this)}> {this.state.loginBtn} </button>
+
+      <div><ul>{this.state.friendsList}</ul></div>
+      </div>
       );
    }
 };
