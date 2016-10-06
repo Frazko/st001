@@ -1,2 +1,6 @@
 # st001
-test
+-Install and run
+
+>  webpack-dev-server --inline --port 8080 --hot --host 0.0.0.0
+
+
