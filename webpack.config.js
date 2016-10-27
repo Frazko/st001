@@ -1,6 +1,7 @@
 var webpack = require('webpack');
 var path = require('path');
 
+
 module.exports = {
     entry: {
         main: [
@@ -17,11 +18,14 @@ module.exports = {
             test: /\.jsx?/,
             include: path.resolve(__dirname, 'src'),
             loader: 'babel'
-        },{
+        }, {
             test: /\.scss$/,
             include: path.resolve(__dirname, 'src'),
             loader: 'style!css!sass'
         }]
+    },
+    devServer: {
+        historyApiFallback: true,
     },
     watch: true
 };
