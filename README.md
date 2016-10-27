@@ -1,12 +1,11 @@
 # st001
 
+- update - 
+RUN ONLY 
+
+npm start
 
 -Install and run
 
 webpack-dev-server --inline --port 8080 --hot --host 0.0.0.0
-Check Errors:
-
 webpack --display-error-details
-
-update - 
-npm start
