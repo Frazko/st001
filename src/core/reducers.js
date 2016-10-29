@@ -1,13 +1,10 @@
 import { routerReducer } from 'react-router-redux';
 import { combineReducers } from 'redux';
 import { authReducer } from './auth';
-//import { notificationReducer } from './notification';
-//import { tasksReducer } from './tasks';
-
+import { navigationReducer } from './navigation/navigationReducers';
 
 export default combineReducers({
   auth: authReducer,
-  //notification: notificationReducer,
+  navigation: navigationReducer,
   routing: routerReducer
-  //tasks: tasksReducer
 });

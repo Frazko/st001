@@ -10,6 +10,8 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 import LogOff from './components/LogOff.component';
+import NavBar from './containers/NavigationBar.container';
+import NavigationDrawer from './containers/NavigationDrawer.container';
 
 
 
@@ -37,6 +39,9 @@ class App extends Component {
 		return (
 			<MuiThemeProvider>
 				<div>
+				<NavBar />
+				<NavigationDrawer />
+
 					<LogOff
 			          authenticated={this.props.auth.authenticated}
 			          signOut={this.props.signOut}
