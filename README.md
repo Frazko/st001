@@ -2,7 +2,7 @@
 
 - update - 
 RUN ONLY 
->npm start
+>   npm start
 
 -Install and run
 
