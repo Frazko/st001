@@ -1,5 +1,5 @@
 {
-  "name": "Sticker_Manager",
+  "name": "StickerManager",
   "version": "0.0.1",
   "description": "Interchange Album Stickers, with React, Redux, Material and Firebase",
   "homepage": "https://github.com/Frazko/st001",
@@ -37,6 +37,7 @@
     "react-redux": "~4.4.5",
     "react-router": "~2.8.1",
     "react-router-redux": "~4.0.6",
+    "react-tap-event-plugin": "^1.0.0",
     "redux": "~3.6.0",
     "redux-thunk": "~2.1.0",
     "reselect": "~2.5.4"

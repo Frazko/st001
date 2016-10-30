@@ -21,6 +21,6 @@ export function displayDrawer(){
 
 export function toggleDrawer(){
 	return function (dispatch){
-		dispatch(toggleDrawerSuccess(true));
+		dispatch(toggleDrawerSuccess());
 	};
 } 

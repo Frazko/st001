@@ -5,9 +5,6 @@ import { authActions, getAuth } from 'src/core/auth';
 import { paths } from './router/routes';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-// Needed for onTouchTap
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
 
 import LogOff from './components/LogOff.component';
 import NavBar from './containers/NavigationBar.container';

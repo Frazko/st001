@@ -5,6 +5,7 @@ export const NavigationState = new Record({
 	display: false
 });
 
+
 export function navigationReducer(state = new NavigationState(), action) {
 	switch (action.type) {
 		case types.DISPLAY_DRAWER_OVERLAY_SUCCESS:
@@ -13,9 +14,9 @@ export function navigationReducer(state = new NavigationState(), action) {
 				display: action.open
 			});
 		case types.TOGGLE_DRAWER_OVERLAY_SUCCESS:
-			console.log("NAV toggle "+action);
+			console.log("NAV toogle "+state);
 			return Object.assign({}, state, {
-				//display: !state.display
+				display: !state.display
 			});
 		default:
 		return state;

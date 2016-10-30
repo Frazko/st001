@@ -10,6 +10,9 @@ import { initAuth } from './core/auth';
 import configureStore from './store/configureStore';
 import Root from './router/root';
 
+// Needed for onTouchTap
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
 
 const store = configureStore();
 const syncedHistory = syncHistoryWithStore(browserHistory, store);

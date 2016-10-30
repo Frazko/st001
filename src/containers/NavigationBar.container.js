@@ -25,7 +25,7 @@ class NavBar extends Component {
 
   render() {
     return (
-      <AppBar title="Title" onLeftIconButtonTouchTap={this.props.actions.displayDrawer}>
+      <AppBar title="Title" onLeftIconButtonTouchTap={this.props.actions.toggleDrawer}>
         <IconButton style={iconButtonStyles} onClick={this.check.bind(this)}><MoreVertIcon color="white"/></IconButton>
         <IconButton style={iconButtonStyles} ><NavigationClose color="#ffffff"/></IconButton>
       </AppBar>

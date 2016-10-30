@@ -2,9 +2,46 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'; 
 import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import * as navigationActions from '../core/navigation/navigationActions';
+
+
+import {List, ListItem} from 'material-ui/List';
+import Divider from 'material-ui/Divider';
+import Avatar from 'material-ui/Avatar';
+import ImageBurstMode from 'material-ui/svg-icons/image/burst-mode';
+import Collections from 'material-ui/svg-icons/image/collections';
+import Assessment from 'material-ui/svg-icons/action/assessment';
+import QuestionAnswer from 'material-ui/svg-icons/action/question-answer';
+import Home from 'material-ui/svg-icons/action/home';
+import Paper from 'material-ui/Paper';
+import Menu from 'material-ui/Menu';
+import MenuItem from 'material-ui/MenuItem';
+
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+
+
+const style = {
+  paper: {
+    display: 'block',
+    margin: '16px 10px',
+    overflow:'hidden',
+  },
+  rightIcon: {
+    textAlign: 'center',
+    lineHeight: '24px',
+  },
+  list: {
+    color: '#000',
+    fontSize: 24,
+    paddingBottom: 25,
+    background:'none'
+  },
+  overlay: {
+    background:'none'
+  },
+};
+
 
 class NavigationDrawer extends React.Component {
 
@@ -14,7 +51,6 @@ class NavigationDrawer extends React.Component {
   }
   componentWillMount(){
     this.setState({open: false})
-
   }
 
   handleToggle = () => this.setState({open: !this.state.open});
@@ -28,19 +64,50 @@ class NavigationDrawer extends React.Component {
 
     return (
       <div>
-        <RaisedButton
-          label="Open Drawer"
-          onTouchTap={this.handleToggle}
-        />
-
         <Drawer
           docked={!display}
-          width={300}
+          width={260}
           open={display}
           onRequestChange={this.props.actions.toggleDrawer}
         >
-          <MenuItem onTouchTap={this.handleClose}>Menu Item</MenuItem>
-          <MenuItem onTouchTap={this.handleClose}>Menu Item 2</MenuItem>
+
+
+
+
+
+
+
+          <CardMedia
+          overlayContentStyle={style.overlay}
+          overlay={
+            <ListItem
+              style={style.list}
+              disabled={true}
+              leftAvatar={
+                <Avatar src="images/common/avatar.jpg" />
+              }>
+
+              Fran Murillo
+            </ListItem>
+          }>
+            <img src="images/common/landscape-avatar.jpg" />
+          </CardMedia>
+
+          <Paper style={style.paper}>
+            <Menu >
+              <MenuItem primaryText="Home" leftIcon={<Home />} />
+              <MenuItem primaryText="Add Stickers" leftIcon={<ImageBurstMode />} />
+              <MenuItem primaryText="My Collections" leftIcon={<Collections />} />
+              <MenuItem primaryText="Progress" leftIcon={<Assessment />} />
+              <MenuItem primaryText="Messages" leftIcon={<QuestionAnswer />} />
+            </Menu>
+          </Paper>
+
+          <Divider inset={true} />
+
+          <MenuItem onTouchTap={this.props.actions.toggleDrawer}>Settings</MenuItem>
+          <MenuItem onTouchTap={this.props.actions.toggleDrawer}>Help</MenuItem>
+          <MenuItem onTouchTap={this.props.actions.toggleDrawer}>Log out</MenuItem>
         </Drawer>
       </div>
     );
