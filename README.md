@@ -6,5 +6,6 @@ RUN ONLY
 
 -Install and run
 
- webpack-dev-server --inline --port 8080 --hot --host 0.0.0.0
- webpack --display-error-details
+>   webpack-dev-server --inline --port 8080 --hot --host 0.0.0.0
+ 
+>   webpack --display-error-details
