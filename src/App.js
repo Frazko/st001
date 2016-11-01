@@ -7,6 +7,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
 import LogOff from './components/LogOff.component';
+import Collection from './components/Collection.component';
 import NavBar from './containers/NavigationBar.container';
 import NavigationDrawer from './containers/NavigationDrawer.container';
 
@@ -44,6 +45,11 @@ class App extends Component {
 			          signOut={this.props.signOut}
 		        	/>
 					<div className="main">{this.props.children}</div>
+
+
+
+
+					<Collection/>
 				</div>
 			</MuiThemeProvider>
 			);
