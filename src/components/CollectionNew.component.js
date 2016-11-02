@@ -35,32 +35,12 @@ const style = {
     marginTop:15,
   },
 
-  imageHolder:{
-    float:'left',
-    //background:'#336699',
-  },
-
-  infoHolder:{
-    float:'right',
-    //background:'#996633',
-  },
-
-  infoItem:{
-    marginLeft:0,
-    marginRight:0,
-    padding:0,
-  },
-
-  infoIcon:{
-    marginLeft:20,
-    padding:0,
-  },
-
   description:{
-    margin:20,
+    display:'block',
+    margin:10,
     padding:0,
-    clear:'both',
   },
+
   cta:{
     margin:20,
     padding:0,
@@ -73,22 +53,11 @@ const style = {
     paddingLeft:15,
     paddingRight:15,
     textAlign: 'left',
-  },
-
-  percent:{
-    top:-14,
-    left:-20,
-    position:'relative',
-  },
-
-  circularProgress:{
-    left:14,
-    position:'relative',
   }
 };   
 
 
-class Collection extends Component {
+class CollectionNew extends Component {
   render() {
     return (
       <div>
@@ -96,38 +65,23 @@ class Collection extends Component {
             
 
           <div style={style.title}>
-            Copa America Centenario 2016
+            Copa Mundial Rusia 2018
           </div>
+
           <Divider inset={false} />
 
           <div style={style.imageHolder}>
             <img style={style.image} src="images/albums/00001/copamecen20116.jpg" />
           </div>
 
-          <List style={style.infoHolder}>
-            <ListItem style={style.infoItem} primaryText="432" leftIcon={<Search style={style.infoIcon} />} />
-            <ListItem style={style.infoItem} primaryText="42" leftIcon={<LabelOutline style={style.infoIcon} />} />
-
-
-              <CircularProgress  style={style.circularProgress}
-                mode="determinate"
-                value={60}
-                size={40}
-                thickness={3}
-              /> 
-            <span style={style.percent} >60% </span>
-
-          </List>
 
 
           <div style={style.description}>
-            <span>Stickers: {490}, </span>
-            <span>Panini </span>
-            <span>2016</span>
+            <span>Stickers: {650}, Panini 2018</span>
           </div>
 
           <div style={style.cta}>
-            <RaisedButton label="View Sections" fullWidth={true} />
+            <RaisedButton label="Add to my Collections" fullWidth={true} />
           </div>
 
 
@@ -144,7 +98,7 @@ class Collection extends Component {
   }
 }
 
-Collection.propTypes = {
+CollectionNew.propTypes = {
 }
  
 function mapStateToProps(state, ownProps){
@@ -159,4 +113,4 @@ function mapDispatchToProps(dispatch){
   }
 }
  
-export default connect(mapStateToProps, mapDispatchToProps)(Collection);
+export default connect(mapStateToProps, mapDispatchToProps)(CollectionNew);

@@ -7,15 +7,12 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
 import LogOff from './components/LogOff.component';
-import Collection from './components/Collection.component';
 import NavBar from './containers/NavigationBar.container';
 import NavigationDrawer from './containers/NavigationDrawer.container';
-
-
-
-
-
-
+import CollectionNew from './components/CollectionNew.component';
+import Collection from './components/Collection.component';
+import SectionItem from './components/SectionItem.component';
+import StickerItem from './components/StickerItem.component';
 
 
 class App extends Component {
@@ -49,7 +46,10 @@ class App extends Component {
 
 
 
+					<StickerItem/>
+					<SectionItem/>
 					<Collection/>
+					<CollectionNew/>
 				</div>
 			</MuiThemeProvider>
 			);
