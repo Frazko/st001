@@ -12,15 +12,24 @@ Install and run
    webpack --display-error-details
     --->
 
-## Diseños
+## Design
  https://marvelapp.com/project/894327/
+
+## Material Guide
+ http://www.material-ui.com/
+ https://material.google.com/
+ 
+## Icons
+ https://material.io/icons/
 
 ## Development Tasks
  https://trello.com/invite/b/3YSsRUyJ/8e15674394cce971cdf3fc306bb2dbf6/stickers-app
  
+## Data Inspiration
+ http://www.stickermanager.com/en/my-collections/2851/items?page=7
  
- 
- 
+## Scaffolding and Structure
+ https://github.com/douglascorrea/react-hot-redux-firebase-starter
 
 ## Stack
 
