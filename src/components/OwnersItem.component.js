@@ -40,7 +40,9 @@ const style = {
     width: 60,
   },
   listItem : {
-    textAlign:'left',
+    display:'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
   block : {
     marginLeft:15,

@@ -32,15 +32,20 @@ const style = {
     flexDirection: 'column',
     justifyContent: 'center',
     height:'100%',
-    background:'#FFAAAA',
+    // background:'#FFAAAA',
   },
   pic : {
     height: 60,
     width: 60,
   },
   listItem : {
+    display:'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
     textAlign:'left',
     minHeight: 100,
+    // background:'#FFFFAA',
+    // border: 'solid 1px #0000AA ',
   },
   block : {
     marginLeft:15,
@@ -48,6 +53,7 @@ const style = {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'flex-end', 
+    // background:'#AAFFFF',
   },
 
   blockTitle:{
@@ -58,8 +64,7 @@ const style = {
     // background:'#AAFFAA',
     //minHeight: 48,
     border: 10,
-  },
-  heartColor : '#AA2222',
+  }
 };   
 
 

@@ -14,7 +14,7 @@
   "license": "MIT",
   "private": true,
   "engines": {
-    "node": ">=6.4"
+    "node": ">=6.4" 
   },
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --display-chunks --progress",
