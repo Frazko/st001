@@ -28,7 +28,8 @@ const PORT = 8080;
 //  
 const loaders = {
   js: {test: /\.js$/, exclude: /node_modules/, loader: 'babel'},
-  scss: {test: /\.scss$/, loader: 'style!css!postcss!sass'}
+  scss: {test: /\.scss$/, loader: 'style!css!postcss!sass'},
+  imgs:{test: /\.jpe?g$|\.gif$|\.png$/i,loader: "file-loader?name=/img/[name].[ext]"}
 };
 //---------------------------------------------------------
 
@@ -105,7 +106,8 @@ if (ENV_DEVELOPMENT) {
   config.module = {
     loaders: [
       loaders.js,
-      loaders.scss
+      loaders.scss,
+      loaders.imgs,
     ]
   };
 
@@ -148,7 +150,8 @@ if (ENV_PRODUCTION) {
   config.module = {
     loaders: [
       loaders.js,
-      {test: /\.scss$/, loader: ExtractTextPlugin.extract('css?-autoprefixer!postcss!sass')}
+      {test: /\.scss$/, loader: ExtractTextPlugin.extract('css?-autoprefixer!postcss!sass')},
+      {test: /\.jpe?g$|\.gif$|\.png$/i,loader: "file-loader?name=/img/[name].[ext]"}
     ]
   };
 

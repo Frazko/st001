@@ -21,40 +21,58 @@ const style = {
     textAlign: 'center',
     display: 'inline-block',
     borderRadius: 6,
-  }
-  ,
+  },
   circularProgressSettings:{
     thickness:4,
     size: 40,
+    circularProgressHolder:{
+      display:'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      height:'100%',
+      top:0,
+      thickness:4,
+      // background:'#AAFFAA',
+      size: 40
+    },
     circularProgress:{
       background:'#e6e6ee',
       borderRadius: 50
     }
+  },
+  chevronHolder:{
+    display:'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    height:'100%',
+    top:-12,
+    // background:'#AAFFAA',
   }
 };   
 
+    function circularProgressColor(){
+      return '#' + Math.random().toString(16).slice(2, 8).toUpperCase();
+    }
 
 class SectionItem extends Component {
   render() {
     return (
       <div>
         <Paper style={style.backgroundPaper} zDepth={2} rounded={true}>
-            
-
+          
 
           <List>
-
-
             <ListItem
-              leftAvatar={<CircularProgress
+              leftAvatar={<div style={style.circularProgressSettings.circularProgressHolder}><CircularProgress
               mode="determinate"
-              value={5}
+              value={25}
               size={style.circularProgressSettings.size}
               thickness={style.circularProgressSettings.thickness}
               style={style.circularProgressSettings.circularProgress}
-              />}
+              color={circularProgressColor()}
+              /></div>}
               
-              rightIcon={<ChevronRight />}
+              rightIcon={<div style={style.chevronHolder}><ChevronRight /></div>}
               primaryText="FIFA 365 STICKER ALBUM 2017"
               secondaryText="PANINI, 2017"
             />
@@ -62,15 +80,16 @@ class SectionItem extends Component {
             <Divider inset={true} />
             
             <ListItem
-              leftAvatar={<CircularProgress
+              leftAvatar={<div style={style.circularProgressSettings.circularProgressHolder}><CircularProgress
               mode="determinate"
-              value={90}
+              value={50}
               size={style.circularProgressSettings.size}
               thickness={style.circularProgressSettings.thickness}
               style={style.circularProgressSettings.circularProgress}
-              />}
+              color={circularProgressColor()}
+              /></div>}
+              rightIcon={<div style={style.chevronHolder}><ChevronRight /></div>}
 
-              rightIcon={<ChevronRight />}
               primaryText="DREAMWORKS TROLLS STICKERALBUM"
               secondaryText={"TOPPS, 2016"}
             />
@@ -78,15 +97,16 @@ class SectionItem extends Component {
             <Divider inset={true} />
             
             <ListItem
-              leftAvatar={<CircularProgress
+              leftAvatar={<div style={style.circularProgressSettings.circularProgressHolder}><CircularProgress
               mode="determinate"
-              value={30}
+              value={100}
               size={style.circularProgressSettings.size}
               thickness={style.circularProgressSettings.thickness}
               style={style.circularProgressSettings.circularProgress}
-              />}
+              color={circularProgressColor()}
+              /></div>}
+              rightIcon={<div style={style.chevronHolder}><ChevronRight /></div>}
               
-              rightIcon={<ChevronRight />}
               primaryText="NBA STICKER COLLECTION 2016/2017 - EUROPEAN VERSION "
               secondaryText="PANINI, 2016"
             />
@@ -94,15 +114,16 @@ class SectionItem extends Component {
             <Divider inset={true} />
 
             <ListItem
-              leftAvatar={<CircularProgress
+              leftAvatar={<div style={style.circularProgressSettings.circularProgressHolder}><CircularProgress
               mode="determinate"
-              value={60}
+              value={40}
               size={style.circularProgressSettings.size}
               thickness={style.circularProgressSettings.thickness}
               style={style.circularProgressSettings.circularProgress}
-              />}
+              color={circularProgressColor()}
+              /></div>}
+              rightIcon={<div style={style.chevronHolder}><ChevronRight /></div>}
               
-              rightIcon={<ChevronRight />}
               primaryText="WWE SLAM ATTAX - TAKEOVER"
               secondaryText="TOPPS, 2015"
             />
@@ -110,15 +131,16 @@ class SectionItem extends Component {
             <Divider inset={true} />
 
             <ListItem
-              leftAvatar={<CircularProgress
+              leftAvatar={<div style={style.circularProgressSettings.circularProgressHolder}><CircularProgress
               mode="determinate"
-              value={10}
+              value={85}
               size={style.circularProgressSettings.size}
               thickness={style.circularProgressSettings.thickness}
               style={style.circularProgressSettings.circularProgress}
-              />}
+              color={circularProgressColor()}
+              /></div>}
+              rightIcon={<div style={style.chevronHolder}><ChevronRight /></div>}
               
-              rightIcon={<ChevronRight />}
               primaryText="SPANISH LIGA 2016/2017 - MEGACRACKS"
               secondaryText="PANINI, 2016"
             />

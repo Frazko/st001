@@ -12,6 +12,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import ActionHome from 'material-ui/svg-icons/action/home';
 import SupervisorAccount from 'material-ui/svg-icons/action/supervisor-account';
+import Favorite from 'material-ui/svg-icons/action/favorite';
 import FavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
 //import * as sectionActions from '../actions/sectionActions.jsx';
  
@@ -25,43 +26,78 @@ const style = {
     textAlign: 'center',
     display: 'inline-block',
     borderRadius: 6,
-  }
-  ,
+  },
+  indexHolder : {
+    top:0,
+    display:'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    height:'100%',
+    // background:'#FFAAAA',
+  },
+
   index : {
-    top:32,
-    left:14,
-    paddingTop:18,
+    // background:'#AAAAFF',
+    margin:0,
     height: 50,
     width: 50,
+    left:14,
+    paddingTop:18,
     textAlign: 'center',
     margin:0,
-  }  ,
+  },
+  amountHolder : {
+    display:'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    top:-13,
+    // background:'#AAAAAA',
+    // border:'solid black 1px',
+    height:'100%',
+  },
   amount : {
-    top:38,
     fontSize:42,
-  }  ,
+    fontWeight: 'bold',
+    // background:'#FFAAAA',
+    //flex:1
+  },
   listItem : {
     textAlign:'left',
-  }  ,
-  socialBlock : {
-    position:'relative',
-    textAlign:'left',
-    display: 'inline-block',
-    top:10,
-    left:-14
-  } ,
-  socialBlockIcon : {
-    padding:0,
-    margin:0,
-  } ,
-  socialBlockSpan : {
-    position:'relative',
-    top:-6,
-    margin:0,
   },
+
+
   block : {
     marginLeft:10,
-  }
+    display:'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'flex-start', 
+  },
+
+  blockTitle:{
+    display:'flex',
+    alignItems: 'center',
+    // background:'#AAFFAA',
+    minHeight: 28,
+    border: 10,
+  },
+  socialBlock : {
+    display:'flex',
+    // background:'#AAAAAA',
+    minHeight: 28,
+  },
+      socialBlockIcon : {
+        padding:0,
+        marginRight:10,
+        height: 28,
+        width: 28,
+      },
+      socialBlockSpan : {
+        position:'relative',
+        top:-6,
+        left:-10,
+        margin:0,
+      }
 };   
 
 
@@ -71,62 +107,61 @@ class SectionItem extends Component {
       <div>
         <Paper style={style.backgroundPaper} zDepth={2} rounded={true}>
             
-
-
           <List>
-
 
             <ListItem
               className="listItemClass"
-              leftAvatar={<Paper style={style.index} zDepth={2} circle={true} >142</Paper>}
-              rightIcon={<div style={style.amount}>4</div>}
+              leftAvatar={<div style={style.indexHolder}><Paper style={style.index} zDepth={2} circle={true} >141</Paper></div>}
+              rightIcon={<div style={style.amountHolder}><div style={style.amount}>0</div></div>}
               style={style.listItem}>
               
               <div style={style.block}>
-              <div>
-                <h1>Club Nacional de Football team</h1>
-              </div>
-              <div>
-                <div style={style.socialBlock}>
-                  <IconButton style={style.socialBlockIcon}>
-                    <FavoriteBorder />
-                  </IconButton>
-                  <span style={style.socialBlockSpan}> 4</span>
+                <div style={style.blockTitle}>
+                  <h1>Cristiano Ronaldo</h1>
                 </div>
                 <div style={style.socialBlock}>
-                  <IconButton style={style.socialBlockIcon}>
-                    <SupervisorAccount />
-                  </IconButton>
-                  <span style={style.socialBlockSpan}> 8</span>
+                  <div>
+                    <IconButton style={style.socialBlockIcon}>
+                      <FavoriteBorder />
+                    </IconButton>
+                    <span style={style.socialBlockSpan}> 4</span>
+                  </div>
+                  <div>
+                    <IconButton style={style.socialBlockIcon}>
+                      <SupervisorAccount />
+                    </IconButton>
+                    <span style={style.socialBlockSpan}> 6</span>
+                  </div>
                 </div>
-              </div>
               </div>
             </ListItem>
             <Divider inset={true} />
 
 
+
+
             <ListItem
               className="listItemClass"
-              leftAvatar={<Paper style={style.index} zDepth={2} circle={true} >142</Paper>}
-              rightIcon={<div style={style.amount}>2</div>}
+              leftAvatar={<div style={style.indexHolder}><Paper style={style.index} zDepth={2} circle={true} >141</Paper></div>}
+              rightIcon={<div style={style.amountHolder}><div style={style.amount}>2</div></div>}
               style={style.listItem}>
               
               <div style={style.block}>
-              <div>
-                <h1>Club Nacional de Football team</h1>
+              <div style={style.blockTitle}>
+                <h1>Suarez-Messi-Neymar-Jordi Alba</h1>
               </div>
-              <div>
-                <div style={style.socialBlock}>
+              <div style={style.socialBlock}>
+                <div>
                   <IconButton style={style.socialBlockIcon}>
-                    <FavoriteBorder />
+                    <Favorite />
                   </IconButton>
                   <span style={style.socialBlockSpan}> 2</span>
                 </div>
-                <div style={style.socialBlock}>
+                <div >
                   <IconButton style={style.socialBlockIcon}>
                     <SupervisorAccount />
                   </IconButton>
-                  <span style={style.socialBlockSpan}> 8</span>
+                  <span style={style.socialBlockSpan}> 18</span>
                 </div>
               </div>
               </div>
@@ -134,28 +169,30 @@ class SectionItem extends Component {
             <Divider inset={true} />
 
 
+
+
             <ListItem
               className="listItemClass"
-              leftAvatar={<Paper style={style.index} zDepth={2} circle={true} >142</Paper>}
-              rightIcon={<div style={style.amount}>0</div>}
+              leftAvatar={<div style={style.indexHolder}><Paper style={style.index} zDepth={2} circle={true} >141</Paper></div>}
+              rightIcon={<div style={style.amountHolder}><div style={style.amount}>4</div></div>}
               style={style.listItem}>
               
               <div style={style.block}>
-              <div>
-                <h1>Club Nacional de Football team</h1>
+              <div style={style.blockTitle}>
+                <h1>Huang Bowen / Gao Lin / Ricardo Goulart</h1>
               </div>
-              <div>
-                <div style={style.socialBlock}>
+              <div style={style.socialBlock}>
+                <div>
                   <IconButton style={style.socialBlockIcon}>
                     <FavoriteBorder />
                   </IconButton>
                   <span style={style.socialBlockSpan}> 5</span>
                 </div>
-                <div style={style.socialBlock}>
+                <div >
                   <IconButton style={style.socialBlockIcon}>
                     <SupervisorAccount />
                   </IconButton>
-                  <span style={style.socialBlockSpan}> 8</span>
+                  <span style={style.socialBlockSpan}> 4</span>
                 </div>
               </div>
               </div>
@@ -163,24 +200,26 @@ class SectionItem extends Component {
             <Divider inset={true} />
 
 
+
+
             <ListItem
               className="listItemClass"
-              leftAvatar={<Paper style={style.index} zDepth={2} circle={true} >142</Paper>}
-              rightIcon={<div style={style.amount}>2</div>}
+              leftAvatar={<div style={style.indexHolder}><Paper style={style.index} zDepth={2} circle={true} >141</Paper></div>}
+              rightIcon={<div style={style.amountHolder}><div style={style.amount}>3</div></div>}
               style={style.listItem}>
               
               <div style={style.block}>
-              <div>
-                <h1>Club Nacional de Football team</h1>
+              <div style={style.blockTitle}>
+                <h1>Osmar Mares / José Guerrero / Rubens Sambuesa / Francisco Murillo / Cantinflas / Machillo Ramirez</h1>
               </div>
-              <div>
-                <div style={style.socialBlock}>
+              <div style={style.socialBlock}>
+                <div>
                   <IconButton style={style.socialBlockIcon}>
-                    <FavoriteBorder />
+                    <Favorite />
                   </IconButton>
                   <span style={style.socialBlockSpan}> 3</span>
                 </div>
-                <div style={style.socialBlock}>
+                <div >
                   <IconButton style={style.socialBlockIcon}>
                     <SupervisorAccount />
                   </IconButton>

@@ -14,6 +14,8 @@ import Collection from './components/Collection.component';
 import SectionItem from './components/SectionItem.component';
 import StickerItem from './components/StickerItem.component';
 
+import StickerDetail from './containers/StickerDetail.container';
+
 
 class App extends Component {
 
@@ -41,11 +43,13 @@ class App extends Component {
 			          authenticated={this.props.auth.authenticated}
 			          signOut={this.props.signOut}
 		        	/>
+		        	
 					<div className="main">{this.props.children}</div>
 
 
 
 
+					<StickerDetail/>
 					<StickerItem/>
 					<SectionItem/>
 					<Collection/>
