@@ -15,6 +15,7 @@ import SectionItem from './components/SectionItem.component';
 import StickerItem from './components/StickerItem.component';
 
 import StickerDetail from './containers/StickerDetail.container';
+import UserDetail from './containers/UserDetail.container';
 
 
 class App extends Component {
@@ -43,16 +44,23 @@ class App extends Component {
 			          authenticated={this.props.auth.authenticated}
 			          signOut={this.props.signOut}
 		        	/>
-		        	
+
 					<div className="main">{this.props.children}</div>
 
 
 
+					User Detail
+					<UserDetail/>
 
+					Sticker Detail
 					<StickerDetail/>
+					Stickers
 					<StickerItem/>
+					Sections
 					<SectionItem/>
+					Collections
 					<Collection/>
+					New Collections
 					<CollectionNew/>
 				</div>
 			</MuiThemeProvider>

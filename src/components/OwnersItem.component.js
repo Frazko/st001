@@ -66,14 +66,12 @@ const style = {
   },
   socialBlockIcon : {
     padding:0,
-    //marginRight:10,
     height: 28,
     width: 28,
   },
   socialBlockSpan : {
     position:'relative',
     top:-8,
-    //left:-36,
     margin:0,
     fontSize:18,
     fontWeight:'bold',

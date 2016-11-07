@@ -42,13 +42,13 @@ const style = {
     display:'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    textAlign:'left',
     minHeight: 100,
     // background:'#FFFFAA',
     // border: 'solid 1px #0000AA ',
   },
   block : {
     marginLeft:15,
+    textAlign:'right',
     display:'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -57,13 +57,6 @@ const style = {
   },
 
   blockTitle:{
-    display:'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
-    // background:'#AAFFAA',
-    //minHeight: 48,
-    border: 10,
   }
 };   
 

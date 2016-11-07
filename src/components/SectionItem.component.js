@@ -16,12 +16,20 @@ import RaisedButton from 'material-ui/RaisedButton';
 const style = {
 
   backgroundPaper:{
-    width: 300,
-    margin: 20,
-    textAlign: 'center',
+    width: '100%',
+    // textAlign: 'center',
     display: 'inline-block',
     borderRadius: 6,
+
+    display:'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
   },
+
+  listItem : {
+    textAlign:'left',
+  },
+  
   circularProgressSettings:{
     thickness:4,
     size: 40,
@@ -50,9 +58,9 @@ const style = {
   }
 };   
 
-    function circularProgressColor(){
-      return '#' + Math.random().toString(16).slice(2, 8).toUpperCase();
-    }
+function circularProgressColor(){
+  return '#' + Math.random().toString(16).slice(2, 8).toUpperCase();
+}
 
 class SectionItem extends Component {
   render() {
@@ -73,8 +81,9 @@ class SectionItem extends Component {
               /></div>}
               
               rightIcon={<div style={style.chevronHolder}><ChevronRight /></div>}
-              primaryText="FIFA 365 STICKER ALBUM 2017"
-              secondaryText="PANINI, 2017"
+              primaryText={"FIFA 365 STICKER ALBUM 2017"}
+              secondaryText={"PANINI, 2017"}
+              style={style.listItem}
             />
 
             <Divider inset={true} />
@@ -92,6 +101,7 @@ class SectionItem extends Component {
 
               primaryText="DREAMWORKS TROLLS STICKERALBUM"
               secondaryText={"TOPPS, 2016"}
+              style={style.listItem}
             />
 
             <Divider inset={true} />
@@ -107,8 +117,9 @@ class SectionItem extends Component {
               /></div>}
               rightIcon={<div style={style.chevronHolder}><ChevronRight /></div>}
               
-              primaryText="NBA STICKER COLLECTION 2016/2017 - EUROPEAN VERSION "
-              secondaryText="PANINI, 2016"
+              primaryText={"NBA STICKER COLLECTION 2016/2017 - EUROPEAN VERSION "}
+              secondaryText={"PANINI, 2016"}
+              style={style.listItem}
             />
 
             <Divider inset={true} />
@@ -124,8 +135,9 @@ class SectionItem extends Component {
               /></div>}
               rightIcon={<div style={style.chevronHolder}><ChevronRight /></div>}
               
-              primaryText="WWE SLAM ATTAX - TAKEOVER"
-              secondaryText="TOPPS, 2015"
+              primaryText={"WWE SLAM ATTAX - TAKEOVER"}
+              secondaryText={"TOPPS, 2015"}
+              style={style.listItem}
             />
 
             <Divider inset={true} />
@@ -141,8 +153,10 @@ class SectionItem extends Component {
               /></div>}
               rightIcon={<div style={style.chevronHolder}><ChevronRight /></div>}
               
-              primaryText="SPANISH LIGA 2016/2017 - MEGACRACKS"
-              secondaryText="PANINI, 2016"
+              primaryText={"SPANISH LIGA 2016/2017 - MEGACRACKS"}
+              secondaryText={"PANINI, 2016"}
+
+              style={style.listItem}
             />
 
           </List>

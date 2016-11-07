@@ -25,7 +25,6 @@ const style = {
 
   backgroundPaper:{
     width: '100%',
-    // margin: 10,
     textAlign: 'center',
     display: 'inline-block',
     borderRadius: 6,

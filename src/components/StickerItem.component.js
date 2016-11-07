@@ -21,8 +21,7 @@ import FavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
 const style = {
 
   backgroundPaper:{
-    width: 300,
-    margin: 20,
+    width: '100%',
     textAlign: 'center',
     display: 'inline-block',
     borderRadius: 6,
