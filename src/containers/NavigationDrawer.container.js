@@ -5,6 +5,7 @@ import Drawer from 'material-ui/Drawer';
 import RaisedButton from 'material-ui/RaisedButton';
 import * as navigationActions from '../core/navigation/navigationActions';
 
+import FacebookButton from '../components/FacebookButton';
 
 import {List, ListItem} from 'material-ui/List';
 import Divider from 'material-ui/Divider';
@@ -61,6 +62,7 @@ class NavigationDrawer extends React.Component {
   render() {
 
     let {display} = this.props.navigation
+    let {authenticated,signOut} = this.props
 
     return (
       <div>
@@ -72,7 +74,7 @@ class NavigationDrawer extends React.Component {
         >
 
 
-
+        <div><FacebookButton fb={FB} /> FB </div>
 
 
 
@@ -107,7 +109,7 @@ class NavigationDrawer extends React.Component {
 
           <MenuItem onTouchTap={this.props.actions.toggleDrawer}>Settings</MenuItem>
           <MenuItem onTouchTap={this.props.actions.toggleDrawer}>Help</MenuItem>
-          <MenuItem onTouchTap={this.props.actions.toggleDrawer}>Log out</MenuItem>
+          {authenticated ? <MenuItem onTouchTap={signOut}>Log out</MenuItem>: null}
         </Drawer>
       </div>
     );
@@ -115,16 +117,19 @@ class NavigationDrawer extends React.Component {
 }
 
 
-
-
+// NavigationDrawer.propTypes = {
+//   authenticated: React.PropTypes.bool.isRequired,
+//   signOut: React.PropTypes.func.isRequired
+// };
 
 function mapStateToProps(state, ownProps){
   console.log(">>>>>>>>> state drawer",state);
   return{
-    navigation: state.navigation
+    navigation: state.navigation,
+    authenticated:state.navigation,
+    signOut:state.signOut,
   }
 }
-
 
 function mapDispatchToProps(dispatch){
   return {

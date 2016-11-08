@@ -15,7 +15,7 @@ import SectionItem from './components/SectionItem.component';
 import StickerItem from './components/StickerItem.component';
 
 import StickerDetail from './containers/StickerDetail.container';
-import UserDetail from './containers/UserDetail.container';
+import UserDetail from    './containers/UserDetail.container';
 
 
 class App extends Component {
@@ -37,8 +37,9 @@ class App extends Component {
 		return (
 			<MuiThemeProvider>
 				<div>
-				<NavBar />
-				<NavigationDrawer />
+					<NavBar />
+					<NavigationDrawer authenticated={this.props.auth.authenticated}
+			          signOut={this.props.signOut} />
 
 					<LogOff
 			          authenticated={this.props.auth.authenticated}
@@ -47,11 +48,8 @@ class App extends Component {
 
 					<div className="main">{this.props.children}</div>
 
-
-
 					User Detail
 					<UserDetail/>
-
 					Sticker Detail
 					<StickerDetail/>
 					Stickers
@@ -74,27 +72,26 @@ class App extends Component {
 //-------------------------------------
 
 App.contextTypes = {
-	router: React.PropTypes.object.isRequired
+    router: React.PropTypes.object.isRequired
 };
 
 App.propTypes = {
-	auth: PropTypes.object.isRequired,
-	children: PropTypes.object.isRequired,
-	signOut: PropTypes.func.isRequired
+    auth: PropTypes.object.isRequired,
+    children: PropTypes.object.isRequired,
+    signOut: PropTypes.func.isRequired
 };
 
 
 
 const mapStateToProps = createSelector(
-	getAuth,
-	auth => ({auth})
-	);
+    getAuth,
+    auth => ({ auth })
+);
 
 export default connect(
-	mapStateToProps,
-	authActions
-	)(App);
-
+    mapStateToProps,
+    authActions
+)(App);
 
 
 /*

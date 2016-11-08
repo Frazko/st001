@@ -10,14 +10,14 @@ export default function Root({history, store}) {
 	console.log('getRoutes(store.getState):',getRoutes(store.getState));
 
 
-  return (
-    <Provider store={store}>
-      <Router history={history} routes={getRoutes(store.getState)} />
-    </Provider>
-  );
+	return (
+		<Provider store={store}>
+			<Router history={history} routes={getRoutes(store.getState)} />
+		</Provider>
+		);
 }
 
 Root.propTypes = {
-  history: PropTypes.object.isRequired,
-  store: PropTypes.object.isRequired
+	history: PropTypes.object.isRequired,
+	store: PropTypes.object.isRequired
 };
