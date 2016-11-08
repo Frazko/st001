@@ -7,10 +7,8 @@ import React from 'react';
 
 
 const AUTH = (props) => < div > AUTH comp page < /div>; 
+
 const TASK = (props) => < div > TASK component page < /div>; 
-
-
-
 
 
 export const paths = {
@@ -19,7 +17,6 @@ export const paths = {
     TASKS: '/',
     NNEW: '/nnew'
 };
-
 
 
 const requireAuth = getState => {
