@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        #updateForm {
+            display: none;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+    <script>
+        $(function() {
+        console.log('ready'); // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCv6GXiYDGeTgCdMrl9QQKM1aziMf1xKOE",
+            authDomain: "stickers-main.firebaseapp.com",
+            databaseURL: "https://stickers-main.firebaseio.com",
+            storageBucket: "stickers-main.appspot.com",
+            messagingSenderId: "902629300809"
+        };
+        firebase.initializeApp(config);
+        var database;
+
+
+
+
+        function connect() {
+            // Get a reference to the database service
+            database = firebase.database();
+            window.database= database;
+
+            // Sign in Firebase using popup auth and Google as the identity provider.
+            firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider());
+        }
+
+
+
+
+        function create() {
+
+            console.warn('create!!');
+
+            // save a user to our /users database
+           /*var ref= database.ref('users').push({
+                userName: $('#firstNameInput').val(),
+                lastName: $('#lastNameInput').val()
+            });*/
+            
+            var ref= database.ref('users').push();
+            ref.set({userData:{
+                firstName: $('#firstNameInput').val(),
+                lastName: $('#lastNameInput').val(),
+            }});
+
+            $('#firstNameInput').val('');
+            $('#lastNameInput').val('');
+        }
+
+
+
+
+        function retrieve() {
+            console.log('Retrieve');
+            database.ref('users').on("value", function(snapshot) {
+                console.log(snapshot.val());
+                var index = 1;
+                $("#tableBody").html('')
+                $('#updateSelect').html('<option selected value="">Select One</option>');
+                $('#removeSelect').html('<option selected value="">Select One</option>');
+
+                snapshot.forEach(function(childSnapshot) {
+                    // key will be "ada" the first time and "alan" the second time
+                    var key = childSnapshot.key;
+                    console.log("id", key);
+                    // childData will be the actual contents of the child
+                    var childData = childSnapshot.val().userData;
+                    createTableRow(index++, childData.firstName, childData.lastName)
+                    $('#updateSelect').append('<option  value="' + key + '">' + index + '- ' + childData.firstName + '</option>')
+                    $('#removeSelect').append('<option  value="' + key + '">' + index + '- ' + childData.firstName + '</option>')
+                });
+                $("#updateForm").show();
+            });
+        }
+
+
+
+
+        function update(e) {
+            console.log('Update');
+            e.preventDefault();
+
+            if (!$("#updateSelect").val() || !$('#updateFirstNameInput').val() || !$('#updateLastNameInput').val()) {
+                $('#myModal').modal('show');
+                return false;
+            }
+
+            // save a user to our /users database
+            database.ref('users/' + $("#updateSelect").val()).update({userData:{
+                firstName: $('#updateFirstNameInput').val(),
+                lastName: $('#updateLastNameInput').val()
+            }});
+        }
+
+
+
+
+        function remove(e) {
+            console.log('Remove');
+            e.preventDefault();
+
+            if (!$("#removeSelect").val()) {
+                $('#myModal').modal('show');
+                return false;
+            }
+
+            // save a user to our /users database
+            database.ref('users/' + $("#removeSelect").val()).remove();
+        }
+
+
+
+
+
+        function createTableRow(index, firstName, lastName) {
+            $("#tableBody").append(`<tr>
+              <th scope="row">${index}</th>
+              <td>${firstName}</td>
+              <td>${lastName}</td>
+            </tr>`);
+        }
+
+
+
+
+        function getfrom2Branches(){
+            // let ind = 1;
+            console.warn('Get Friends');
+            let friends = [];
+            database.ref('users/-KWoN3eGVr0Aule__ZN6/friends').once("value", function(friendsSnapshot) {
+                friendsSnapshot.forEach(function(childSnapshot) {
+                    database.ref('users/'+childSnapshot.key).once("value", function(friend) {
+                       friends.push(friend.val().userData);
+                   });
+                });
+            });
+
+
+            let friendsHtml='<div>';
+            for (let friend of friends) {
+                friendsHtml +=`<p>${friend.firstName} ${friend.lastName}</p>`;
+            }
+            friendsHtml+='</div>';
+            $("#get2branches").html(friendsHtml);
+        }
+
+
+        $('#btn-create').on('click', create);
+        $('#btn-retrieve').on('click', retrieve);
+        $('#btn-update').on('click', update);
+        $('#btn-delete').on('click', remove);
+        $('#btn-get2Branches').on('click', getfrom2Branches);
+
+        $('#btn-connect').on('click', connect);
+
+
+
+
+    });
+
+
+    /*
+    {
+      "rules": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    }
+    */
+
+
+</script>
+<!-- Required meta tags always come first -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+</head>
+
+<body>
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Estas mamando caretanda</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Seleccione el user para el update y llene los campos</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+
+
+
+
+    <nav class="navbar navbar-static-top navbar-dark bg-inverse">
+        <a class="navbar-brand" href="#">Firebase</a>
+        <ul class="nav navbar-nav">
+            <!--<li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Contact</a>
+            </li>-->
+        </ul>
+    </nav>
+
+
+    <div class="container">
+
+        <!-- Main jumbotron for a primary marketing message or call to action -->
+        <div class="jumbotron">
+            <div class="container">
+                <h1 class="display-3">Firebase CRUD!</h1>
+                <h3 >Hacer el push de 2 ramas distintas</h3>
+                <table id="dataTable" class="table table-striped" style="margin-top:30px;">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                    <!--
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                    </tr>
+                -->
+            </tbody>
+        </table>
+        <p><a id="btn-connect" class="btn btn-primary" href="#" role="button">Connect</a></p>
+    </div>
+</div>
+<!-- Example row of columns -->
+<div class="row">
+    <div class="col-md-3">
+        <h2>C-reate</h2>
+        <div class="form-group">
+            <label for="formGroupExampleInput">First Name</label>
+            <input type="text" class="form-control" id="firstNameInput" placeholder="First Name">
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Last Name</label>
+            <input type="text" class="form-control" id="lastNameInput" placeholder="Last Name">
+        </div>
+        <p><a id="btn-create" class="btn btn-primary" href="#" role="button">Guardar</a></p>
+    </div>
+    <div class="col-md-3">
+        <h2>R-etrieve</h2>
+        <p><a id="btn-retrieve" class="btn btn-success" href="#" role="button">Recuperar</a></p>
+    </div>
+    <div class="col-md-3">
+        <h2>U-pdate</h2>
+        <div class="form-group">
+            <label for="updateSelect">Select One</label>
+            <select class="form-control" id="updateSelect">
+                <option selected value="">Select One</option>
+            </select>
+        </div>
+        <div id="updateForm">
+            <div class="form-group">
+                <label for="formGroupExampleInput">First Name</label>
+                <input type="text" class="form-control" id="updateFirstNameInput" placeholder="First Name">
+            </div>
+            <div class="form-group">
+                <label for="formGroupExampleInput2">Last Name</label>
+                <input type="text" class="form-control" id="updateLastNameInput" placeholder="Last Name">
+            </div>
+        </div>
+        <p><a id="btn-update" class="btn btn-info" href="#" role="button">Actualizar</a></p>
+    </div>
+    <div class="col-md-3">
+        <h2>D-elete</h2>
+        <div class="form-group">
+            <label for="removeSelect">Select One</label>
+            <select class="form-control" id="removeSelect">
+                <option selected value="">Select One</option>
+            </select>
+        </div>
+        <p><a id="btn-delete" class="btn btn-warning" href="#" role="button">Eliminar</a></p>
+    </div>
+</div>
+
+<div class="jumbotron">
+    <div class="container">
+        <h3 >Amigos de "Chico Chepe":</h3>
+        <div id="get2branches">
+
+        </div>
+        <button id="btn-get2Branches" type="button" class="btn btn-primary" >Load</button>
+    </div>
+</div>
+<hr>
+<footer>
+    <p>&copy; Company 2016</p>
+</footer>
+</div>
+<!-- /container -->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+</body>
+
+</html>
