@@ -48,7 +48,7 @@ class NavigationDrawer extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log("<>",props)
+    // console.log("<>",props)
   }
   componentWillMount(){
     this.setState({open: false})
@@ -59,6 +59,7 @@ class NavigationDrawer extends React.Component {
   handleClose = () => this.setState({open: false});
   requestChange = () => console.log('request');
 
+        // <div><FacebookButton fb={FB} /> FB </div>
   render() {
 
     let {display} = this.props.navigation
@@ -74,7 +75,6 @@ class NavigationDrawer extends React.Component {
         >
 
 
-        <div><FacebookButton fb={FB} /> FB </div>
 
 
 
@@ -123,7 +123,7 @@ class NavigationDrawer extends React.Component {
 // };
 
 function mapStateToProps(state, ownProps){
-  console.log(">>>>>>>>> state drawer",state);
+  // console.log(">>>>>>>>> state drawer",state);
   return{
     navigation: state.navigation,
     authenticated:state.navigation,

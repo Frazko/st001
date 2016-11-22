@@ -33,11 +33,13 @@ class App extends Component {
 	}
 
 	render() {
-		console.log("this.props.children",this.props.children)
+		//console.log("this.props.children",this.props.children)
 		return (
 			<MuiThemeProvider>
 				<div>
 					<NavBar />
+
+					
 					<NavigationDrawer authenticated={this.props.auth.authenticated}
 			          signOut={this.props.signOut} />
 
@@ -92,45 +94,3 @@ export default connect(
     mapStateToProps,
     authActions
 )(App);
-
-
-/*
-import React from 'react';
-
-//import FacebookButton from './components/FacebookButton.jsx';
-import CoursesPage from './components/CoursesPage.jsx';
-
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
-import RaisedButton from 'material-ui/RaisedButton';
-const MyAwesomeReactComponent = () => (
-  <RaisedButton label="Default" />
-);
-
-
-class App extends React.Component {
-	constructor(props) {
-		super(props);
-		this.displayName = 'App';
-		/*this.state = {
-			messages: [
-			'Por fin sirve esta vara'
-			]
-		};* /
-	}
-
-
-	render() {
-		/*
-		var messagesNodes = this.state.messages.map((message) => {
-			return ( <div> { message } </div>);
-		});
-		return <div><FacebookButton fb={FB} /> { messagesNodes } </div>;
-		<CoursesPage />
-		* /
-
-		return <MuiThemeProvider><div>    <MyAwesomeReactComponent /></div></MuiThemeProvider>;
-	}
-}
-*/
-

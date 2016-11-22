@@ -61,29 +61,32 @@ export default class FacebookButton extends React.Component {
                     this.setState({
                         message: message
                     });
+                    console.log("me",response);
+
+                    // Disparar USER save en firebase
                 });
 
             this.FB.api('/me/picture?width=180&height=180',
                 (response) => {
                     // var picUrl = '<img src="http://graph.facebook.com/' + response.id + '/picture" />';
                     //  http://graph.facebook.com/10154055323235269/picture
-                    console.log(response.data.url);
+                    console.log("Profile pic",response.data.url);
                     this.setState({
                         profilePic: response.data.url
                     });
+
+                    // Disparar update IMAGE 
                 });
 
             this.FB.api('/me/friends', { fields: 'name,id,location,birthday' },
                 (response) => {
-                    console.log('friends opts');
-                    //console.log(response);
-                    // console.log( this.friendsList(response.data));
+                    console.log("friends",response.data);
+                    console.log("--", this.friendsList(response.data));
 
 
                     this.setState({
                         friendsList: this.friendsList(response.data)
                     });
-                    /**/
 
                     console.log(this.state.friendsList);
 

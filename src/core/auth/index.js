@@ -14,7 +14,7 @@ export function initAuth(dispatch) {
   return new Promise((resolve, reject) => {
   	const unsub = firebaseAuth.onAuthStateChanged(
       user => {
-        console.log("user",JSON.stringify(user, null, 2));
+        //console.log("user",JSON.stringify(user, null, 2));
         dispatch(authActions.initAuth(user));
         unsub();
         resolve();

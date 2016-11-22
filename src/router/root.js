@@ -7,7 +7,7 @@ import { getRoutes } from './routes';
 export default function Root({history, store}) {
 
 
-	console.log('getRoutes(store.getState):',getRoutes(store.getState));
+	// console.log('getRoutes(store.getState):',getRoutes(store.getState));
 
 
 	return (

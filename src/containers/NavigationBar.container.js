@@ -34,7 +34,7 @@ class NavBar extends Component {
 }
 
 function mapStateToProps(state, ownProps){
-  console.log(">>>>>>>>> sTATE navbar",state);
+  // console.log(">>>>>>>>> sTATE navbar",state);
   return{
     //navigation: state.Navigation
   }
