@@ -13,7 +13,10 @@ function authenticate(provider) {
   provider.addScope('user_friends, public_profile, email, user_birthday, user_location');
   return dispatch => {
     firebaseAuth.signInWithPopup(provider)
-      .then((result) => {dispatch(signInSuccess(result));UserManager.createUser(result);})
+      .then((result) => {
+        dispatch(signInSuccess(result));
+        UserManager.createUser(result);
+      })
       .catch(error => dispatch(signInError(error)));
   };
 }
@@ -33,8 +36,7 @@ export function signInError(error) {
 }
 
 export function signInSuccess(result) {
-  //console.log("sing in success",JSON.stringify(result));
-  
+  console.log("sing in success");
   return {
     type: SIGN_IN_SUCCESS,
     payload: result.user

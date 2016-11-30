@@ -13,19 +13,19 @@
         $(function() {
         console.log('ready'); // Initialize Firebase
         var config = {
-            apiKey: "AIzaSyCv6GXiYDGeTgCdMrl9QQKM1aziMf1xKOE",
-            authDomain: "stickers-main.firebaseapp.com",
-            databaseURL: "https://stickers-main.firebaseio.com",
-            storageBucket: "stickers-main.appspot.com",
-            messagingSenderId: "902629300809"
-        };
-        firebase.initializeApp(config);
-        var database;
+           apiKey: "AIzaSyBq-XzQf3XZDjgROgeWoRpMBRqJXD3EIr4",
+           authDomain: "todo-577c0.firebaseapp.com",
+           databaseURL: "https://todo-577c0.firebaseio.com",
+           storageBucket: "todo-577c0.appspot.com",
+           messagingSenderId: "349665099193"
+       };
+       firebase.initializeApp(config);
+       var database;
 
 
 
 
-        function connect() {
+       function connect() {
             // Get a reference to the database service
             database = firebase.database();
             window.database= database;
@@ -127,7 +127,7 @@
               <th scope="row">${index}</th>
               <td>${firstName}</td>
               <td>${lastName}</td>
-            </tr>`);
+          </tr>`);
         }
 
 
@@ -137,11 +137,13 @@
             // let ind = 1;
             console.warn('Get Friends');
             let friends = [];
-            database.ref('users/-KWoN3eGVr0Aule__ZN6/friends').once("value", function(friendsSnapshot) {
+
+
+            database.ref('users/-KXTp_DqinRmI62PZraY/friends').once("value", function(friendsSnapshot) {
                 friendsSnapshot.forEach(function(childSnapshot) {
                     database.ref('users/'+childSnapshot.key).once("value", function(friend) {
-                       friends.push(friend.val().userData);
-                   });
+                     friends.push(friend.val().userData);
+                 });
                 });
             });
 
@@ -164,7 +166,7 @@
         $('#btn-connect').on('click', connect);
 
 
-
+        connect();
 
     });
 

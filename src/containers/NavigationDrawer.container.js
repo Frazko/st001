@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'; 
+import { browserHistory } from 'react-router'
 import Drawer from 'material-ui/Drawer';
 import RaisedButton from 'material-ui/RaisedButton';
 import * as navigationActions from '../core/navigation/navigationActions';
 
-import FacebookButton from '../components/FacebookButton';
+import { paths } from '../router/routes';
 
 import {List, ListItem} from 'material-ui/List';
 import Divider from 'material-ui/Divider';
@@ -32,6 +33,20 @@ const style = {
     textAlign: 'center',
     lineHeight: '24px',
   },
+  avatar: {
+    height: 80,
+    width: 80,
+    margin: '0 auto',
+    display:'block'
+  },
+  displayName: {
+    fontSize: 24,
+    lineHeight: '24px',
+    margin: '16px auto',
+    display:'block',
+    textAlign:'center'
+
+  },
   list: {
     color: '#000',
     fontSize: 24,
@@ -48,20 +63,14 @@ class NavigationDrawer extends React.Component {
 
   constructor(props) {
     super(props);
-    // console.log("<>",props)
-  }
-  componentWillMount(){
-    this.setState({open: false})
   }
 
-  handleToggle = () => this.setState({open: !this.state.open});
+  navigateTo(target) {
+    console.log(target);
+    browserHistory.push(target);
+  }
 
-  handleClose = () => this.setState({open: false});
-  requestChange = () => console.log('request');
-
-        // <div><FacebookButton fb={FB} /> FB </div>
   render() {
-
     let {display} = this.props.navigation
     let {authenticated,signOut} = this.props
 
@@ -75,41 +84,35 @@ class NavigationDrawer extends React.Component {
         >
 
 
-
-
-
-
           <CardMedia
           overlayContentStyle={style.overlay}
           overlay={
-            <ListItem
-              style={style.list}
-              disabled={true}
-              leftAvatar={
-                <Avatar src="images/common/avatar.jpg" />
-              }>
-
-              Fran Murillo
-            </ListItem>
+            <div>
+              <Avatar 
+              style={style.avatar}
+                src={this.props.userData.photoURL} 
+              />
+              <span style={style.displayName}>
+                {this.props.userData.displayName}
+              </span>
+            </div>
           }>
             <img src="images/common/landscape-avatar.jpg" />
           </CardMedia>
 
-          <Paper style={style.paper}>
-            <Menu >
-              <MenuItem primaryText="Home" leftIcon={<Home />} />
-              <MenuItem primaryText="Add Stickers" leftIcon={<ImageBurstMode />} />
-              <MenuItem primaryText="My Collections" leftIcon={<Collections />} />
-              <MenuItem primaryText="Progress" leftIcon={<Assessment />} />
-              <MenuItem primaryText="Messages" leftIcon={<QuestionAnswer />} />
-            </Menu>
-          </Paper>
+          <Menu >
+              <MenuItem onTouchTap={() => this.navigateTo("/")} primaryText="Home" leftIcon={<Home />} />
+              <MenuItem onTouchTap={() => this.navigateTo("/addStickers")}  primaryText="Add Stickers" leftIcon={<ImageBurstMode />} />
+              <MenuItem onTouchTap={() => this.navigateTo("/myCollections")} primaryText="My Collections" leftIcon={<Collections />} />
+              <MenuItem onTouchTap={() => this.navigateTo("/progress")}  primaryText="Progress" leftIcon={<Assessment />} />
+              <MenuItem onTouchTap={() => this.navigateTo("/messages")}  primaryText="Messages" leftIcon={<QuestionAnswer />} />
+          </Menu>
 
           <Divider inset={true} />
 
-          <MenuItem onTouchTap={this.props.actions.toggleDrawer}>Settings</MenuItem>
-          <MenuItem onTouchTap={this.props.actions.toggleDrawer}>Help</MenuItem>
-          {authenticated ? <MenuItem onTouchTap={signOut}>Log out</MenuItem>: null}
+          <MenuItem onTouchTap={() => this.navigateTo("/settings")} >Settings</MenuItem>
+          <MenuItem onTouchTap={() => this.navigateTo("/help")} >Help</MenuItem>
+          {authenticated ? <MenuItem  onTouchTap={signOut}>Log out</MenuItem>: null}
         </Drawer>
       </div>
     );
@@ -117,24 +120,28 @@ class NavigationDrawer extends React.Component {
 }
 
 
-// NavigationDrawer.propTypes = {
-//   authenticated: React.PropTypes.bool.isRequired,
-//   signOut: React.PropTypes.func.isRequired
-// };
+NavigationDrawer.contextTypes = {
+    router: React.PropTypes.object.isRequired
+};
 
-function mapStateToProps(state, ownProps){
-  // console.log(">>>>>>>>> state drawer",state);
-  return{
-    navigation: state.navigation,
-    authenticated:state.navigation,
-    signOut:state.signOut,
-  }
+NavigationDrawer.propTypes = {
+    authenticated: React.PropTypes.bool.isRequired,
+    signOut: React.PropTypes.func.isRequired
+};
+
+
+function mapStateToProps(state, ownProps) {
+    // console.log(">>>>>>>>> state drawer", state.auth.data);
+    return {
+        navigation: state.navigation,
+        userData: state.auth.data
+    }
 }
 
-function mapDispatchToProps(dispatch){
-  return {
-    actions: bindActionCreators(navigationActions, dispatch)
-  }
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(navigationActions, dispatch)
+    }
 }
 
  

@@ -28,27 +28,36 @@ class App extends Component {
 			router.replace(paths.SIGN_IN);
 		}
 		else if (!auth.authenticated && nextProps.auth.authenticated) {
-			router.replace(paths.TASKS);
+			router.replace(paths.DASHBOARD);
 		}
 	}
 
 	render() {
-		//console.log("this.props.children",this.props.children)
+		console.log("this.props.children",this.props.children)
 		return (
 			<MuiThemeProvider>
 				<div>
 					<NavBar />
+					<NavigationDrawer 
 
-					
-					<NavigationDrawer authenticated={this.props.auth.authenticated}
+					  authenticated={this.props.auth.authenticated}
 			          signOut={this.props.signOut} />
+
+					<div className="main">{this.props.children}</div>
 
 					<LogOff
 			          authenticated={this.props.auth.authenticated}
 			          signOut={this.props.signOut}
 		        	/>
 
-					<div className="main">{this.props.children}</div>
+
+				</div>
+			</MuiThemeProvider>
+			);
+	}
+}
+
+/*
 
 					User Detail
 					<UserDetail/>
@@ -62,11 +71,7 @@ class App extends Component {
 					<Collection/>
 					New Collections
 					<CollectionNew/>
-				</div>
-			</MuiThemeProvider>
-			);
-	}
-}
+ */
 
 
 //=====================================
