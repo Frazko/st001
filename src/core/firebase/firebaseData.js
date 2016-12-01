@@ -1,11 +1,42 @@
-import firebase from 'firebase';
 import { firebaseDb } from '../firebase';
 
 
 
 //-------------------------------------------------------------------------- CREATE USER  
+const accountsRef = firebaseDb.ref('accounts');
+const collectionsRef = firebaseDb.ref('collections');
+const usersRef = firebaseDb.ref('users');
+
+export function getCollections(uid) {
+    console.log("getCollections", uid);
+    let collections = {};
+    usersRef.child(uid + "/myCollections").once("value")
+        .then((snapshot) => {
+            console.log("*********");
+            //console.log("snaap", snapshot.key);
+
+            snapshot.forEach(function(collectionId) {
+                // console.log("  -col", collectionId.key);
+                // 
+                collectionsRef.child(collectionId.key).once('value')
+                .then((collectionData) => {
+                    //console.log("*********", collectionData.val());
+                    collections[collectionId.key] = collectionData.val();
+                    console.log("---");
+                })
+                console.log("-");
+            });
+            console.log("--");
+
+            return collections;
+        })
+        .then((collections) => {
+            console.log("========", collections);
+            console.log(collections, JSON.stringify(collections));
+        });
 
 
+}
 
 export function createUser(result) {
     console.log("createUser");
@@ -16,10 +47,10 @@ export function createUser(result) {
     let token = result.credential.accessToken;
     let user = result.user;
     //
-    firebaseDb.ref('users').once("value", function(snapshot) {
+    usersRef.once("value", function(snapshot) {
+        console.log("***** USER AUTH *****")
         uid = user.providerData[0].uid;
-        console.log(JSON.stringify(user));
-
+        // console.log(JSON.stringify(user));
         // CHECK IF USER EXISTS
         if (snapshot.hasChild(uid)) {
             console.log('************ USER EXISTS ************');
@@ -27,8 +58,7 @@ export function createUser(result) {
             console.log('************ CREATE USER  ************');
             console.log("uid", uid);
             // Create user child 
-            var ref = firebaseDb.ref('users');
-            userChild = ref.child(uid);
+            var userChild = usersRef.child(uid);
             userChild.set({
                 userData: {
                     //TEST DATA

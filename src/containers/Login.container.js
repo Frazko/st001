@@ -29,7 +29,7 @@ const style = {
 
   backgroundPaper:{
     width: '100%',
-    height: 640,
+    height: '100vh',
     textAlign: 'center',
     display: 'inline-block',
     borderRadius: 6,

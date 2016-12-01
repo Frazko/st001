@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 import { firebaseAuth } from '../firebase';
-import  * as UserManager  from './FirebaseUserManager';
+import  * as dataManager  from '../firebase/FirebaseData';
 import {
   INIT_AUTH,
   SIGN_IN_ERROR,
@@ -15,7 +15,7 @@ function authenticate(provider) {
     firebaseAuth.signInWithPopup(provider)
       .then((result) => {
         dispatch(signInSuccess(result));
-        UserManager.createUser(result);
+        dataManager.createUser(result);
       })
       .catch(error => dispatch(signInError(error)));
   };

@@ -4,15 +4,16 @@ import { createSelector } from 'reselect';
 import { authActions, getAuth } from 'src/core/auth';
 import { paths } from './router/routes';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
-
-import LogOff from './components/LogOff.component';
 import NavBar from './containers/NavigationBar.container';
 import NavigationDrawer from './containers/NavigationDrawer.container';
-import CollectionNew from './components/CollectionNew.component';
-import Collection from './components/Collection.component';
-import SectionItem from './components/SectionItem.component';
-import StickerItem from './components/StickerItem.component';
+
+import LogOff from './components/LogOff.component';
+
+
+// import CollectionNew from './components/CollectionNew.component';
+// import Collection from './components/Collection.component';
+// import SectionItem from './components/SectionItem.component';
+// import StickerItem from './components/StickerItem.component';
 
 import StickerDetail from './containers/StickerDetail.container';
 import UserDetail from    './containers/UserDetail.container';
@@ -33,22 +34,26 @@ class App extends Component {
 	}
 
 	render() {
-		console.log("this.props.children",this.props.children)
+		//console.log("this.props.children",this.props.children)
 		return (
 			<MuiThemeProvider>
 				<div>
-					<NavBar />
-					<NavigationDrawer 
-
-					  authenticated={this.props.auth.authenticated}
-			          signOut={this.props.signOut} />
+				  {(this.props.auth.authenticated)?
+				  	<div>
+					  	<NavBar />
+					  	<NavigationDrawer 
+						  authenticated={this.props.auth.authenticated}
+			          	  signOut={this.props.signOut} />
+			        </div>
+			      :null}
 
 					<div className="main">{this.props.children}</div>
 
+					{/*
 					<LogOff
 			          authenticated={this.props.auth.authenticated}
 			          signOut={this.props.signOut}
-		        	/>
+		        	/>*/}
 
 
 				</div>
