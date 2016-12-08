@@ -25,14 +25,16 @@ const style = {
 
   title:{
     padding:10,
-    fontWeight:'bold'
+    fontWeight:'bold',
+    lineHeight:1.2,
   },
 
   image:{
-    height: 140,
-    width: 150,
-    marginLeft:20,
+    width: 98,
+    height: 137,
+    marginLeft:60,
     marginTop:15,
+    borderRadius: 6,
   },
 
   imageHolder:{
@@ -89,41 +91,54 @@ const style = {
 
 
 class Collection extends Component {
-  render() {
+
+    constructor(props) {
+        super(props);
+    }
+
+
+    render() {
+
+    
+    let percent = parseInt((100 / this.props.totalItems) * this.props.iHave);
+
+    console.log("percent::", percent);
+
+
     return (
       <div>
         <Paper style={style.backgroundPaper} zDepth={2} rounded={true}>
             
 
           <div style={style.title}>
-            Copa America Centenario 2016
+            {this.props.title}
           </div>
           <Divider inset={false} />
 
           <div style={style.imageHolder}>
-            <img style={style.image} src="images/albums/00001/copamecen20116.jpg" />
+            <img className='albumImage' style={style.image} src={this.props.thumbnail} />
           </div>
 
           <List style={style.infoHolder}>
-            <ListItem style={style.infoItem} primaryText="432" leftIcon={<Search style={style.infoIcon} />} />
-            <ListItem style={style.infoItem} primaryText="42" leftIcon={<LabelOutline style={style.infoIcon} />} />
+            <ListItem style={style.infoItem} primaryText={this.props.iHave} leftIcon={<Search style={style.infoIcon} />} />
+            <ListItem style={style.infoItem} primaryText={this.props.iChange} leftIcon={<LabelOutline style={style.infoIcon} />} />
 
 
               <CircularProgress  style={style.circularProgress}
                 mode="determinate"
-                value={60}
+                value={percent}
                 size={40}
                 thickness={3}
               /> 
-            <span style={style.percent} >60% </span>
+            <span style={style.percent} >{percent}% </span>
 
           </List>
 
 
           <div style={style.description}>
-            <span>Stickers: {490}, </span>
+            <span>Stickers: {this.props.totalItems}, </span>
             <span>Panini </span>
-            <span>2016</span>
+            <span>{this.props.year}</span>
           </div>
 
           <div style={style.cta}>
@@ -131,22 +146,39 @@ class Collection extends Component {
           </div>
 
 
-          <Divider inset={false} />
-
-          <div style={style.footer}>
-            <p >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend scelerisque viverra. Nam elementum mollis volutpat. Aliquam id sapien quis justo pharetra bibendum.
-            </p>
-          </div>
         </Paper>
       </div>
     );
   }
 }
 
+
+
+/*
+  <Divider inset={false} />
+
+  <div style={style.footer}>
+    <p >
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend scelerisque viverra. Nam elementum mollis volutpat. Aliquam id sapien quis justo pharetra bibendum.
+    </p>
+  </div>
+*/
+
+
 Collection.propTypes = {
+    title: React.PropTypes.string.isRequired,
+    iHave: React.PropTypes.number.isRequired,
+    iChange: React.PropTypes.number.isRequired,
+    totalItems: React.PropTypes.number.isRequired,
+    year: React.PropTypes.number.isRequired,
+    thumbnail: React.PropTypes.string.isRequired,
+    published: React.PropTypes.string.isRequired,
+    account: React.PropTypes.string.isRequired,
+    // percent: React.PropTypes.string.isRequired,
 }
- 
+
+
+//TODO:: no necesita connect
 function mapStateToProps(state, ownProps){
   return{
     //courses: state.courses

@@ -6,7 +6,7 @@ body {
 	font-size: 15px;
 	line-height: 24px;
 
-    max-width: 768px,
+	max-width: 768px,
 }
 
 ul {
@@ -43,6 +43,13 @@ h2{
 h3{
 	font-size: 13px;
 	font-weight: normal;
+}
+
+
+.albumImage{
+	-webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
 }
 ////////////////////////////////////////
 ///

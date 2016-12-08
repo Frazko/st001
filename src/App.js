@@ -6,21 +6,11 @@ import { paths } from './router/routes';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import NavBar from './containers/NavigationBar.container';
 import NavigationDrawer from './containers/NavigationDrawer.container';
-
 import LogOff from './components/LogOff.component';
-
-
-// import CollectionNew from './components/CollectionNew.component';
-// import Collection from './components/Collection.component';
-// import SectionItem from './components/SectionItem.component';
-// import StickerItem from './components/StickerItem.component';
-
 import StickerDetail from './containers/StickerDetail.container';
 import UserDetail from    './containers/UserDetail.container';
 
-
 class App extends Component {
-
 	componentWillReceiveProps(nextProps) {
 		const { router } = this.context;
 		const { auth } = this.props;
@@ -34,7 +24,6 @@ class App extends Component {
 	}
 
 	render() {
-		//console.log("this.props.children",this.props.children)
 		return (
 			<MuiThemeProvider>
 				<div>
@@ -61,22 +50,6 @@ class App extends Component {
 			);
 	}
 }
-
-/*
-
-					User Detail
-					<UserDetail/>
-					Sticker Detail
-					<StickerDetail/>
-					Stickers
-					<StickerItem/>
-					Sections
-					<SectionItem/>
-					Collections
-					<Collection/>
-					New Collections
-					<CollectionNew/>
- */
 
 
 //=====================================

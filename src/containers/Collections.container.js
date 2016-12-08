@@ -4,8 +4,6 @@ import { bindActionCreators } from 'redux';
 
 import Collection from '../components/Collection.component';
 
-
-
 import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
@@ -30,27 +28,47 @@ const styles = {
 
 class Collections extends Component {
 
-  constructor(props) {
-      super(props);
-  }
+	constructor(props) {
+	    super(props);
+	    // this.setState({collections: null});
+	    this.state = {collections: []};
+	}
 
-  componentWillMount() {
-      //TODO:: get collections
-      // console.log(">>>>>>>>> componentWillMount:::  ", this.props.userData);
-      getCollections(this.props.userData.providerData[0].uid);
-  }
+	componentWillReceiveProps(nextProps){
+	    	console.log("will receive ", nextProps);
+	}
+
+	componentWillMount() {
+	    getCollections(this.props.userData.providerData[0].uid).then(values => {
+	    	this.setState({collections: values});
+	    });
+	}
 
 	render(){
+		console.log("Render");
+		let collections = this.state.collections;
+		console.log('this.state.collections::::::::: ',collections);
 		return (<div 
 				style={styles.root}>
 				    <GridList
 				      cols={1}
-				      cellHeight={400}
+				      cellHeight={320}
 				      padding={1}
 				      style={styles.gridList}
 				    >
-				      {[0,1,2].map((tile) => (
-				        <Collection key={tile}/>
+				      {this.state.collections.map((item) => (
+				        <Collection key={Object.keys(item)[0]} 
+				        title={item[Object.keys(item)[0]].data.title}
+				        totalItems={item[Object.keys(item)[0]].data.totalItems}
+				        year={item[Object.keys(item)[0]].data.year}
+				        thumbnail={item[Object.keys(item)[0]].data.thumbnail['400x400']}
+				        published={item[Object.keys(item)[0]].data.published}
+				        account={item[Object.keys(item)[0]].data.account}
+				        iHave={item[Object.keys(item)[0]].iHave}
+				        iChange={item[Object.keys(item)[0]].iChange}
+
+
+				        />
 				      ))}
 				    </GridList>
 				  </div>
