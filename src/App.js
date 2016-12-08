@@ -9,19 +9,40 @@ import NavigationDrawer from './containers/NavigationDrawer.container';
 import LogOff from './components/LogOff.component';
 import StickerDetail from './containers/StickerDetail.container';
 import UserDetail from    './containers/UserDetail.container';
+import { windowResize } from './utils';
+
+
+const MainContainer = (props) => <div>{props.children}</div>;
 
 class App extends Component {
+
+	constructor(props){
+		super(props);
+
+	}
+
+	componentDidMount(){
+		windowResize()
+		window.onresize = function() {
+		    windowResize();
+		};
+		
+	}
+
+
+
 	componentWillReceiveProps(nextProps) {
 		const { router } = this.context;
 		const { auth } = this.props;
 
 		if (auth.authenticated && !nextProps.auth.authenticated) {
 			router.replace(paths.SIGN_IN);
-		}
-		else if (!auth.authenticated && nextProps.auth.authenticated) {
+		} else if (!auth.authenticated && nextProps.auth.authenticated) {
 			router.replace(paths.DASHBOARD);
 		}
 	}
+
+
 
 	render() {
 		return (
@@ -36,18 +57,12 @@ class App extends Component {
 			        </div>
 			      :null}
 
-					<div className="main">{this.props.children}</div>
-
-					{/*
-					<LogOff
-			          authenticated={this.props.auth.authenticated}
-			          signOut={this.props.signOut}
-		        	/>*/}
-
+					<MainContainer id="MainContainer" className="main">{this.props.children}</MainContainer>
 
 				</div>
 			</MuiThemeProvider>
 			);
+
 	}
 }
 
