@@ -1,4 +1,5 @@
 import "./styles/style.scss";
+import "./styles/footer-centered.scss";
 
 import React from 'react';
 import ReactDOM from 'react-dom';

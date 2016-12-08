@@ -1,12 +1,15 @@
 $color: white;
-body {
+html ,body{
+	font-family: 'Roboto', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	height: 100%;
 	background-color: $color;
 	font-family: 'Roboto', sans-serif;
 	margin: 0;
 	font-size: 15px;
 	line-height: 24px;
-
-	max-width: 768px,
+	max-width: 768px;
+	height: 100%;
 }
 
 ul {
@@ -22,10 +25,6 @@ a:hover {
 	text-decoration: underline;
 }
 
-html {
-	font-family: 'Roboto', sans-serif;
-	-webkit-font-smoothing: antialiased;
-}
 
 body, h1, h2, h3, h4, h5, h6 {
 	margin: 0;
