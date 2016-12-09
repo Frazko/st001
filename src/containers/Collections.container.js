@@ -37,6 +37,7 @@ class Collections extends Component {
 
 	componentDidMount(){
 		windowResize();
+		this.updateDimensions();
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -56,16 +57,14 @@ class Collections extends Component {
 
 	updateDimensions() {
 		let newHeight = windowResize() - 50;
-		// this.state.gridList=Object.assign({}, styles.gridList, {height: newHeight});
 		this.setState({gridList:Object.assign({}, styles.gridList, {height: newHeight})})
-		console.log(this.state.gridList);
+		// console.log(this.state.gridList);
 	}
 
 	render(){
 		console.log("***********   Render ************");
 		let collections = this.state.collections;
 		console.log('this.state.collections::::::::: ',collections);
-		console.log('H> ',styles.gridList.height);
 		return (<div 
 					style={styles.root}>
 					<GridList
