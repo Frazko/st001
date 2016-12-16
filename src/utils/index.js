@@ -1,3 +1,7 @@
+import { browserHistory } from 'react-router'
+
+
+
 export function extend(obj, src) {
     for (var key in src) {
         // console.warn("-- prop", key);
@@ -11,15 +15,28 @@ export function extend(obj, src) {
 
 
 export function deepExtend(destination, source) {
+    // console.log(" ")
+    // console.log(" ")
+    // console.log(" ")
+    // console.log("*************************************************\\ ");
+    // console.log("deepExtend in", Object.assign({}, destination));
+
     for (let property in source) {
+        // console.log(" .  ");
         if (source[property] && source[property].constructor && source[property].constructor === Object) {
+            // console.log(" . . . ");
             destination[property] = destination[property] || {};
             deepExtend(destination[property], source[property]);
         } else {
+            // console.log(" . . . . . . ");
             destination[property] = source[property];
         }
     }
-
+    // console.log("deepExtend out", destination)
+    // console.log("*************************************************/");
+    // console.log(" ")
+    // console.log(" ")
+    // console.log(" ")
     return destination;
 }
 
@@ -37,4 +54,7 @@ export function windowResize() {
     return heightUpdated;
 }
 
-
+export function navigateTo(target) {
+    console.log("Routing to: ",target);
+    browserHistory.push(target);
+}

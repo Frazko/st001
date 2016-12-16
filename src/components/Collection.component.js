@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import {List, ListItem} from 'material-ui/List';
 import Search from 'material-ui/svg-icons/action/search';
 import LabelOutline from 'material-ui/svg-icons/action/label-outline';
-import DataUsage from 'material-ui/svg-icons/device/data-usage';
 import CircularProgress from 'material-ui/CircularProgress';
 import RaisedButton from 'material-ui/RaisedButton';
-//import * as sectionActions from '../actions/sectionActions.jsx';
  
 
 
@@ -58,23 +55,9 @@ const style = {
     padding:0,
   },
 
-  description:{
-    margin:20,
-    padding:0,
-    clear:'both',
-  },
   cta:{
     margin:20,
     padding:0,
-  },
-
-  footer:{
-    fontSize:12,
-    lineHeight: 1,
-    paddingTop:2,
-    paddingLeft:15,
-    paddingRight:15,
-    textAlign: 'left',
   },
 
   percent:{
@@ -89,41 +72,26 @@ const style = {
   }
 };   
 
-
-class Collection extends Component {
-
-    constructor(props) {
-        super(props);
-    }
-
-
-    render() {
-
+const Collection = (props) => {
     
-    let percent = parseInt((100 / this.props.totalItems) * this.props.iHave);
-
-    console.log("percent::", percent);
-
+    let percent = parseInt((100 / props.totalItems) * props.iHave);
+    let iSearch = props.totalItems - props.iHave ;
 
     return (
       <div>
         <Paper style={style.backgroundPaper} zDepth={2} rounded={true}>
-            
-
           <div style={style.title}>
-            {this.props.title}
+            {props.title}
           </div>
           <Divider inset={false} />
 
           <div style={style.imageHolder}>
-            <img className='albumImage' style={style.image} src={this.props.thumbnail} />
+            <img className='albumImage' style={style.image} src={props.thumbnail} />
           </div>
 
           <List style={style.infoHolder}>
-            <ListItem style={style.infoItem} primaryText={this.props.iHave} leftIcon={<Search style={style.infoIcon} />} />
-            <ListItem style={style.infoItem} primaryText={this.props.iChange} leftIcon={<LabelOutline style={style.infoIcon} />} />
-
-
+            <ListItem style={style.infoItem} primaryText={iSearch} leftIcon={<Search style={style.infoIcon} />} />
+            <ListItem style={style.infoItem} primaryText={props.iChange} leftIcon={<LabelOutline style={style.infoIcon} />} />
               <CircularProgress  style={style.circularProgress}
                 mode="determinate"
                 value={percent}
@@ -131,41 +99,25 @@ class Collection extends Component {
                 thickness={3}
               /> 
             <span style={style.percent} >{percent}% </span>
-
           </List>
 
-
           <div style={style.description}>
-            <span>Stickers: {this.props.totalItems}, </span>
-            <span>Panini </span>
-            <span>{this.props.year}</span>
+            <span>Stickers: {props.totalItems}, </span>
+            <span>{props.accountName} </span>
+            <span>{props.year}</span>
           </div>
 
           <div style={style.cta}>
-            <RaisedButton label="View Sections" fullWidth={true} />
+            <RaisedButton label="View Sections" fullWidth={true} onTouchTap={props.navigateTo.bind(this, "/"+props.id)} />
           </div>
-
 
         </Paper>
       </div>
     );
-  }
 }
 
-
-
-/*
-  <Divider inset={false} />
-
-  <div style={style.footer}>
-    <p >
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend scelerisque viverra. Nam elementum mollis volutpat. Aliquam id sapien quis justo pharetra bibendum.
-    </p>
-  </div>
-*/
-
-
 Collection.propTypes = {
+    id: React.PropTypes.string.isRequired,
     title: React.PropTypes.string.isRequired,
     iHave: React.PropTypes.number.isRequired,
     iChange: React.PropTypes.number.isRequired,
@@ -174,21 +126,8 @@ Collection.propTypes = {
     thumbnail: React.PropTypes.string.isRequired,
     published: React.PropTypes.string.isRequired,
     account: React.PropTypes.string.isRequired,
-    // percent: React.PropTypes.string.isRequired,
+    accountName: React.PropTypes.string.isRequired,
+    navigateTo: React.PropTypes.func.isRequired,
 }
 
-
-//TODO:: no necesita connect
-function mapStateToProps(state, ownProps){
-  return{
-    //courses: state.courses
-  }
-}
-
-function mapDispatchToProps(dispatch){
-  return {
-    //actions: bindActionCreators(sectionActions, dispatch)
-  }
-}
- 
-export default connect(mapStateToProps, mapDispatchToProps)(Collection);
+export default Collection 

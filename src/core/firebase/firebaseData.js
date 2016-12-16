@@ -19,43 +19,82 @@ export function getCollections(uid) {
         .then(snapshot => {
             var reads = [];
             let userCollectiosObj = snapshot.val();
-
+            // console.log('userCollectiosObj', userCollectiosObj);
             snapshot.forEach(collectionId => {
                 // ----------------------------------------------- get Collection data and merge in user data
-                console.log('get Collection data ');
                 var promise = collectionsRef.child(collectionId.key).once('value')
                     .then(collectionData => {
-                        let obj = {}, items = userCollectiosObj[collectionId.key].items;
+                        // console.log('collectionId.key ', collectionId.key);
+                        let obj = {};
+                        let items = userCollectiosObj[collectionId.key].items;
                         obj[collectionId.key] = collectionData.val();
                         obj[collectionId.key].iHave = Object.keys(items).length;
-                        obj[collectionId.key].iChange = Object.keys(Object.filter(items, item => item.count > 1)).length; 
-                        // console.warn("items",items); 
-                        // console.warn("len",Object.filter(items, item => item.count > 10)); 
-                        // console.warn("iChange:", obj[collectionId.key].iChange);
-                        deepExtend(obj[collectionId.key], userCollectiosObj[collectionId.key]);
-                        // console.log('COL >> ', obj[collectionId.key]);
+                        obj[collectionId.key].iChange = Object.keys(Object.filter(items, item => item.count > 1)).length;
+                        // console.log('    items ');
+                        deepExtend(obj[collectionId.key].items, userCollectiosObj[collectionId.key].items);
+                        // console.log('    ------ getCollections obj ', obj);
                         return obj;
                     });
-
                 reads.push(promise);
             });
             return Promise.all(reads);
         });
+
 }
+//-------------------------------------------------------------------------- GET COLLECTIONS NAMES FROM FIREBASE  
+export function getCollectionsNames() {
+    // console.log(">>>> getCollectionsNames");
+    // ----------------------------------------------------------- get user collections
+    return collectionsRef.once("value")
+        .then(snapshot => {
+            let names = [];
+            // console.log('    ');
+            snapshot.forEach(collectionId => {
+                let obj = {};
+                obj[collectionId.key] = collectionId.val();
+                names.push(obj);
+                // console.log('    ------ getCollectionsNames obj ', obj);
+            });
+            // console.log('    ');
+            return Promise.resolve(names);
+        });
+
+}
+
+//-------------------------------------------------------------------------- GET COLLECTIONS NAMES FROM FIREBASE  
+export function getAccountNames() {
+    // console.log(">>>> getAccountNames");
+    // ----------------------------------------------------------- get user collections
+    return accountsRef.once("value")
+        .then(snapshot => {
+            let names = [];
+            snapshot.forEach(accountId => {
+                let obj = {};
+                obj[accountId.key] = accountId.val();
+                names.push(obj);
+                // console.log('    ------ getAccountNames obj ', obj);
+            });
+            // console.log('    ');
+            return Promise.resolve(names);
+        });
+
+}
+
+
 
 
 //-------------------------------------------------------------------------- CREATE USER  
 export function createUser(result) {
-    console.log("createUser");
+    // console.log("createUser");
     //
-    console.log("token", result.credential.accessToken);
+    // console.log("token", result.credential.accessToken);
     let uid = "";
     let userChild = "";
     let token = result.credential.accessToken;
     let user = result.user;
     //
     usersRef.once("value", snapshot => {
-        console.log("***** USER AUTH *****")
+        console.log("***** USER AUTH *****");
         uid = user.providerData[0].uid;
         // console.log(JSON.stringify(user));
         // CHECK IF USER EXISTS

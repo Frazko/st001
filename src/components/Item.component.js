@@ -12,6 +12,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import ActionHome from 'material-ui/svg-icons/action/home';
 import SupervisorAccount from 'material-ui/svg-icons/action/supervisor-account';
+import PeopleOutline from 'material-ui/svg-icons/social/people-outline';
 import Favorite from 'material-ui/svg-icons/action/favorite';
 import FavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
 //import * as sectionActions from '../actions/sectionActions.jsx';
@@ -49,15 +50,20 @@ const style = {
     display:'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+    alignItems: 'center',
+    paddingRight:30,
     top:-13,
-    // background:'#AAAAAA',
+    // background:'#FFAAAA',
     // border:'solid black 1px',
     height:'100%',
+    // width:'40px',
   },
   amount : {
-    fontSize:42,
+    fontSize:52,
     fontWeight: 'bold',
-    // background:'#FFAAAA',
+    color: '#666666',
+    // background:'#00AAAA',
+    // overflow:'auto',
     //flex:1
   },
   listItem : {
@@ -100,44 +106,59 @@ const style = {
 };   
 
 
-class SectionItem extends Component {
-  render() {
+const Item = (props) => {
     return (
-      <div>
-        <Paper style={style.backgroundPaper} zDepth={2} rounded={true}>
-            
-          <List>
+      
 
             <ListItem
               className="listItemClass"
-              leftAvatar={<div style={style.indexHolder}><Paper style={style.index} zDepth={2} circle={true} >141</Paper></div>}
-              rightIcon={<div style={style.amountHolder}><div style={style.amount}>0</div></div>}
-              style={style.listItem}>
+              leftAvatar={<div style={style.indexHolder}><Paper style={style.index} zDepth={2} circle={true} > {props.count} </Paper></div>}
+              rightIcon={<div style={style.amountHolder}><div style={style.amount}>{props.itemNumber}</div></div>}
+              style={style.listItem}
+
+              onTouchTap={props.navigateTo.bind(this, "/"+props.collectionid+"/"+props.sectionId+"/"+props.id)}
+              >
               
               <div style={style.block}>
                 <div style={style.blockTitle}>
-                  <h1>Cristiano Ronaldo</h1>
+                  <h1>{props.title}</h1>
                 </div>
                 <div style={style.socialBlock}>
+
                   <div>
                     <IconButton style={style.socialBlockIcon}>
-                      <FavoriteBorder />
+                      {props.iLike? <Favorite /> : <FavoriteBorder /> }
                     </IconButton>
-                    <span style={style.socialBlockSpan}> 4</span>
+                    <span style={style.socialBlockSpan}> {props.likes} </span>
                   </div>
+
                   <div>
                     <IconButton style={style.socialBlockIcon}>
-                      <SupervisorAccount />
+
+                      {props.owners? <SupervisorAccount /> : <PeopleOutline /> }
+
                     </IconButton>
-                    <span style={style.socialBlockSpan}> 6</span>
+                    <span style={style.socialBlockSpan}> {props.owners}</span>
                   </div>
                 </div>
               </div>
+
+
             </ListItem>
-            <Divider inset={true} />
+    );
+}
+
+Item.propTypes = {
+}
+ 
+ 
+export default Item;
 
 
 
+
+
+/*
 
             <ListItem
               className="listItemClass"
@@ -228,32 +249,6 @@ class SectionItem extends Component {
               </div>
             </ListItem>
             <Divider inset={true} />
-            
+          
 
-          </List>
-
-
-
-
-        </Paper>
-      </div>
-    );
-  }
-}
-
-SectionItem.propTypes = {
-}
- 
-function mapStateToProps(state, ownProps){
-  return{
-    //courses: state.courses
-  }
-}
-
-function mapDispatchToProps(dispatch){
-  return {
-    //actions: bindActionCreators(sectionActions, dispatch)
-  }
-}
- 
-export default connect(mapStateToProps, mapDispatchToProps)(SectionItem);
+*/

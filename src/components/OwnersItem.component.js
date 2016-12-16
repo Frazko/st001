@@ -85,7 +85,6 @@ class OwnersItem extends Component {
   render() {
     return (
       <div>
-        <Paper style={style.backgroundPaper} zDepth={2} rounded={true}>
             
           <List>
 
@@ -93,7 +92,7 @@ class OwnersItem extends Component {
 
 
             <ListItem
-              leftAvatar={<div style={style.indexHolder}><Avatar style={style.index} src="images/common/avatar.jpg" /></div>}
+              leftAvatar={<div style={style.indexHolder}><Avatar style={style.index} src="/images/common/avatar.jpg" /></div>}
               style={style.listItem}>
               <div style={style.block}>
                 <div style={style.blockTitle}>
@@ -113,7 +112,7 @@ class OwnersItem extends Component {
 
 
             <ListItem
-              leftAvatar={<div style={style.indexHolder}><Avatar style={style.index} src="images/common/avatar2.jpg" /></div>}
+              leftAvatar={<div style={style.indexHolder}><Avatar style={style.index} src="/images/common/avatar2.jpg" /></div>}
               style={style.listItem}>
               
               <div style={style.block}>
@@ -131,7 +130,7 @@ class OwnersItem extends Component {
             <Divider inset={true} />
 
             <ListItem
-              leftAvatar={<div style={style.indexHolder}><Avatar style={style.index} src="images/common/avatar4.png" /></div>}
+              leftAvatar={<div style={style.indexHolder}><Avatar style={style.index} src="/images/common/avatar4.png" /></div>}
               style={style.listItem} 
               >
               <div style={style.block}>
@@ -152,7 +151,7 @@ class OwnersItem extends Component {
 
 
             <ListItem
-              leftAvatar={<div style={style.indexHolder}><Avatar style={style.index} src="images/common/avatar3.png" /></div>}
+              leftAvatar={<div style={style.indexHolder}><Avatar style={style.index} src="/images/common/avatar3.png" /></div>}
               style={style.listItem}>
               <div style={style.block}>
               <div style={style.blockTitle}>
@@ -174,7 +173,6 @@ class OwnersItem extends Component {
 
 
 
-        </Paper>
       </div>
     );
   }

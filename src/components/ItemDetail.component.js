@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import Paper from 'material-ui/Paper';
-import Divider from 'material-ui/Divider';
-import RaisedButton from 'material-ui/RaisedButton';
-import IconButton from 'material-ui/IconButton';
 import SupervisorAccount from 'material-ui/svg-icons/action/supervisor-account';
 import Favorite from 'material-ui/svg-icons/action/favorite';
 import FavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
@@ -13,11 +8,9 @@ import FavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 import {List, ListItem} from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
-import Avatar from 'material-ui/Avatar';
+
 import LikesItem from '../components/LikesItem.component';
 import OwnersItem from '../components/OwnersItem.component';
-//import * as sectionActions from '../actions/sectionActions.jsx';
  
 
 
@@ -39,7 +32,7 @@ const style = {
     padding:10,
     flex: 1,
     backgroundSize: 'cover',
-    backgroundImage: 'url(../images/common/bg-image.png)',
+    backgroundImage: 'url(/images/common/bg-image.png)',
   },
 
   block : {
@@ -115,7 +108,7 @@ const style = {
 
 
 
-class StickerDetail extends Component {
+class ItemDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -128,10 +121,14 @@ class StickerDetail extends Component {
       slideIndex: value,
     });
   };
+
   render() {
+    console.log('item', this.props.item)
+    const item = this.props.item;
+    const [firstName, ...lastName] = item.itemData.title.split(" ");
+
     return (
       <div>
-        <Paper style={style.backgroundPaper} zDepth={2} rounded={true}>
 
           <div>
             <Paper style={style.backgroundPaperHeader} zDepth={1}>
@@ -139,20 +136,20 @@ class StickerDetail extends Component {
               <div style={style.block}>
                 <div style={style.stickerHeader}>
                   <Paper style={style.stickersAmout} zDepth={2} circle={true} >
-                  3
+                  {item.count || 0}
                   </Paper>
                   <div style={style.stickerIndex}>
-                    {143}
+                    #{item.itemData.number}
                   </div>
                 </div>
                 <div style={style.stickerName}>
-                  Machillo <span style={style.stickerLastname}>Ramirez</span>
+                  {firstName} <span style={style.stickerLastname}>{lastName}</span>
                 </div>
                 <div style={style.stickerSection}>
-                  Costa Rica
+                  {this.props.section}
                 </div>
                 <div style={style.stickerCollection}>
-                  Copa America Centenario 
+                  {this.props.collectionTitle}
                 </div>
               </div>
 
@@ -188,25 +185,10 @@ class StickerDetail extends Component {
             </div>
           </SwipeableViews>
 
-        </Paper>
       </div>
     );
   }
 }
 
-StickerDetail.propTypes = {
-}
  
-function mapStateToProps(state, ownProps){
-  return{
-    //courses: state.courses
-  }
-}
-
-function mapDispatchToProps(dispatch){
-  return {
-    //actions: bindActionCreators(sectionActions, dispatch)
-  }
-}
- 
-export default connect(mapStateToProps, mapDispatchToProps)(StickerDetail);
+export default ItemDetail;

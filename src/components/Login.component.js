@@ -2,27 +2,10 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Paper from 'material-ui/Paper';
-import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
-import IconButton from 'material-ui/IconButton';
-import SupervisorAccount from 'material-ui/svg-icons/action/supervisor-account';
-import Favorite from 'material-ui/svg-icons/action/favorite';
-import FavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
-import QuestionAnswer from 'material-ui/svg-icons/action/question-answer';
 
-
-import {Tabs, Tab} from 'material-ui/Tabs';
-import SwipeableViews from 'react-swipeable-views';
-import {List, ListItem} from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
 import Avatar from 'material-ui/Avatar';
-import SectionItem from '../components/SectionItem.component';
-import StickerItem from '../components/StickerItem.component';
-
 import SignIn from '../containers/signIn';
-
-//import * as sectionActions from '../actions/sectionActions.jsx';
- 
 
 
 const style = {
@@ -40,6 +23,7 @@ const style = {
     flex: 1,
     backgroundSize: 'cover',
     backgroundImage: 'url(../images/common/bg-login.jpg)',
+    zIndex:-100,
   },
 
   block : {
@@ -87,12 +71,7 @@ const style = {
 
 
 
-class Login extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
+const Login = (props) => {
     return (
       <div>
         <Paper style={style.backgroundPaper} zDepth={2} rounded={true}>
@@ -110,22 +89,10 @@ class Login extends Component {
         </Paper>
       </div>
     );
-  }
 }
 
 Login.propTypes = {
 }
  
-function mapStateToProps(state, ownProps){
-  return{
-    //courses: state.courses
-  }
-}
-
-function mapDispatchToProps(dispatch){
-  return {
-    //actions: bindActionCreators(sectionActions, dispatch)
-  }
-}
  
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default Login;

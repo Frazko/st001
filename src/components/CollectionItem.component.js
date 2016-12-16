@@ -86,6 +86,8 @@ class CollectionItem extends Component {
               style={style.listItem}
             />
 
+            
+{/*
             <Divider inset={true} />
             
             <ListItem
@@ -158,7 +160,7 @@ class CollectionItem extends Component {
 
               style={style.listItem}
             />
-
+*/}
           </List>
 
 

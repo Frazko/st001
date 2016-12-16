@@ -6,9 +6,6 @@ import { paths } from './router/routes';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import NavBar from './containers/NavigationBar.container';
 import NavigationDrawer from './containers/NavigationDrawer.container';
-import LogOff from './components/LogOff.component';
-import StickerDetail from './containers/StickerDetail.container';
-import UserDetail from    './containers/UserDetail.container';
 import { windowResize } from './utils';
 
 
@@ -26,10 +23,7 @@ class App extends Component {
 		window.onresize = function() {
 		    windowResize();
 		};
-		
 	}
-
-
 
 	componentWillReceiveProps(nextProps) {
 		const { router } = this.context;
@@ -45,6 +39,9 @@ class App extends Component {
 
 
 	render() {
+
+		// console.log("App children ",this.props.children);
+
 		return (
 			<MuiThemeProvider>
 				<div>

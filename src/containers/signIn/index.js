@@ -19,8 +19,8 @@ export function SignIn({signInWithGoogle, signInWithTwitter, signInWithFacebook}
         // <RaisedButton label="Twitter" primary={true} style={style} onClick={signInWithTwitter}/> 
 
 SignIn.propTypes = {
-  signInWithGoogle: PropTypes.func.isRequired,
-  signInWithTwitter: PropTypes.func.isRequired,
+  // signInWithGoogle: PropTypes.func.isRequired,
+  // signInWithTwitter: PropTypes.func.isRequired,
   signInWithFacebook: PropTypes.func.isRequired
 };
 

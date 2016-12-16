@@ -16,8 +16,8 @@ import SwipeableViews from 'react-swipeable-views';
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Avatar from 'material-ui/Avatar';
-import SectionItem from '../components/SectionItem.component';
-import StickerItem from '../components/StickerItem.component';
+import Section from '../components/Section.component';
+import Item from '../components/Item.component';
 //import * as sectionActions from '../actions/sectionActions.jsx';
  
 

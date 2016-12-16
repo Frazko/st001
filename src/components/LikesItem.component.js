@@ -65,12 +65,11 @@ class LikesItem extends Component {
   render() {
     return (
       <div>
-        <Paper style={style.backgroundPaper} zDepth={2} rounded={true}>
             
           <List>
 
             <ListItem
-              leftAvatar={<div style={style.picHolder}><Avatar style={style.pic} src="images/common/avatar4.png" /></div>}
+              leftAvatar={<div style={style.picHolder}><Avatar style={style.pic} src="/images/common/avatar4.png" /></div>}
               style={style.listItem} 
               >
               <div style={style.block}>
@@ -85,7 +84,7 @@ class LikesItem extends Component {
 
 
             <ListItem
-              leftAvatar={<div style={style.picHolder}><Avatar style={style.pic} src="images/common/avatar2.jpg" /></div>}
+              leftAvatar={<div style={style.picHolder}><Avatar style={style.pic} src="/images/common/avatar2.jpg" /></div>}
               style={style.listItem}>
               
               <div style={style.block}>
@@ -100,7 +99,7 @@ class LikesItem extends Component {
 
 
             <ListItem
-              leftAvatar={<div style={style.picHolder}><Avatar style={style.pic} src="images/common/avatar3.png" /></div>}
+              leftAvatar={<div style={style.picHolder}><Avatar style={style.pic} src="/images/common/avatar3.png" /></div>}
               style={style.listItem}>
               <div style={style.block}>
               <div style={style.blockTitle}>
@@ -114,7 +113,7 @@ class LikesItem extends Component {
 
 
             <ListItem
-              leftAvatar={<div style={style.picHolder}><Avatar style={style.pic} src="images/common/avatar.jpg" /></div>}
+              leftAvatar={<div style={style.picHolder}><Avatar style={style.pic} src="/images/common/avatar.jpg" /></div>}
               style={style.listItem}>
               <div style={style.block}>
                 <div style={style.blockTitle}>
@@ -130,7 +129,6 @@ class LikesItem extends Component {
 
 
 
-        </Paper>
       </div>
     );
   }

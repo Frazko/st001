@@ -1,18 +1,14 @@
+import React from 'react'; 
 import { isAuthenticated } from 'src/core/auth';
-import App from '../App';
 
-import Login from '../containers/Login.container';
-import Dashboard from '../containers/Dashboard.container';
-import Collections from '../containers/Collections.container';
-import Sections from '../containers/Sections.container';
-import SectionItems from '../containers/SectionItems.container';
+import App from             '../App';
+import Login from           '../components/Login.component';
+import Dashboard from       '../containers/Dashboard.container';
+import Collections from     '../containers/Collections.container';
+import Sections from        '../containers/Sections.container';
+import Items from           '../containers/Items.container';
+import ItemDetails from     '../containers/ItemDetails.container';
 
-import React from 'react';
-
-
-// const AUTH = (props) => < div > AUTH comp page < /div>; 
-
-// const TASK = (props) => < div > TASK component page < /div>; 
 
 
 export const paths = {
@@ -20,15 +16,14 @@ export const paths = {
     SIGN_IN: '/sign-in',
     DASHBOARD: '/',
     MY_COLLECTIONS: '/myCollections',
-    SECTIONS: '/sections/:collection', 
-    SECTION: '/section/:Id', 
+    SECTIONS:   '/:collection', 
+    ITEMS:      '/:collection/:section', 
+    DETAIL:     '/:collection/:section/:item', 
 };
 
 
 const requireAuth = getState => {
-    // console.log("routes::requireAuth", getState());
     return (nextState, replace) => {
-        // console.log("routes::requireAuth", !isAuthenticated(getState()));
         if (!isAuthenticated(getState())) {
             replace(paths.SIGN_IN);
         }
@@ -37,14 +32,13 @@ const requireAuth = getState => {
 
 const requireUnauth = getState => {
     return (nextState, replace) => {
-        // console.log("routes::requireUnauth", isAuthenticated(getState()));
         if (isAuthenticated(getState())) {
             replace(paths.DASHBOARD);
         }
     };
 };
 
-//  ------------------  !IMPORTANT  rout changes in App.js
+//  ------------------  !IMPORTANT  route changes in App.js
 
 export const getRoutes = getState => {
     return {
@@ -68,8 +62,12 @@ export const getRoutes = getState => {
             component: Sections,
             onEnter: requireAuth(getState)
         }, {
-            path: paths.SECTION,
-            component: SectionItems,
+            path: paths.ITEMS,
+            component: Items,
+            onEnter: requireAuth(getState)
+        }, {
+            path: paths.DETAIL,
+            component: ItemDetails,
             onEnter: requireAuth(getState)
         }
         ]
