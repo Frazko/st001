@@ -14,7 +14,8 @@ const style = {
 
   backgroundPaper:{
     width: 300,
-    margin: 20,
+    marginTop: 20,
+    marginBottom: 20,
     textAlign: 'center',
     display: 'inline-block',
     borderRadius: 6,
@@ -108,7 +109,10 @@ const Collection = (props) => {
           </div>
 
           <div style={style.cta}>
-            <RaisedButton label="View Sections" fullWidth={true} onTouchTap={props.navigateTo.bind(this, "/"+props.id)} />
+            <RaisedButton label="View Sections" 
+            fullWidth={true} 
+            onTouchTap={props.navigateTo.bind(this, "/"+props.id)} 
+            />
           </div>
 
         </Paper>

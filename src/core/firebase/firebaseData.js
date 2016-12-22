@@ -14,6 +14,7 @@ Object.filter = (obj, predicate) =>
 //-------------------------------------------------------------------------- GET COLLECTIONS DATA FROM FIREBASE  
 export function getCollections(uid) {
     console.log(">>>> getCollections", uid);
+    //TODO:: make flag for new albums added to myAlbums to load info again.
     // ----------------------------------------------------------- get user collections
     return usersRef.child(uid + "/myCollections").once("value")
         .then(snapshot => {
@@ -41,6 +42,65 @@ export function getCollections(uid) {
         });
 
 }
+
+//-------------------------------------------------------------------------- GET NEW COLLECTIONS DATA FROM FIREBASE  
+export function getNewCollections(uid) {
+    console.log(">>>> getNewCollections", uid);
+    //TODO :: get albums not in my list 
+    // ----------------------------------------------------------- save user collections to list
+    return usersRef.child(uid + "/myCollections").once("value")
+        .then(snapshot => {
+            var myCollectionsList = [];
+            snapshot.forEach(collectionId => {
+                myCollectionsList.push(collectionId.key);
+            });
+            return myCollectionsList;
+        })
+        .then(myCollectionsList => {
+            console.log("=>>> ***  myCollectionsList:: ", myCollectionsList);
+            return collectionsRef.once('value')
+                .then(collectionData => {
+                    var nList = [];
+                    collectionData.forEach(collection => {
+                        // console.log("=>>> index :: ", collection.key, myCollectionsList.indexOf(collection.key) < 0);
+                        if (myCollectionsList.indexOf(collection.key) < 0) {
+                            var collections = {};
+                            collections[collection.key] = collection.val();
+                            nList.push(collections);
+                        }
+                    });
+                    // var nList = Object.keys(collectionData.val()).filter(collection => !myCollectionsList.indexOf(collection))
+                    // console.log("=>>> nList *** ", nList);
+                    return nList;
+                });
+        });
+}
+
+//-------------------------------------------------------------------------- ADD MY COLLECTIONS   
+export function addToMyCollections(uid, collectionId) {
+    var ref = usersRef.child(uid);
+    return ref.once("value")
+        .then(snapshot => {
+            // console.log(">>>> !ref.hasChild(myCollections)", !snapshot.hasChild("myCollections"));
+            if (!snapshot.hasChild("myCollections")) {
+                snapshot.child("myCollections");
+                let obj = {};
+                obj[collectionId] = { items: [-1] };
+                console.log(">>>> obj", obj);
+                let collectionChild = ref.child("myCollections");
+                collectionChild.set(obj);
+            } else {
+                let newCollectionRef = usersRef.child(uid + "/myCollections").child(collectionId);
+                newCollectionRef.set({ items: [-1] });
+            }
+            return true;
+        }).catch(function(e) {
+            console.error("<<<<<  ERROR addToMyCollections >>>>>", e);
+            return false;
+        });
+}
+
+
 //-------------------------------------------------------------------------- GET COLLECTIONS NAMES FROM FIREBASE  
 export function getCollectionsNames() {
     // console.log(">>>> getCollectionsNames");

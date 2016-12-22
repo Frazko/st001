@@ -9,7 +9,7 @@ export function currentCollectionReducer(state = new CurrentCollectionState(), a
 	switch (action.type) {
 		case types.SAVE_CURRENT_COLLECTION_SUCCESS:
 			// console.log("SAVE_CURRENT_COLLECTION_SUCCESS ",action.currentCollection);
-			return Object.assign({}, state.currentCollection, {
+			return Object.assign({}, state, {
 				currentCollection: action.currentCollection
 			});
 			break;

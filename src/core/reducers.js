@@ -1,7 +1,8 @@
 import { routerReducer } from 'react-router-redux';
 import { combineReducers } from 'redux';
 import { authReducer } from './auth';
-import { navigationReducer } from './navigation/navigationReducers';
+import { menuReducer } from './navigation/menuReducer';
+import { navigationReducer } from './navigation/navigationReducer';
 import { userCollectionsDataReducer } from './collectionsData/dataReducers';
 import { collectionsNamesReducer } from './collectionsData/collectionsNamesReducers';
 import { accountsNamesReducer } from './collectionsData/accountsNamesReducers';
@@ -9,7 +10,8 @@ import { currentCollectionReducer } from './collectionsData/currentCollectionRed
 
 export default combineReducers({
   auth: authReducer,
-  navigation: navigationReducer,
+  menu: menuReducer,
+  nav: navigationReducer,
   routing: routerReducer,
   userCollections: userCollectionsDataReducer,
   collectionsNames: collectionsNamesReducer,

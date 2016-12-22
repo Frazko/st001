@@ -61,3 +61,19 @@ export function saveCurrentCollection(currentCollection){
 		dispatch(saveCurrentCollectionSuccess(currentCollection));
 	};
 } 
+
+
+
+export function saveNewCollectionsSuccess(newCollections){
+	// console.log("<<< Action >>> saveNewCollectionsSuccess", newCollections);
+	return {
+		type:types.SAVE_NEW_COLLECTIONS_SUCCESS, 
+		newCollections
+	};
+}
+export function saveNewCollections(newCollections){
+	// console.log("<<< Action >>> saveNewCollections", newCollections);
+	return function (dispatch){
+		dispatch(saveCurrentCollectionSuccess(newCollections));
+	};
+} 

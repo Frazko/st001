@@ -1,5 +1,7 @@
 import { browserHistory } from 'react-router'
 
+import {navBarTitleUpdate} from '../core/navigation/navigationActions.js';
+
 
 
 export function extend(obj, src) {

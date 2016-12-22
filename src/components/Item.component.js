@@ -108,8 +108,7 @@ const style = {
 
 const Item = (props) => {
     return (
-      
-
+    
             <ListItem
               className="listItemClass"
               leftAvatar={<div style={style.indexHolder}><Paper style={style.index} zDepth={2} circle={true} > {props.count} </Paper></div>}

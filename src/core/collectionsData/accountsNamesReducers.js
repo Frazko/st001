@@ -10,7 +10,7 @@ export function accountsNamesReducer(state = new AccountsNamesState(), action) {
 	switch (action.type) {
 		case types.SAVE_ACCOUNT_NAMES_SUCCESS:
 			// console.log("SAVE_ACCOUNT_NAMES_SUCCESS ",action.names);
-			return Object.assign({}, state.accountNames, {
+			return Object.assign({}, state, {
 				accountNames: action.names
 			});
 			break;

@@ -4,6 +4,7 @@ import { isAuthenticated } from 'src/core/auth';
 import App from             '../App';
 import Login from           '../components/Login.component';
 import Dashboard from       '../containers/Dashboard.container';
+import NewCollections from  '../containers/NewCollections.container';
 import Collections from     '../containers/Collections.container';
 import Sections from        '../containers/Sections.container';
 import Items from           '../containers/Items.container';
@@ -16,6 +17,7 @@ export const paths = {
     SIGN_IN: '/sign-in',
     DASHBOARD: '/',
     MY_COLLECTIONS: '/myCollections',
+    NEW_COLLECTIONS: '/newCollections',
     SECTIONS:   '/:collection', 
     ITEMS:      '/:collection/:section', 
     DETAIL:     '/:collection/:section/:item', 
@@ -53,6 +55,10 @@ export const getRoutes = getState => {
             path: paths.SIGN_IN,
             component: Login,
             onEnter: requireUnauth(getState)
+        }, {
+            path: paths.NEW_COLLECTIONS,
+            component: NewCollections,
+            onEnter: requireAuth(getState)
         }, {
             path: paths.MY_COLLECTIONS,
             component: Collections,

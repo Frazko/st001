@@ -9,8 +9,8 @@ export const UserCollectionsState = new Record({
 export function userCollectionsDataReducer(state = new UserCollectionsState(), action) {
 	switch (action.type) {
 		case types.SAVE_USER_COLLECTIONS_DATA_SUCCESS:
-			console.log("SAVE_USER_COLLECTIONS_DATA_SUCCESS ",action.collections);
-			return Object.assign({}, state.collections, {
+			// console.log("SAVE_USER_COLLECTIONS_DATA_SUCCESS ",action.collections);
+			return Object.assign({}, state, {
 				collections: action.collections
 			});
 			break;

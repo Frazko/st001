@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 
 import Collection from '../components/Collection.component';
 import * as userDataActions from '../core/collectionsData/dataActions';
+import * as navigationActions from '../core/navigation/navigationActions';
 
 import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
@@ -30,71 +31,72 @@ const styles = {
 
 class Collections extends Component {
 
-	constructor(props) {
-		super(props);
-		this.state = { };
-	}
-	componentDidMount() {
-		windowResize();
-		this.updateDimensions();
-	}
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+    componentDidMount() {
+        windowResize();
+        this.updateDimensions();
+    }
 
-	componentWillMount() {
-	    //TODO:: CHECK IF DATA ALREADY LOADED IN STORE
-	    getCollections(this.props.userData.providerData[0].uid)
-	    .then(values => {
-	    	console.log("collections::: ", values);
-	    	this.setState({ collections: values });
-            this.props.actions.saveUserData(values);
-        }).catch(function(e) {
-        	console.error("<<<<<  ERROR getCollections >>>>>", e);
-        });
+    componentWillMount() {
+        this.props.navActions.navBarTitleUpdate("My Collections");
+        //TODO:: CHECK IF DATA ALREADY LOADED IN STORE
+        getCollections(this.props.userData.providerData[0].uid)
+            .then(values => {
+                console.log("collections::: ", values);
+                this.setState({ collections: values });
+                this.props.actions.saveUserData(values);
+            }).catch(function(e) {
+                console.error("<<<<<  ERROR getCollections >>>>>", e);
+            });
 
         getCollectionsNames()
-        .then(names => {
-        	let albumNames = names.map((a) => {
-	        		let Aa = Object.keys(a)[0],
-	        		obj = {};
-	        		obj[Aa] = a[Aa].data.title;
-	        		return obj;
-	        	})
-	        	this.setState({ albumNames: albumNames });
-	        	this.props.actions.saveAlbumNames(albumNames);
-	        }).catch(function(e) {
-	        	console.error("<<<<<  ERROR getCollectionsNames >>>>>", e);
-	        });
+            .then(names => {
+                let albumNames = names.map((a) => {
+                    let Aa = Object.keys(a)[0],
+                        obj = {};
+                    obj[Aa] = a[Aa].data.title;
+                    return obj;
+                })
+                this.setState({ albumNames: albumNames });
+                this.props.actions.saveAlbumNames(albumNames);
+            }).catch(function(e) {
+                console.error("<<<<<  ERROR getCollectionsNames >>>>>", e);
+            });
 
-	        getAccountNames()
-	        .then(names => {
-	        	let accountNames = names.map((a) => {
-	        		let Aa = Object.keys(a)[0],
-	        		obj = {};
-	        		obj[Aa] = a[Aa].account;
-	        		return obj;
-	        	})
+        getAccountNames()
+            .then(names => {
+                let accountNames = names.map((a) => {
+                    let Aa = Object.keys(a)[0],
+                        obj = {};
+                    obj[Aa] = a[Aa].account;
+                    return obj;
+                })
 
-	        	// console.log("accountNames::: ", accountNames);
-	        	this.setState({ accountNames: accountNames });
-	        	this.props.actions.saveAccountNames(accountNames);
-	        }).catch(function(e) {
-	        	console.error("<<<<<  ERROR getAccountNames >>>>>", e);
-	        });
+                // console.log("accountNames::: ", accountNames);
+                this.setState({ accountNames: accountNames });
+                this.props.actions.saveAccountNames(accountNames);
+            }).catch(function(e) {
+                console.error("<<<<< collections ERROR getAccountNames >>>>>", e);
+            });
 
-	        window.addEventListener('resize', () => this.updateDimensions(), true);
-	    }
+        window.addEventListener('resize', () => this.updateDimensions(), true);
+    }
 
-	    componentWillUnmount() {
-	    	window.removeEventListener("resize", this.updateDimensions);
-	    }
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.updateDimensions);
+    }
 
-	    updateDimensions() {
-	    	let newHeight = windowResize() - 50;
-	    	this.setState({ gridList: Object.assign({}, styles.gridList, { height: newHeight }) });
-	    }
-
+    updateDimensions() {
+        let newHeight = windowResize() - 50;
+        this.setState({ gridList: Object.assign({}, styles.gridList, { height: newHeight }) });
+    }
 
 	    render(){
-	    	// console.log("***********   Render ************");
+
+
 	    	let collections=[];
 	    	// TODO:: send Stickers Numbers by getting items lenght 
 
@@ -103,24 +105,14 @@ class Collections extends Component {
 	    			let album = item[Object.keys(item)[0]];
 	    			album.data.id = Object.keys(item)[0];
 	    			album.data.accountName = this.state.accountNames.filter((account) => account[album.data.account])[0][album.data.account];
-	    			return album;
+	    			
+                    return album;
 	    		});
+
+                // this.props.actions.saveUserData(collections);
 	    	}
 
-	    	
-			console.log("render")
-
-			console.log("gridList",this.state.gridList)
-
-	    	return (<div 
-	    		style={styles.root}>
-	    		<GridList
-	    		cols={1}
-	    		cellHeight={320}
-	    		padding={1}
-	    		style={this.state.gridList}
-	    		>
-	    		{collections.map((item, i) => (
+	    	let list = (collections.length)? collections.map((item, i) => (
 
 	    			<Collection 
 	    			key={i} 
@@ -136,29 +128,39 @@ class Collections extends Component {
 	    			accountName={item.data.accountName}
 	    			navigateTo = {navigateTo}
 	    			/>
-	    			))}
+	    			)):undefined;
+
+			let noItems = <div className="noItemsToShow">No items to show. <br/>Please add a collection</div>
+
+	    	return (<div 
+	    		style={styles.root}>
+	    		<GridList
+	    		cols={1}
+	    		cellHeight={320}
+	    		padding={1}
+	    		style={this.state.gridList}
+	    		>
+	    		{list || noItems}
 	    		</GridList>
 	    		</div>
 
 	    		);
 	    }
 	}
+function mapStateToProps(state, ownProps) {
+    // console.log(">>>>>>>>> state collection", state.auth.data);
+    return {
+        userData: state.auth.data
+    }
+}
 
 
-
-	function mapStateToProps(state, ownProps) {
-	    		// console.log(">>>>>>>>> state collection", state.auth.data);
-	    		return {
-	    			userData: state.auth.data
-	    		}
-	    	}
-
-
-	    	function mapDispatchToProps(dispatch) {
-	    		return {
-	    			actions: bindActionCreators(userDataActions, dispatch)
-	    		}
-	    	}
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(userDataActions, dispatch),
+        navActions: bindActionCreators(navigationActions, dispatch),
+    }
+}
 
 
-	    	export default connect(mapStateToProps, mapDispatchToProps)(Collections);
+export default connect(mapStateToProps, mapDispatchToProps)(Collections);

@@ -9,7 +9,7 @@ export function collectionsNamesReducer(state = new CollectionsNamesState(), act
 	switch (action.type) {
 		case types.SAVE_COLLECTIONS_NAMES_SUCCESS:
 			// console.log("SAVE_COLLECTIONS_NAMES_SUCCESS ",action.names);
-			return Object.assign({}, state.collectionNames, {
+			return Object.assign({}, state, {
 				collectionNames: action.names
 			});
 			break;

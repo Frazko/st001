@@ -20,6 +20,8 @@ import Paper from 'material-ui/Paper';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 
+import AddStickers from '../components/AddStickers.component';
+
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 
 
@@ -63,15 +65,28 @@ class NavigationDrawer extends React.Component {
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      open: false,
+    }
   }
+
+  handleClose() {
+    console.log("handleClose()")
+    this.setState({ open: false });
+  };
+
 
   navigateTo(target) {
     console.log(target);
     browserHistory.push(target);
   }
 
+  addStickers() {
+    this.setState({ open: true });
+  }
   render() {
-    let {display} = this.props.navigation
+    let {display} = this.props.menu
     let {authenticated,signOut} = this.props
 
     return (
@@ -102,9 +117,10 @@ class NavigationDrawer extends React.Component {
 
           <Menu >
               <MenuItem onTouchTap={() => this.navigateTo("/")} primaryText="Home" leftIcon={<Home />} />
-              <MenuItem onTouchTap={() => this.navigateTo("/addStickers")}  primaryText="Add Stickers" leftIcon={<ImageBurstMode />} />
+              <MenuItem onTouchTap={() => this.addStickers()}  primaryText="Add Stickers" leftIcon={<ImageBurstMode />} />
+              <MenuItem onTouchTap={() => this.navigateTo("/newCollections")} primaryText="Add New Collections" leftIcon={<Collections />} />
               <MenuItem onTouchTap={() => this.navigateTo("/myCollections")} primaryText="My Collections" leftIcon={<Collections />} />
-              <MenuItem onTouchTap={() => this.navigateTo("/progress")}  primaryText="Progress" leftIcon={<Assessment />} />
+              {/*<MenuItem onTouchTap={() => this.navigateTo("/progress")}  primaryText="Progress" leftIcon={<Assessment />} />*/}
               <MenuItem onTouchTap={() => this.navigateTo("/messages")}  primaryText="Messages" leftIcon={<QuestionAnswer />} />
           </Menu>
 
@@ -114,6 +130,11 @@ class NavigationDrawer extends React.Component {
           <MenuItem onTouchTap={() => this.navigateTo("/help")} >Help</MenuItem>
           {authenticated ? <MenuItem  onTouchTap={signOut}>Log out</MenuItem>: null}
         </Drawer>
+
+        <AddStickers
+        visible = {this.state.open}
+        handleClose = {this.handleClose.bind(this)}
+        />
       </div>
     );
   }
@@ -133,7 +154,7 @@ NavigationDrawer.propTypes = {
 function mapStateToProps(state, ownProps) {
     // console.log(">>>>>>>>> state drawer", state.auth.data);
     return {
-        navigation: state.navigation,
+        menu: state.menu,
         userData: state.auth.data
     }
 }
