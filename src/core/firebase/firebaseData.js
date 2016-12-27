@@ -1,5 +1,5 @@
 import { firebaseDb } from '../firebase';
-import { deepExtend } from '../../utils';
+import { deepExtend, trimList } from '../../utils';
 
 const accountsRef = firebaseDb.ref('accounts');
 const collectionsRef = firebaseDb.ref('collections');
@@ -29,6 +29,7 @@ export function getCollections(uid) {
                         let obj = {};
                         let items = userCollectiosObj[collectionId.key].items;
                         obj[collectionId.key] = collectionData.val();
+                        obj[collectionId.key].data.id = collectionId.key;
                         obj[collectionId.key].iHave = Object.keys(items).length;
                         obj[collectionId.key].iChange = Object.keys(Object.filter(items, item => item.count > 1)).length;
                         // console.log('    items ');
@@ -94,7 +95,8 @@ export function addToMyCollections(uid, collectionId) {
                 newCollectionRef.set({ items: [-1] });
             }
             return true;
-        }).catch(function(e) {
+        })
+        .catch(function(e) {
             console.error("<<<<<  ERROR addToMyCollections >>>>>", e);
             return false;
         });
@@ -138,6 +140,42 @@ export function getAccountNames() {
             return Promise.resolve(names);
         });
 
+}
+
+//-------------------------------------------------------------------------- GET COLLECTIONS NAMES FROM FIREBASE  
+export function addStickers(uid, collection, newItems) {
+    console.log(">>>> addStickers ", uid, collection, newItems);
+    // ----------------------------------------------------------- add sticker 
+    var ref = usersRef.child(uid + "/myCollections/" + collection + "/items");
+
+    return ref.once("value")
+        .then(items => {
+            console.log(">>>> ", items.val());
+            let obj = {};
+
+            items.forEach(item => {
+                obj[item.key] = item.val();
+            })
+
+            let repeated = [];
+            let notRepeated = [];
+            newItems.forEach(newItem => {
+                //console.log("----  ", newItem);
+                if (obj[newItem]) {
+                    obj[newItem].count++;
+                    repeated.push(newItem);
+                } else {
+                    obj[newItem] = { count: 1 };
+                    notRepeated.push(newItem);
+                }
+            });
+            console.log("::::: ", obj);
+            ref.set(obj)
+            return Promise.resolve({repeated, notRepeated});
+        })
+        // .catch(function(e) {
+        //     console.error("<<<<<  ERROR addStickers >>>>>", e);
+        // });
 }
 
 

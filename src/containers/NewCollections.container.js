@@ -40,15 +40,23 @@ class NewCollections extends Component {
 
     componentWillMount() {
         this.props.navActions.navBarTitleUpdate("New Collections");
-        //TODO:: CHECK IF DATA ALREADY LOADED IN STORE
-        dataActions.getNewCollections(this.props.userData.providerData[0].uid)
-            .then(values => {
-                this.setState({ collections: values });
-                this.props.actions.saveNewCollections(values);
-                console.log("==>> collections::: ", values);
-            }).catch(function(e) {
-                console.error("<<<<<  ERROR getNewCollections >>>>>", e);
-            });
+
+        console.log("componentWillMount()");
+        console.log(">", this.props.collections.length > 0)
+        if (this.props.collections.length == 0) {
+            dataActions.getNewCollections(this.props.userData.providerData[0].uid)
+                .then(values => {
+                    this.setState({ collections: values });
+                    this.props.actions.saveNewCollections(values);
+                    console.log("==>> collections::: ", values);
+                }).catch(function(e) {
+                    console.error("<<<<<  ERROR getNewCollections >>>>>", e);
+                });
+        } else {
+            console.log("******************* HAY DATOS DE COLLECTIONS EN STORE **********************")
+            console.log("*", this.props.collections)
+            this.setState({ collections: this.props.collections });
+        }
 
         dataActions.getCollectionsNames()
             .then(names => {
@@ -183,7 +191,8 @@ class NewCollections extends Component {
 
 function mapStateToProps(state, ownProps) {
 	return {
-		userData: state.auth.data
+		userData: state.auth.data,
+        collections: state.userCollections.collections
 	}
 }
 

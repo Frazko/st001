@@ -1,6 +1,6 @@
 import { browserHistory } from 'react-router'
 
-import {navBarTitleUpdate} from '../core/navigation/navigationActions.js';
+import { navBarTitleUpdate } from '../core/navigation/navigationActions.js';
 
 
 
@@ -17,11 +17,6 @@ export function extend(obj, src) {
 
 
 export function deepExtend(destination, source) {
-    // console.log(" ")
-    // console.log(" ")
-    // console.log(" ")
-    // console.log("*************************************************\\ ");
-    // console.log("deepExtend in", Object.assign({}, destination));
 
     for (let property in source) {
         // console.log(" .  ");
@@ -34,11 +29,6 @@ export function deepExtend(destination, source) {
             destination[property] = source[property];
         }
     }
-    // console.log("deepExtend out", destination)
-    // console.log("*************************************************/");
-    // console.log(" ")
-    // console.log(" ")
-    // console.log(" ")
     return destination;
 }
 
@@ -57,6 +47,28 @@ export function windowResize() {
 }
 
 export function navigateTo(target) {
-    console.log("Routing to: ",target);
+    console.log("Routing to: ", target);
     browserHistory.push(target);
 }
+
+export function validateNumericOnly(val) {
+    return /^(?=.*\d)[\d ]+$/.test(val)
+}
+
+export function validateInRange(list, range) {
+    return trimList(list).filter((item, i)=>(item <= range));
+}
+
+export function outOfRange(list, range) {
+    return trimList(list).filter((item, i)=>(item > range));
+}
+
+export function trimList(list) {
+    return list.split(" ").filter(function(entry) { return entry.trim() != ''; });
+}
+
+export function uniqueInList(list) {
+    return list.filter((elem, pos, arr) => arr.indexOf(elem) == pos);
+}
+
+
