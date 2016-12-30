@@ -40,24 +40,22 @@ class NewCollections extends Component {
 
     componentWillMount() {
         this.props.navActions.navBarTitleUpdate("New Collections");
+        dataActions.getNewCollections(this.props.userData.providerData[0].uid)
+            .then(values => {
+                this.setState({ collections: values });
+                this.props.actions.saveNewCollections(values);
+                console.log("==>> collections::: ", values);
+            }).catch(function(e) {
+                console.error("<<<<<  ERROR getNewCollections >>>>>", e);
+            });
 
-        console.log("componentWillMount()");
-        console.log(">", this.props.collections.length > 0)
-        if (this.props.collections.length == 0) {
-            dataActions.getNewCollections(this.props.userData.providerData[0].uid)
-                .then(values => {
-                    this.setState({ collections: values });
-                    this.props.actions.saveNewCollections(values);
-                    console.log("==>> collections::: ", values);
-                }).catch(function(e) {
-                    console.error("<<<<<  ERROR getNewCollections >>>>>", e);
-                });
-        } else {
-            console.log("******************* HAY DATOS DE COLLECTIONS EN STORE **********************")
-            console.log("*", this.props.collections)
-            this.setState({ collections: this.props.collections });
-        }
-
+        // if (this.props.collections.length == 0) {
+        // } else {
+        //     console.log("******************* HAY DATOS DE COLLECTIONS EN STORE **********************")
+        //     console.log("*", this.props.collections)
+        //     this.setState({ collections: this.props.collections });
+        // }
+        /*
         dataActions.getCollectionsNames()
             .then(names => {
                 let albumNames = names.map((a) => {
@@ -87,6 +85,8 @@ class NewCollections extends Component {
             }).catch(function(e) {
                 console.error("<<<<<  ERROR getAccountNames >>>>>", e);
             });
+        */
+        this.setState({accountNames: this.props.accountNames, albumNames: this.props.collectionNames });
 
         window.addEventListener('resize', () => this.updateDimensions(), true);
     }
@@ -131,69 +131,70 @@ class NewCollections extends Component {
         />
         ];
 
-	// console.log("***********   Render ************");
-	let collections=[];
-	// TODO:: send Stickers Numbers by getting items lenght 
+    	// console.log("***********   Render ************");
+    	let collections=[];
+    	// TODO:: send Stickers Numbers by getting items lenght 
 
-	if (this.state.collections && this.state.accountNames){
-		collections= this.state.collections.map(item => {
-			let album = item[Object.keys(item)[0]];
-			album.data.id = Object.keys(item)[0];
-			album.data.accountName = this.state.accountNames.filter((account) => account[album.data.account])[0][album.data.account];
-			return album;
-		});
-	}
+    	if (this.state.collections && this.state.accountNames){
+    		collections = this.state.collections.map(item => {
+    			let album = item[Object.keys(item)[0]];
+    			album.data.id = Object.keys(item)[0];
+    			album.data.accountName = this.state.accountNames.filter((account) => account[album.data.account])[0][album.data.account];
+    			return album;
+    		});
+    	}
 
-	let list = (collections.length)?collections.map((item, i) => (
+    	let list = (collections.length)?collections.map((item, i) => (
+           <NewCollectionItem 
+           key={i} 
+           id={item.data.id} 
+           title={item.data.title}
+           totalItems={item.data.totalItems}
+           accountName={item.data.accountName}
+           year={item.data.year}
+           thumbnail={item.data.thumbnail['400x400']}
+           action={this.addToMyCollections.bind(this)}
 
-       <NewCollectionItem 
-       key={i} 
-       id={item.data.id} 
-       title={item.data.title}
-       totalItems={item.data.totalItems}
-       accountName={item.data.accountName}
-       year={item.data.year}
-       thumbnail={item.data.thumbnail['400x400']}
-       action={this.addToMyCollections.bind(this)}
+           />
+           )):undefined;
 
-       />
-       )):undefined;
+    	let noItems = <div className="noItemsToShow">No items to show.</div>
 
-	let noItems = <div className="noItemsToShow">No items to show.</div>
-
-	return (<div 
-		style={styles.root}>
+    	return (<div 
+        		style={styles.root}>
 
 
-		<GridList
-		cols={1}
-		cellHeight={340}
-		padding={1}
-		style={this.state.gridList}
-		>
-		{list || noItems}
-		</GridList>
+        		<GridList
+        		cols={1}
+        		cellHeight={340}
+        		padding={1}
+        		style={this.state.gridList}
+        		>
+        		{list || noItems}
+        		</GridList>
 
-		<Dialog
-		title="Collection Added"
-		actions={actions}
-		modal={true}
-		open={this.state.open}
-		>
-		This Collection has been added to your collections list.
-		</Dialog>
+        		<Dialog
+        		title="Collection Added"
+        		actions={actions}
+        		modal={true}
+        		open={this.state.open}
+        		>
+        		This Collection has been added to your collections list.
+        		</Dialog>
 
-		</div>
+        		</div>
 
-		);
-}
+        		);
+        }
 }
 
 function mapStateToProps(state, ownProps) {
 	return {
 		userData: state.auth.data,
-        collections: state.userCollections.collections
-	}
+        collections: state.userCollections.collections,
+        accountNames: state.accountsNames.accountNames,
+        collectionNames: state.collectionsNames.collectionNames
+    }
 }
 
 

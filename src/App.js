@@ -40,8 +40,6 @@ class App extends Component {
 
 	render() {
 
-		// console.log("App children ",this.props.children);
-
 		return (
 			<MuiThemeProvider>
 				<div>

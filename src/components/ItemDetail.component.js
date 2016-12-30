@@ -3,7 +3,7 @@ import Paper from 'material-ui/Paper';
 import SupervisorAccount from 'material-ui/svg-icons/action/supervisor-account';
 import Favorite from 'material-ui/svg-icons/action/favorite';
 import FavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
-
+import FloatingActionButton from 'material-ui/FloatingActionButton';
 
 import {Tabs, Tab} from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
@@ -15,7 +15,6 @@ import OwnersItem from '../components/OwnersItem.component';
 
 
 const style = {
-
   backgroundPaper:{
     width: '100%',
     textAlign: 'center',
@@ -53,20 +52,6 @@ const style = {
     // background:'#AAAAFF',
 
   },
-  stickersAmout : {
-    position:'relative',
-    width: 50,
-    height: 50,
-    fontSize:26,
-    fontWeight:'bold',
-    color: '#666666',
-    padding:14,
-    marginLeft:26,
-    top:-15,
-    useSelect: 'none',
-    // background:'#AAAAFF',
-
-  },
 
 
   stickerIndex : {
@@ -80,28 +65,64 @@ const style = {
 
   stickerName : {
     position:'relative',
-    fontSize:20,
-
+    fontSize:30,
     marginRight:6,
-    height: 20,
+    height: 28,
   },
+
   stickerLastname : {
     position:'relative',
     fontWeight:'bold',
-    fontSize:22,
+    fontSize:32,
 
   },
   stickerSection : {
-    fontSize:12,
+    fontSize:14,
     marginRight:6,
     // background:'#FFAAFF',
-    height: 16,
+    height: 20,
   },
+
   stickerCollection : {
-    fontSize:10,
+    fontSize:14,
     marginRight:6,
     // background:'#AAAAFF',
     height: 16,
+  },
+
+  stickersAmout : {
+    position:'relative',
+    width: 50,
+    height: 50,
+    fontSize:26,
+    fontWeight:'bold',
+    color: '#666666',
+    padding:10,
+    paddingTop:14,
+    paddingLeft:10,
+    // marginLeft:26,
+    textAlign:'center',
+    top:-15,
+    useSelect: 'none',
+    // background:'#AAAAFF',
+
+  },
+
+  addFavoriteButton:{
+    textAlign: 'center',
+    margin: 20,
+
+  },
+
+  amountNFavBlock:{
+    width:'140px',
+    height:'100px',
+    display:'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center', 
+    // background:'#FFAAFF',
+
   },
 
 }; 
@@ -113,6 +134,7 @@ class ItemDetail extends Component {
     super(props);
     this.state = {
       slideIndex: 0,
+      isFavorite:false,
     };
   }
 
@@ -120,7 +142,12 @@ class ItemDetail extends Component {
     this.setState({
       slideIndex: value,
     });
-  };
+  }
+  addToFavorite(){
+    this.setState({
+      isFavorite:!this.state.isFavorite,
+    })
+  }
 
   render() {
     console.log('item', this.props.item)
@@ -132,15 +159,32 @@ class ItemDetail extends Component {
 
           <div>
             <Paper style={style.backgroundPaperHeader} zDepth={1}>
-
               <div style={style.block}>
+
+
+
                 <div style={style.stickerHeader}>
-                  <Paper style={style.stickersAmout} zDepth={2} circle={true} >
-                  {item.count || 0}
-                  </Paper>
+
+                    <div style={style.amountNFavBlock}>
+                      <Paper style={style.stickersAmout} zDepth={2} circle={true} >
+                      {item.count || 0}
+                      </Paper>
+                  
+                      <FloatingActionButton  
+                      secondary={true} 
+                      style={style.addFavoriteButton}
+                      onTouchTap={this.addToFavorite.bind(this)}
+                      >
+                        {this.state.isFavorite?<FavoriteBorder />:<Favorite />}
+                      </FloatingActionButton>
+
+                    </div>
+
                   <div style={style.stickerIndex}>
                     #{item.itemData.number}
                   </div>
+
+
                 </div>
                 <div style={style.stickerName}>
                   {firstName} <span style={style.stickerLastname}>{lastName}</span>

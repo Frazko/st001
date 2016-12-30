@@ -96,7 +96,7 @@ class OwnersItem extends Component {
               style={style.listItem}>
               <div style={style.block}>
                 <div style={style.blockTitle}>
-                  <h1>Cantinflas Ramirez</h1>
+                  <div className="itemTitle">Cantinflas Ramirez</div>
                 </div>
                 <div style={style.socialBlock}>
                   <div >
@@ -117,7 +117,7 @@ class OwnersItem extends Component {
               
               <div style={style.block}>
               <div style={style.blockTitle}>
-                <h1>Neymar Jordi Alba</h1>
+                <div className="itemTitle">Neymar Jordi Alba</div>
               </div>
               <div style={style.socialBlock}>
                   <div >
@@ -135,7 +135,7 @@ class OwnersItem extends Component {
               >
               <div style={style.block}>
               <div style={style.blockTitle}>
-                <h1>Suarez Messi</h1>
+                <div className="itemTitle">Suarez Messi</div>
               </div>
               <div style={style.socialBlock}>
                   <div >
@@ -155,7 +155,7 @@ class OwnersItem extends Component {
               style={style.listItem}>
               <div style={style.block}>
               <div style={style.blockTitle}>
-                <h1>Huang Bowen </h1>
+                <div className="itemTitle">Huang Bowen </div>
               </div>
               <div style={style.socialBlock}>
                   <div >

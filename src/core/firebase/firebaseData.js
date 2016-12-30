@@ -150,7 +150,7 @@ export function addStickers(uid, collection, newItems) {
 
     return ref.once("value")
         .then(items => {
-            console.log(">>>> ", items.val());
+            // console.log(">>>> ", items.val());
             let obj = {};
 
             items.forEach(item => {
@@ -169,8 +169,9 @@ export function addStickers(uid, collection, newItems) {
                     notRepeated.push(newItem);
                 }
             });
-            console.log("::::: ", obj);
-            ref.set(obj)
+            // console.log("::::: ", obj);
+            
+            //ref.set(obj)
             return Promise.resolve({repeated, notRepeated});
         })
         // .catch(function(e) {

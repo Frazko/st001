@@ -74,7 +74,7 @@ class LikesItem extends Component {
               >
               <div style={style.block}>
               <div style={style.blockTitle}>
-                <h1>Suarez Messi</h1>
+                  <div className="itemTitle">Suarez Messi</div>
               </div>
               </div>
             </ListItem>
@@ -89,7 +89,7 @@ class LikesItem extends Component {
               
               <div style={style.block}>
               <div style={style.blockTitle}>
-                <h1>Suarez-Messi-Neymar-Jordi Alba</h1>
+                  <div className="itemTitle">Suarez-Messi-Neymar-Jordi Alba</div>
               </div>
               </div>
             </ListItem>
@@ -103,7 +103,7 @@ class LikesItem extends Component {
               style={style.listItem}>
               <div style={style.block}>
               <div style={style.blockTitle}>
-                <h1>Huang Bowen / Gao Lin / Ricardo Goulart</h1>
+                <div className="itemTitle">Huang Bowen / Gao Lin / Ricardo Goulart</div>
               </div>
               </div>
             </ListItem>
@@ -117,7 +117,7 @@ class LikesItem extends Component {
               style={style.listItem}>
               <div style={style.block}>
                 <div style={style.blockTitle}>
-                  <h1>Osmar Mares / José Guerrero / Rubens Sambuesa / Francisco Murillo / Cantinflas / Machillo Ramirez</h1>
+                  <div className="itemTitle">Osmar Mares / José Guerrero / Rubens Sambuesa / Francisco Murillo / Cantinflas / Machillo Ramirez</div>
                 </div>
               </div>
             </ListItem>

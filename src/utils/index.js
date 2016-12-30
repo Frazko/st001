@@ -64,7 +64,7 @@ export function outOfRange(list, range) {
 }
 
 export function trimList(list) {
-    return list.split(" ").filter(function(entry) { return entry.trim() != ''; });
+    return list.split(" ").filter(function(entry) { return (entry.trim() != '' && entry.trim() != 0); });
 }
 
 export function uniqueInList(list) {

@@ -120,7 +120,7 @@ const Item = (props) => {
               
               <div style={style.block}>
                 <div style={style.blockTitle}>
-                  <h1>{props.title}</h1>
+                  <div className="itemTitle">{props.title}</div>
                 </div>
                 <div style={style.socialBlock}>
 
