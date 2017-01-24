@@ -26,6 +26,7 @@ class ItemDetails extends Component {
 		// console.log(".. ", this.props.params.collection, this.props.params.section, this.props.params.item);
 		return (<div> 
 			<ItemDetail 
+			friendsWithThisCollection = {this.state.currentCollection.friendsWithThisCollection}
 			collectionTitle = {this.state.currentCollection.data.title}
 			accountName = {this.state.currentCollection.data.accountName}
 			section = {this.state.currentCollection.sections[this.props.params.section]}

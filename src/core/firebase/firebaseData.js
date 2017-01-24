@@ -4,7 +4,8 @@ import { deepExtend, trimList } from '../../utils';
 const accountsRef = firebaseDb.ref('accounts');
 const collectionsRef = firebaseDb.ref('collections');
 const usersRef = firebaseDb.ref('users');
-var uid = "";
+var uid = '';
+var token = '';
 
 Object.filter = (obj, predicate) =>
     Object.keys(obj)
@@ -81,7 +82,7 @@ export function getFriendsItems(userid, collectionId) {
                                     for (let i in friendCollection.val().items) {
                                         arr[i] = friendCollection.val().items[i]
                                     };
-                                    return { friendId: friend.key, items: arr };
+                                    return { friendId: friend.key, items: arr, name: friend.val().name, profileImage: friend.val().profileImage };
                                 })
 
                             // console.log('1 reads', reads);
@@ -336,11 +337,11 @@ export function addFavorite(itemOrigin, add) {
 export function createUser(result) {
     // console.log("createUser");
     //
-    // console.log("token", result.credential.accessToken);
-    let uid = "";
+    // let uid = "";
     let userChild = "";
-    let token = result.credential.accessToken;
     let user = result.user;
+    token = result.credential.accessToken;
+    console.log("token", result.credential.accessToken);
     //
     usersRef.once("value", snapshot => {
         console.log("***** USER AUTH *****");
@@ -376,16 +377,40 @@ export function createUser(result) {
         // test get user FRIENDS
         FB.api('/me/friends', { access_token: token },
             response => {
-                console.log("friends", response.data);
+                // console.log("friends", response.data);
                 let friends = {};
                 for (let friend of response.data) {
-                    friends[friend.id] = true;
+                    friends[friend.id] = { name: friend.name };
                 }
-                console.log("friends", friends);
-                userChild.child("friends").set(friends);
+                // console.log("friends", friends);
+
+                storeImages(friends).then((result) => {
+                    console.log("friends then >>> ", friends);
+                    userChild.child("friends").set(friends);
+                });
             });
 
 
     });
 
+}
+
+function storeImages(friends) {
+    var reads = [];
+    for (let friend in friends) {
+        // console.log('>>>> ', friend);
+        var promise = new Promise(
+            (resolve, reject) => {
+                FB.api('/' + friend + '/picture?width=180&height=180', { access_token: token },
+                    response => {
+                        if (response && !response.error) {
+                            // console.log("image URL", response.data.url);
+                            resolve(friends[friend].profileImage = response.data.url);
+                        }
+                    }
+                );
+            })
+        reads.push(promise);
+    };
+    return Promise.all(reads);
 }

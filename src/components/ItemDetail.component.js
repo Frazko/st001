@@ -15,7 +15,7 @@ import OwnersItem from '../components/OwnersItem.component';
 import Add from 'material-ui/svg-icons/content/add';
 import Remove from 'material-ui/svg-icons/content/remove';
 
-import { addRemoveItem, addFavorite } from "../core/firebase/firebaseData"
+import { addRemoveItem, addFavorite, getFriendsProfilePicture } from "../core/firebase/firebaseData"
 
 
 const style = {
@@ -233,6 +233,11 @@ class ItemDetail extends Component {
     const [firstName, ...lastName] = item.itemData.title.split(" ");
 
 
+
+    const friendsIdList = this.props.friendsWithThisCollection;//.map(item=>item.friendId);
+    console.log('friendsIdList: ',friendsIdList);
+
+
     return (
       <div>
 
@@ -240,9 +245,9 @@ class ItemDetail extends Component {
             <Paper style={style.backgroundPaperHeader} zDepth={1}>
               <div style={style.block}>
 
-                <div className={"row"} style={style.stickerHeader}>
+                <div style={style.stickerHeader}>
 
-                  <div className={"col-xs-12 col-sm-4"} style={style.amountNFavBlock}>
+                  <div style={style.amountNFavBlock}>
 
                     <div style={style.actionBar}>
 
@@ -257,7 +262,6 @@ class ItemDetail extends Component {
                         <FloatingActionButton 
                         style={style.amount}
                         disabled={true}
-                        disabledColor={colors.amountColor}
                         >
                           {item.count || "0"}
                         </FloatingActionButton>
@@ -282,7 +286,7 @@ class ItemDetail extends Component {
 
                   </div>
 
-                  <div className={"col-xs-12 col-sm-8"}  style={style.infoBlock}>
+                  <div  style={style.infoBlock}>
 
                       <div style={style.stickerIndex}>
                       #{item.itemData.number}
@@ -330,7 +334,7 @@ class ItemDetail extends Component {
             onChangeIndex={this.handleChange}
           >
             <div>
-              <LikesItem/>
+              <LikesItem/> 
             </div>
             <div >
               <OwnersItem/>
