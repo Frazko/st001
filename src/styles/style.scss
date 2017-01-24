@@ -1,77 +1,80 @@
 $color: white;
-html ,body{
-	font-family: 'Roboto', sans-serif;
-	-webkit-font-smoothing: antialiased;
-	height: 100%;
-	background-color: $color;
-	font-family: 'Roboto', sans-serif;
-	margin: 0;
-	font-size: 15px;
-	line-height: 24px;
-	max-width: 768px;
-	height: 100%;
+html,
+body {
+    font-family: 'Roboto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    height: 100%;
+    background-color: $color;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    font-size: 15px;
+    line-height: 24px;
+    max-width: 1768px;
+    height: 100%;
 }
 
 ul {
-	list-style-type: none;
+    list-style-type: none;
 }
 
 a {
-	color: #ff4081;
-	text-decoration: none;
+    color: #ff4081;
+    text-decoration: none;
 }
 
 a:hover {
-	text-decoration: underline;
+    text-decoration: underline;
 }
 
-
-body, h1, h2, h3, h4, h5, h6 {
-	margin: 0;
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
 }
 
-h1{
-	font-size: 18px;
-	font-weight: bold;
-}
-h2{
-	font-size: 16px;
-	font-weight: bold;
+h1 {
+    font-size: 18px;
+    font-weight: bold;
 }
 
-h3{
-	font-size: 13px;
-	font-weight: normal;
+h2 {
+    font-size: 16px;
+    font-weight: bold;
 }
 
-.itemTitle{
-	font-size: 18px;
-	font-weight: normal;
-
+h3 {
+    font-size: 13px;
+    font-weight: normal;
 }
 
-
-.albumImage{
-	-webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
-	-moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
-	box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+.itemTitle {
+    font-size: 18px;
+    font-weight: normal;
 }
 
-.sectionsHeader{
-	margin:30px;
-	color: #666666;
-	font-size: 22px;
-	font-weight: bold;
-
+.albumImage {
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.75);
 }
 
-.noItemsToShow{
-	font-size: 22px;
-	font-weight: bold;
-	color: #999999;
-	margin: 30px;
+.sectionsHeader {
+    margin: 30px;
+    color: #666666;
+    font-size: 22px;
+    font-weight: bold;
 }
 
+.noItemsToShow {
+    font-size: 22px;
+    font-weight: bold;
+    color: #999999;
+    margin: 30px;
+}
 
 ////////////////////////////////////////
 ///

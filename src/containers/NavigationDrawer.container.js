@@ -112,7 +112,7 @@ class NavigationDrawer extends React.Component {
               </span>
             </div>
           }>
-            <img src="images/common/landscape-avatar.jpg" />
+            <img src="/images/common/landscape-avatar.jpg" />
           </CardMedia>
 
           <Menu >

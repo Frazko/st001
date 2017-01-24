@@ -31,11 +31,11 @@ const style = {
   },
   backgroundPaperHeader:{
     width: '100%',
-    height: 240,
+    // minHeight: 240,
     padding:10,
     flex: 1,
     backgroundSize: 'cover',
-    backgroundImage: 'url(/images/common/bg-image.png)',
+    backgroundImage: 'url(/images/common/bg-image.png)'
   },
 
   block : {
@@ -50,7 +50,8 @@ const style = {
 
   stickerHeader : {
     width:'100%',
-    display:'flex',
+    display:'flex',    
+    flexWrap: 'wrap-reverse',
     justifyContent: 'space-between',
     alignItems: 'center', 
     // background:'#FFAAAA',
@@ -60,7 +61,10 @@ const style = {
 
   infoBlock : {
     // background:'#AA0AFF',
-    width: '100%',
+    // width: '100%',
+    margin: '20px 0 20px 0',
+    minWidth:'300px',
+    flex:1,
     height: 200,
     display:'flex',
     flexDirection: 'column',
@@ -78,8 +82,9 @@ const style = {
 
   stickerName : {
     fontSize:30,
-    marginRight:6,
-    height: 28,
+    margin: '0 6px 6px 0',
+    // height: 28,
+    textAlign: 'right'
   },
 
   stickerLastname : {
@@ -104,16 +109,19 @@ const style = {
 
   amountNFavBlock:{
     // background:'#FFAAFF',
-    width:'220px',
+    margin: '20px 0 20px 0',
+    flex:1,
+    width:'300px',
     display:'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center', 
-    marginLeft:20,
+    // marginLeft:20,
   },
 
   actionBar : {
-    width:200,
+    //width:200,
+    width: '210px',
     height:56,
     display:'flex',
     justifyContent: 'space-between',
