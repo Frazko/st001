@@ -23,7 +23,7 @@ class ItemDetails extends Component {
 
 
 	render() {
-		console.log(".. ", this.props.params.collection, this.props.params.section, this.props.params.item);
+		// console.log(".. ", this.props.params.collection, this.props.params.section, this.props.params.item);
 		return (<div> 
 			<ItemDetail 
 			collectionTitle = {this.state.currentCollection.data.title}
@@ -34,6 +34,8 @@ class ItemDetails extends Component {
 			</div> );
 	}
 }
+
+
 
 
 function mapStateToProps(state, ownProps) {

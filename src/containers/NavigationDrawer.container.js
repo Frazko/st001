@@ -105,7 +105,7 @@ class NavigationDrawer extends React.Component {
             <div>
               <Avatar 
               style={style.avatar}
-                src={this.props.userData.photoURL} 
+                src={this.props.userData.photoURL||""} 
               />
               <span style={style.displayName}>
                 {this.props.userData.displayName}
@@ -118,9 +118,10 @@ class NavigationDrawer extends React.Component {
           <Menu >
               <MenuItem onTouchTap={() => this.navigateTo("/")} primaryText="Home" leftIcon={<Home />} />
               <MenuItem onTouchTap={() => this.addStickers()}  primaryText="Add Stickers" leftIcon={<ImageBurstMode />} />
-              <MenuItem onTouchTap={() => this.navigateTo("/newCollections")} primaryText="Add New Collections" leftIcon={<Collections />} />
               <MenuItem onTouchTap={() => this.navigateTo("/myCollections")} primaryText="My Collections" leftIcon={<Collections />} />
+              <MenuItem onTouchTap={() => this.navigateTo("/newCollections")} primaryText="Add New Collections" leftIcon={<Collections />} />
               {/*<MenuItem onTouchTap={() => this.navigateTo("/progress")}  primaryText="Progress" leftIcon={<Assessment />} />*/}
+              <MenuItem primaryText="My Friends" leftIcon={<QuestionAnswer />} />
               <MenuItem onTouchTap={() => this.navigateTo("/messages")}  primaryText="Messages" leftIcon={<QuestionAnswer />} />
           </Menu>
 

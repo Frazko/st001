@@ -32,6 +32,20 @@ export function deepExtend(destination, source) {
     return destination;
 }
 
+
+export function mergeFriends(destination, source) {
+    source.forEach((item, i) => {
+        if (i != 0) {
+            destination[i].likes = destination[i].likes || 0;
+            destination[i].owners = destination[i].owners || 0;
+
+            destination[i].likes = (item.like) ? destination[i].likes + 1 : 0;
+            destination[i].owners = (item.count > 1) ? destination[i].owners + 1 : 0;
+        }
+    });
+}
+
+
 Object.filter = (obj, predicate) =>
     Object.keys(obj)
     .filter(key => predicate(obj[key]))
@@ -56,19 +70,19 @@ export function validateNumericOnly(val) {
 }
 
 export function validateInRange(list, range) {
-    return trimList(list).filter((item, i)=>(item <= range));
+    return trimList(list).filter((item, i) => (item <= range));
 }
 
 export function outOfRange(list, range) {
-    return trimList(list).filter((item, i)=>(item > range));
+    return trimList(list).filter((item, i) => (item > range));
 }
 
 export function trimList(list) {
-    return list.split(" ").filter(function(entry) { return (entry.trim() != '' && entry.trim() != 0); });
+    return list.split(" ").filter(function(entry) {
+        return (entry.trim() != '' && entry.trim() != 0);
+    });
 }
 
 export function uniqueInList(list) {
     return list.filter((elem, pos, arr) => arr.indexOf(elem) == pos);
 }
-
-

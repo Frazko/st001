@@ -4,6 +4,7 @@ import { deepExtend, trimList } from '../../utils';
 const accountsRef = firebaseDb.ref('accounts');
 const collectionsRef = firebaseDb.ref('collections');
 const usersRef = firebaseDb.ref('users');
+var uid = "";
 
 Object.filter = (obj, predicate) =>
     Object.keys(obj)
@@ -12,20 +13,21 @@ Object.filter = (obj, predicate) =>
 
 
 //-------------------------------------------------------------------------- GET COLLECTIONS DATA FROM FIREBASE  
-export function getCollections(uid) {
-    console.log(">>>> getCollections", uid);
+export function getCollections(userid) {
+    console.log(">>>> getCollections", userid);
+    uid = userid;
     //TODO:: make flag for new albums added to myAlbums to load info again.
     // ----------------------------------------------------------- get user collections
     return usersRef.child(uid + "/myCollections").once("value")
         .then(snapshot => {
             var reads = [];
             let userCollectiosObj = snapshot.val();
-            // console.log('userCollectiosObj', userCollectiosObj);
+            console.log('userCollectiosObj', userCollectiosObj);
             snapshot.forEach(collectionId => {
                 // ----------------------------------------------- get Collection data and merge in user data
                 var promise = collectionsRef.child(collectionId.key).once('value')
                     .then(collectionData => {
-                        // console.log('collectionId.key ', collectionId.key);
+                        console.log('collectionId.key ', collectionId.key);
                         let obj = {};
                         let items = userCollectiosObj[collectionId.key].items;
                         obj[collectionId.key] = collectionData.val();
@@ -34,7 +36,21 @@ export function getCollections(uid) {
                         obj[collectionId.key].iChange = Object.keys(Object.filter(items, item => item.count > 1)).length;
                         // console.log('    items ');
                         deepExtend(obj[collectionId.key].items, userCollectiosObj[collectionId.key].items);
-                        // console.log('    ------ getCollections obj ', obj);
+                        // console.log('    ------ getCollections obj ', obj[collectionId.key].items);
+
+                        getFriendsItems(uid, collectionId.key)
+                            .then(values => {
+                                console.log("::::::::::::: ", values);
+                                let fwtc = values.filter(Boolean);
+                                console.log("------------- ", fwtc);
+                                if (fwtc.length > 0) {
+                                    obj[collectionId.key].friendsWithThisCollection = fwtc;
+                                }
+                            }).catch(function(e) {
+                                console.error("<<<<<  ERROR getFriendsItems in AddStickers >>>>>", e);
+                            });
+
+
                         return obj;
                     });
                 reads.push(promise);
@@ -42,6 +58,46 @@ export function getCollections(uid) {
             return Promise.all(reads);
         });
 
+}
+
+//-------------------------------------------------------------------------- GET FRIENDS ITEMS 
+export function getFriendsItems(userid, collectionId) {
+    console.log(">>>> getFriendsItems", uid, collectionId);
+    // ----------------------------------------------------------- get user collections
+    return usersRef.child(uid + "/friends").once("value")
+        .then(friends => {
+            var reads = [];
+            friends.forEach(friend => {
+                let friendCollectionRef = usersRef.child(friend.key + "/myCollections/"); //.child(collectionId)
+                var promise1 = friendCollectionRef.once('value')
+                    .then(friendsData => {
+                        var promise2 = undefined
+                        if (friendsData.hasChild(collectionId)) {
+                            console.log('hasChild', collectionId);
+                            promise2 = friendCollectionRef.child(collectionId).once('value')
+                                .then(friendCollection => {
+                                    let arr = [];
+                                    // obj to Array
+                                    for (let i in friendCollection.val().items) {
+                                        arr[i] = friendCollection.val().items[i]
+                                    };
+                                    return { friendId: friend.key, items: arr };
+                                })
+
+                            // console.log('1 reads', reads);
+                        } else {
+                            console.log('NO hasChild', collectionId);
+                        }
+                        return promise2
+                    }).then(result => {
+                        // console.log('promise1', result);
+                        return result;
+                    });
+                reads.push(promise1);
+            });
+            // console.log('2 reads', reads);
+            return Promise.all(reads);
+        });
 }
 
 //-------------------------------------------------------------------------- GET NEW COLLECTIONS DATA FROM FIREBASE  
@@ -123,7 +179,7 @@ export function getCollectionsNames() {
 
 }
 
-//-------------------------------------------------------------------------- GET COLLECTIONS NAMES FROM FIREBASE  
+//-------------------------------------------------------------------------- GET ACCOUNT NAMES FROM FIREBASE  
 export function getAccountNames() {
     // console.log(">>>> getAccountNames");
     // ----------------------------------------------------------- get user collections
@@ -142,7 +198,7 @@ export function getAccountNames() {
 
 }
 
-//-------------------------------------------------------------------------- GET COLLECTIONS NAMES FROM FIREBASE  
+//-------------------------------------------------------------------------- ADD STICKERS  
 export function addStickers(uid, collection, newItems) {
     console.log(">>>> addStickers ", uid, collection, newItems);
     // ----------------------------------------------------------- add sticker 
@@ -170,15 +226,109 @@ export function addStickers(uid, collection, newItems) {
                 }
             });
             // console.log("::::: ", obj);
-            
-            //ref.set(obj)
-            return Promise.resolve({repeated, notRepeated});
+
+            ref.set(obj)
+            return Promise.resolve({ repeated, notRepeated });
         })
         // .catch(function(e) {
         //     console.error("<<<<<  ERROR addStickers >>>>>", e);
         // });
 }
 
+
+
+//-------------------------------------------------------------------------- ADD / REMOVE INDIVIDUAL ITEM  
+export function addRemoveItem(itemOrigin, add) {
+    //add is boolean.. means adds or removes
+    //TODO:: REMOVE ITEM ON  0
+    console.log(">>>> addRemoveSticker ", uid, itemOrigin, add);
+    // ----------------------------------------------------------- add sticker 
+    var itemsRef = usersRef.child(uid + "/myCollections/" + itemOrigin.itemData.collection + "/items");
+    // item.itemData.number
+    return itemsRef.once("value")
+        .then(items => {
+            console.log("items", items.val()[itemOrigin.itemData.number.toString()]);
+            let obj = {}
+            var itemChild = itemsRef.child(itemOrigin.itemData.number);
+            console.log("itemChild", itemChild);
+            console.log(itemOrigin.itemData.number)
+            console.log(items.hasChild(itemOrigin.itemData.number.toString()))
+
+            if (items.hasChild(itemOrigin.itemData.number.toString())) {
+                console.log(">>>> ", items.val());
+                let count = items.val()[itemOrigin.itemData.number].count || 0;
+                let like = items.val()[itemOrigin.itemData.number].like || false;
+                if (add) {
+                    count++;
+                } else {
+                    if (count > 0)
+                        count--;
+                }
+                obj['count'] = count;
+                if (like)
+                    obj['like'] = like;
+                console.log("::::: ", obj);
+                itemChild.set(obj)
+            } else {
+                let count = 0;
+                if (add) {
+                    count = 1;
+                }
+                let like = itemOrigin.like || false;
+                obj['count'] = count;
+                if (like)
+                    obj['like'] = like;
+                itemChild.set(obj)
+            }
+            return Promise.resolve(obj);
+        })
+        .catch(function(e) {
+            console.error("<<<<<  ERROR addRemoveItem >>>>>", e);
+        });
+}
+
+
+//-------------------------------------------------------------------------- add like  
+export function addFavorite(itemOrigin, add) {
+    console.log(">>>> addRemoveSticker ", uid, itemOrigin, add);
+    // ----------------------------------------------------------- add sticker 
+    var itemsRef = usersRef.child(uid + "/myCollections/" + itemOrigin.itemData.collection + "/items");
+    // item.itemData.number
+    return itemsRef.once("value")
+        .then(items => {
+            let obj = {}
+            var itemChild = itemsRef.child(itemOrigin.itemData.number);
+
+            if (items.hasChild(itemOrigin.itemData.number.toString())) {
+                console.log(">>>> ", items.val());
+                let count = items.val()[itemOrigin.itemData.number].count || 0;
+                let like;
+                if (add) {
+                    like = true;
+                } else {
+                    like = false;
+                }
+                obj = { count, like };
+                console.log("::::: ", obj);
+                itemChild.set(obj)
+            } else {
+                let count = 0;
+                let like;
+                if (add) {
+                    like = true;
+                } else {
+                    like = false;
+                }
+
+                obj = { count, like };
+                itemChild.set(obj)
+            }
+            return Promise.resolve(obj);
+        })
+        .catch(function(e) {
+            console.error("<<<<<  ERROR addFavorite >>>>>", e);
+        });
+}
 
 
 
@@ -197,13 +347,14 @@ export function createUser(result) {
         uid = user.providerData[0].uid;
         // console.log(JSON.stringify(user));
         // CHECK IF USER EXISTS
+        var userChild = usersRef.child(uid);
+
         if (snapshot.hasChild(uid)) {
             console.log('************ USER EXISTS ************');
         } else {
             console.log('************ CREATE USER  ************');
             console.log("uid", uid);
             // Create user child 
-            var userChild = usersRef.child(uid);
             userChild.set({
                 userData: {
                     //TEST DATA
@@ -213,26 +364,26 @@ export function createUser(result) {
                 }
             });
 
-            // test get user Image
-            FB.api('/me/picture?width=180&height=180', { access_token: token },
-                response => {
-                    console.log("Profile pic", response.data.url);
-                });
+            // // test get user Image
+            // FB.api('/me/picture?width=180&height=180', { access_token: token },
+            //     response => {
+            //         console.log("Profile pic", response.data.url);
+            //     });
 
-
-            // test get user FRIENDS
-            FB.api('/me/friends', { access_token: token },
-                response => {
-                    console.log("friends", response.data);
-                    let friends = {};
-                    for (let friend of response.data) {
-                        friends[friend.id] = true;
-                    }
-                    console.log("friends", friends);
-                    userChild.child("friends").set(friends);
-                });
 
         }
+
+        // test get user FRIENDS
+        FB.api('/me/friends', { access_token: token },
+            response => {
+                console.log("friends", response.data);
+                let friends = {};
+                for (let friend of response.data) {
+                    friends[friend.id] = true;
+                }
+                console.log("friends", friends);
+                userChild.child("friends").set(friends);
+            });
 
 
     });

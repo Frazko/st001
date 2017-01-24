@@ -9,6 +9,7 @@ import Item from '../components/Item.component';
 import Divider from 'material-ui/Divider';
 
 
+
 const styles = {
 	root: {
 		textAlign: 'center',
@@ -44,7 +45,6 @@ class Items extends Component {
 	componentWillMount(){
 		console.log("componentWillMount")
 		window.addEventListener('resize', () => this.updateDimensions(), true);
-
 
 		this.state.items= this.props.currentCollection.data.totalItemsBySection[this.props.params.section]; //
 		this.state.collectionId= this.props.currentCollection.data.id;
@@ -87,8 +87,8 @@ class Items extends Component {
 					sectionId={section}
 					count = {item.count || 0}
 					iLike= {item.like}
-					owners={(item.owners || []).length }
-					likes={(item.likes || []).length}
+					owners={item.owners || 0}
+					likes={item.likes || 0}
 					navigateTo = {navigateTo}
 
 
@@ -105,7 +105,7 @@ class Items extends Component {
 }
 
 function mapStateToProps(state, ownProps){
-	// console.log("props", state.currentCollection)
+	console.log(">> currentCollection props", state.currentCollection)
 	return{
 		currentCollection: state.currentCollection.currentCollection
 	}

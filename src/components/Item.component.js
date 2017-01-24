@@ -134,7 +134,7 @@ const Item = (props) => {
                   <div>
                     <IconButton style={style.socialBlockIcon}>
 
-                      {props.owners? <SupervisorAccount /> : <PeopleOutline /> }
+                      {props.count? <SupervisorAccount /> : <PeopleOutline /> }
 
                     </IconButton>
                     <span style={style.socialBlockSpan}> {props.owners}</span>

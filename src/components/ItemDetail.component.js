@@ -12,6 +12,10 @@ import {List, ListItem} from 'material-ui/List';
 import LikesItem from '../components/LikesItem.component';
 import OwnersItem from '../components/OwnersItem.component';
  
+import Add from 'material-ui/svg-icons/content/add';
+import Remove from 'material-ui/svg-icons/content/remove';
+
+import { addRemoveItem, addFavorite } from "../core/firebase/firebaseData"
 
 
 const style = {
@@ -35,11 +39,11 @@ const style = {
   },
 
   block : {
-    // background:'#AAAAFF',
+    // background:'#AAFFFF',
+    // marginRight:10,
     display:'flex',
     flexDirection: 'column',
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end', 
+    justifyContent: 'center',
     height:'100%',
     color: '#FFFFFF',
   },
@@ -48,30 +52,37 @@ const style = {
     width:'100%',
     display:'flex',
     justifyContent: 'space-between',
-    // alignItems: 'center', 
-    // background:'#AAAAFF',
+    alignItems: 'center', 
+    // background:'#FFAAAA',
 
   },
 
 
+  infoBlock : {
+    // background:'#AA0AFF',
+    width: '100%',
+    height: 200,
+    display:'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end', 
+
+  },
+
   stickerIndex : {
-    position:'relative',
     fontSize:100,
     fontWeight:'bold',
     marginBottom:40,
-    // background:'#AAAAFF',
 
   },
 
   stickerName : {
-    position:'relative',
     fontSize:30,
     marginRight:6,
     height: 28,
   },
 
   stickerLastname : {
-    position:'relative',
     fontWeight:'bold',
     fontSize:32,
 
@@ -86,46 +97,61 @@ const style = {
   stickerCollection : {
     fontSize:14,
     marginRight:6,
-    // background:'#AAAAFF',
+    marginBottom:10,
     height: 16,
   },
 
-  stickersAmout : {
-    position:'relative',
-    width: 50,
-    height: 50,
-    fontSize:26,
-    fontWeight:'bold',
-    color: '#666666',
-    padding:10,
-    paddingTop:14,
-    paddingLeft:10,
-    // marginLeft:26,
-    textAlign:'center',
-    top:-15,
-    useSelect: 'none',
-    // background:'#AAAAFF',
-
-  },
-
-  addFavoriteButton:{
-    textAlign: 'center',
-    margin: 20,
-
-  },
 
   amountNFavBlock:{
-    width:'140px',
-    height:'100px',
+    // background:'#FFAAFF',
+    width:'220px',
     display:'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center', 
-    // background:'#FFAAFF',
+    marginLeft:20,
+  },
+
+  actionBar : {
+    width:200,
+    height:56,
+    display:'flex',
+    justifyContent: 'space-between',
+  },
+
+  lessButton:{
+    height:56,
+    textAlign: 'center',
+    fontSize:26,
+  },
+  plusButton:{
+    height:56,
+    textAlign: 'center',
+    fontSize:26,
+
+  },
+  amount:{
+    // backgroundColor:'#FFFFFF',
+    textAlign: 'center',
+    color: '#666666',
+    fontSize:26,
+
+  },
+  addFavoriteButton:{
+    textAlign: 'center',
+    marginTop: 20,
 
   },
 
 }; 
+
+
+const colors = {
+    //backgroundColor={colors.plusColor}
+    plusColor: "#66CCCC",
+    lessColor: "#66AA66",
+    amountColor: "#ffffff",
+}
 
 
 
@@ -133,9 +159,14 @@ class ItemDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      item:this.props.item,
       slideIndex: 0,
       isFavorite:false,
     };
+
+    this.addToFavorite = this.addToFavorite.bind(this);
+    this.addItem = this.addItem.bind(this);
+    this.removeItem = this.removeItem.bind(this);
   }
 
   handleChange = (value) => {
@@ -143,16 +174,56 @@ class ItemDetail extends Component {
       slideIndex: value,
     });
   }
+  
   addToFavorite(){
+    addFavorite(this.state.item, !this.state.isFavorite)
+      .then((response)=>{
+        console.log('Adding', response);
+        this.props.item.like = response.like;
+        
+
+        this.setState({
+          isFavorite:response.like,
+        })
+      })
+  }
+  componentWillMount() {
     this.setState({
-      isFavorite:!this.state.isFavorite,
+      isFavorite:this.props.item.like || false,
     })
   }
 
+  addItem() {
+    console.log("addItem");
+    addRemoveItem(this.state.item, true)
+      .then((response)=>{
+        console.log('Adding', response);
+        this.props.item.count = response.count;
+
+        this.setState({
+          item:this.props.item,
+        });
+      })
+  }
+
+  removeItem() {
+    console.log("removeItem");
+    addRemoveItem(this.state.item, false)
+      .then((response)=>{
+        console.log('Adding', response);
+        this.props.item.count = response.count;
+
+        this.setState({
+          item:this.props.item,
+        });
+      })
+
+  }
   render() {
-    console.log('item', this.props.item)
-    const item = this.props.item;
+    console.log('item', this.state.item)
+    const item = this.state.item;
     const [firstName, ...lastName] = item.itemData.title.split(" ");
+
 
     return (
       <div>
@@ -161,40 +232,69 @@ class ItemDetail extends Component {
             <Paper style={style.backgroundPaperHeader} zDepth={1}>
               <div style={style.block}>
 
+                <div className={"row"} style={style.stickerHeader}>
+
+                  <div className={"col-xs-12 col-sm-4"} style={style.amountNFavBlock}>
+
+                    <div style={style.actionBar}>
+
+                        <FloatingActionButton 
+                        style={style.lessButton}
+                        onTouchTap={this.removeItem}
+                        >
+                          <Remove />
+                        </FloatingActionButton>
 
 
-                <div style={style.stickerHeader}>
+                        <FloatingActionButton 
+                        style={style.amount}
+                        disabled={true}
+                        disabledColor={colors.amountColor}
+                        >
+                          {item.count || "0"}
+                        </FloatingActionButton>
 
-                    <div style={style.amountNFavBlock}>
-                      <Paper style={style.stickersAmout} zDepth={2} circle={true} >
-                      {item.count || 0}
-                      </Paper>
-                  
-                      <FloatingActionButton  
-                      secondary={true} 
-                      style={style.addFavoriteButton}
-                      onTouchTap={this.addToFavorite.bind(this)}
-                      >
-                        {this.state.isFavorite?<FavoriteBorder />:<Favorite />}
-                      </FloatingActionButton>
+
+                        <FloatingActionButton 
+                        style={style.plusButton}
+                        onTouchTap={this.addItem}
+                        >
+                          <Add />
+                        </FloatingActionButton>
 
                     </div>
+                
+                    <FloatingActionButton  
+                    secondary={true} 
+                    style={style.addFavoriteButton}
+                    onTouchTap={this.addToFavorite}
+                    >
+                      {this.state.isFavorite?<Favorite />:<FavoriteBorder />}
+                    </FloatingActionButton>
 
-                  <div style={style.stickerIndex}>
-                    #{item.itemData.number}
                   </div>
 
+                  <div className={"col-xs-12 col-sm-8"}  style={style.infoBlock}>
+
+                      <div style={style.stickerIndex}>
+                      #{item.itemData.number}
+                      </div>
+
+                      <div style={style.stickerName}>
+                      {firstName} <span style={style.stickerLastname}>{lastName}</span>
+                      </div>
+
+                      <div style={style.stickerSection}>
+                      {this.props.section}
+                      </div>
+
+                      <div style={style.stickerCollection}>
+                      {this.props.collectionTitle}
+                      </div>
+                  </div>
 
                 </div>
-                <div style={style.stickerName}>
-                  {firstName} <span style={style.stickerLastname}>{lastName}</span>
-                </div>
-                <div style={style.stickerSection}>
-                  {this.props.section}
-                </div>
-                <div style={style.stickerCollection}>
-                  {this.props.collectionTitle}
-                </div>
+                
               </div>
 
 
@@ -234,5 +334,9 @@ class ItemDetail extends Component {
   }
 }
 
+
+ItemDetail.propTypes = {
+  item:React.PropTypes.object.isRequired,
+}
  
 export default ItemDetail;

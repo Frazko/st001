@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as userDataActions from '../core/collectionsData/dataActions';
 import * as navigationActions from '../core/navigation/navigationActions';
-import { getCollections, getCollectionsNames, getAccountNames } from "../core/firebase/firebaseData"
+import { getCollections, getCollectionsNames, getAccountNames, getFriendsItems } from "../core/firebase/firebaseData"
 
 
 const style = {
@@ -20,6 +20,9 @@ const style = {
 class Dashboard extends Component {
 
     componentWillMount() {
+
+
+
         this.props.navActions.navBarTitleUpdate("Dashboard");
         //
         if (this.props.collections.length < 1) {
@@ -27,6 +30,7 @@ class Dashboard extends Component {
             getCollections(this.props.userData.providerData[0].uid)
                 .then(values => {
                     console.log("collections::: ", values);
+                    if (!values[0]) return undefined
                     let collections = values.map(item => item[Object.keys(item)[0]]);
                     this.props.actions.saveUserData(values);
                     this.setState({ collections: collections });
@@ -57,7 +61,6 @@ class Dashboard extends Component {
                         return obj;
                     })
 
-                    // console.log("accountNames::: ", accountNames);
                     this.setState({ accountNames: accountNames });
                     this.props.actions.saveAccountNames(accountNames);
                 }).catch(function(e) {
@@ -65,7 +68,7 @@ class Dashboard extends Component {
                 });
         } else {
             console.log("******************* dashboard HAY DATOS DE COLLECTIONS EN STORE **********************")
-            console.log("*", this.props.collections)
+            console.log(this.props.collections)
         }
 
     }

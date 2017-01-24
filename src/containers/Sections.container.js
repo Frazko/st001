@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as userDataActions from '../core/collectionsData/dataActions';
-import { windowResize, navigateTo } from '../utils';
+import { windowResize, navigateTo,mergeFriends } from '../utils';
 import Section from '../components/Section.component';
 import {GridList, GridTile} from 'material-ui/GridList';
 import Divider from 'material-ui/Divider';
@@ -43,13 +43,26 @@ class Sections extends Component {
 		let currentCollection = this.props.collections.filter((item, i) => item[this.state.collectionId])[0][this.state.collectionId]
 		let sections = currentCollection.sections
 
-		this.state.sections= sections;
+		if(!currentCollection.friendsMerged){
+			console.log(" ----------------- Merging Friends -----------------  ");
+
+			currentCollection.friendsWithThisCollection.forEach((friend) => {
+				mergeFriends(currentCollection.items, friend.items);
+			});
+		}
+		currentCollection.friendsMerged = true;
+
+		this.state.sections = sections;
 		
 		console.log("currentCollection",currentCollection);
 		console.log("sections",sections);
 
 		// 
-		let totalItemsBySection = currentCollection.sections.map((sections,i) => currentCollection.items.filter((item) => item.itemData.section === i));
+		let totalItemsBySection = currentCollection.sections.map((sections,i) => currentCollection.items.filter((item) => {
+			if(item.itemData){ 
+				return item.itemData.section === i
+			}
+		}));
 		console.log("LIST:::::: itemsBySection ", totalItemsBySection);
 
 		let myItemsBySection = totalItemsBySection.map((section) => section.filter((item) => item.count));

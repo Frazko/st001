@@ -196,12 +196,16 @@ class AddStickers extends Component {
     label = "Cancel"
     primary = { true }
     onTouchTap = { this.close.bind(this) }
-    />,   <FlatButton
+    />, 
+    //
+    <FlatButton
     label = "Ok"
     primary = { true }
     disabled={this.state.okIsDisabled}
     onTouchTap = { this.handleAddStickers.bind(this) }
     />
+    //
+
     ];
 
 
@@ -216,10 +220,10 @@ class AddStickers extends Component {
       primaryText = { item.data.title }
       />)):undefined;
 
+    //
+
     let noItems = <MenuItem value = { 1 } primaryText = "Please add a collection first. " /> ;
 
-    // console.log("Render error", this.state.error);
-    // console.log(style);
 
     return ( <Dialog title = "Add Stickers"
       actions = { actions }
@@ -259,7 +263,7 @@ class AddStickers extends Component {
         
         rowsMax={2}
         rows={2}
-        /> < br / >
+        /> < br />
         </div>
         :<div>
         <h1>Excellent!</h1>
