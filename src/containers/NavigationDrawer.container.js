@@ -111,7 +111,7 @@ class NavigationDrawer extends React.Component {
                 {this.props.userData.displayName}
               </span>
             </div>
-          }>
+          }> 
             <img src="/images/common/landscape-avatar.jpg" />
           </CardMedia>
 
