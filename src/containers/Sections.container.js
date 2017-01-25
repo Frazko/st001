@@ -47,6 +47,8 @@ class Sections extends Component {
 			console.log(" ----------------- Merging Friends -----------------  ");
 
 			currentCollection.friendsWithThisCollection.forEach((friend) => {
+
+				console.log("This collection:: ", currentCollection.data.title, currentCollection.items, friend.items);
 				mergeFriends(currentCollection.items, friend.items);
 			});
 		}

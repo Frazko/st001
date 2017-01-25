@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
-import {List, ListItem} from 'material-ui/List';
+import { List, ListItem } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import ChevronRight from 'material-ui/svg-icons/navigation/chevron-right';
 import CircularProgress from 'material-ui/CircularProgress';
@@ -16,181 +16,160 @@ import Favorite from 'material-ui/svg-icons/action/favorite';
 import FavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
 import Label from 'material-ui/svg-icons/action/label';
 //import * as sectionActions from '../actions/sectionActions.jsx';
- 
+
 import * as colors from '../constants/Colors.constants.js';
 
 const style = {
-  backgroundPaper:{
+  backgroundPaper: {
     width: '100%',
     textAlign: 'center',
     display: 'inline-block',
     borderRadius: 6,
     // minHeight:200,
   },
-  indexHolder : {
-    top:0,
-    display:'flex',
+  indexHolder: {
+    top: 0,
+    display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    height:'100%',
+    height: '100%',
     // background:'#FFAAAA',
   },
-  index : {
+  index: {
     height: 60,
     width: 60,
   },
-  listItem : {
-    display:'flex',
+  listItem: {
+    display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
   },
-  block : {
-    marginLeft:15,
-    display:'flex',
+  block: {
+    marginLeft: 15,
+    display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'flex-end', 
+    alignItems: 'flex-end',
   },
 
-  blockTitle:{
-    display:'flex',
+  blockTitle: {
+    display: 'flex',
     alignItems: 'center',
     // background:'#AAFFAA',
     minHeight: 28,
     border: 10,
   },
-  socialBlock : {
-    display:'flex',
+  socialBlock: {
+    display: 'flex',
     // background:'#AAAAAA',
     minHeight: 28,
   },
-  socialBlockIcon : {
-    padding:0,
+  socialBlockIcon: {
+    padding: 0,
     height: 28,
     width: 28,
   },
-  socialBlockSpan : {
-    position:'relative',
-    top:-8,
-    margin:0,
-    fontSize:18,
-    fontWeight:'bold',
+  socialBlockSpan: {
+    position: 'relative',
+    top: -8,
+    margin: 0,
+    fontSize: 18,
+    fontWeight: 'bold',
     //color:'#FFFFFF'
-  } ,
-  heartColor : '#AA2222',
-};   
+  },
+  heartColor: '#AA2222',
+};
 
 
-class OwnersItem extends Component {
-  render() {
-    return (
-      <div>
-            
-          <List>
-
-
-
-
-            <ListItem
-              leftAvatar={<div style={style.indexHolder}><Avatar style={style.index} src="/images/common/avatar.jpg" /></div>}
-              style={style.listItem}>
-              <div style={style.block}>
-                <div style={style.blockTitle}>
-                  <div className="itemTitle">Cantinflas Ramirez</div>
-                </div>
-                <div style={style.socialBlock}>
-                  <div >
-                      <Label style={style.socialBlockIcon} color={colors.ICON_SALE_LABEL_COLOR}  />
-                      <span style={style.socialBlockSpan}> 7</span>
-                  </div>
-                </div>
-              </div>
-            </ListItem>
-            <Divider inset={true} />
-
-
-
-
-            <ListItem
-              leftAvatar={<div style={style.indexHolder}><Avatar style={style.index} src="/images/common/avatar2.jpg" /></div>}
-              style={style.listItem}>
-              
-              <div style={style.block}>
-              <div style={style.blockTitle}>
-                <div className="itemTitle">Neymar Jordi Alba</div>
-              </div>
-              <div style={style.socialBlock}>
-                  <div >
-                      <Label style={style.socialBlockIcon} color={colors.ICON_SALE_LABEL_COLOR}  />
-                      <span style={style.socialBlockSpan}> 1</span>
-                  </div>
-              </div>
-              </div>
-            </ListItem>
-            <Divider inset={true} />
-
-            <ListItem
-              leftAvatar={<div style={style.indexHolder}><Avatar style={style.index} src="/images/common/avatar4.png" /></div>}
-              style={style.listItem} 
-              >
-              <div style={style.block}>
-              <div style={style.blockTitle}>
-                <div className="itemTitle">Suarez Messi</div>
-              </div>
-              <div style={style.socialBlock}>
-                  <div >
-                      <Label style={style.socialBlockIcon} color={colors.ICON_SALE_LABEL_COLOR}  />
-                      <span style={style.socialBlockSpan}> 5</span>
-                  </div>
-              </div>
-              </div>
-            </ListItem>
-            <Divider inset={true} />
-
-
-
-
-            <ListItem
-              leftAvatar={<div style={style.indexHolder}><Avatar style={style.index} src="/images/common/avatar3.png" /></div>}
-              style={style.listItem}>
-              <div style={style.block}>
-              <div style={style.blockTitle}>
-                <div className="itemTitle">Huang Bowen </div>
-              </div>
-              <div style={style.socialBlock}>
-                  <div >
-                      <Label style={style.socialBlockIcon} color={colors.ICON_SALE_LABEL_COLOR}  />
-                      <span style={style.socialBlockSpan}> 2</span>
-                  </div>
-              </div>
-              </div>
-            </ListItem>
-            <Divider inset={true} />
-            
-
-          </List>
-
-
-
-
-      </div>
-    );
-  }
+const OwnersItem = (props) => {
+  return (
+    <List>
+      <ListItem
+        leftAvatar={<div style={style.indexHolder}><Avatar style={style.index} src={props.profileImage} /></div>}
+        style={style.listItem}>
+        <div style={style.block}>
+          <div style={style.blockTitle}>
+            <div className="itemTitle">{props.name}</div>
+          </div>
+          <div style={style.socialBlock}>
+            <div >
+              <Label style={style.socialBlockIcon} color={colors.ICON_SALE_LABEL_COLOR} />
+              <span style={style.socialBlockSpan}> {props.count}</span>
+            </div>
+          </div>
+        </div>
+      </ListItem>
+      <Divider inset={true} />
+    </List>
+  );
 }
+
 
 OwnersItem.propTypes = {
-}
- 
-function mapStateToProps(state, ownProps){
-  return{
-    //courses: state.courses
-  }
+  key: React.PropTypes.number,
+  count: React.PropTypes.number,
+  name: React.PropTypes.string,
+  profileImage: React.PropTypes.string,
+  items: React.PropTypes.array
 }
 
-function mapDispatchToProps(dispatch){
-  return {
-    //actions: bindActionCreators(sectionActions, dispatch)
-  }
-}
- 
-export default connect(mapStateToProps, mapDispatchToProps)(OwnersItem);
+export default OwnersItem;
+
+
+
+
+            // <ListItem
+            //   leftAvatar={<div style={style.indexHolder}><Avatar style={style.index} src="/images/common/avatar2.jpg" /></div>}
+            //   style={style.listItem}>
+
+            //   <div style={style.block}>
+            //   <div style={style.blockTitle}>
+            //     <div className="itemTitle">Neymar Jordi Alba</div>
+            //   </div>
+            //   <div style={style.socialBlock}>
+            //       <div >
+            //           <Label style={style.socialBlockIcon} color={colors.ICON_SALE_LABEL_COLOR}  />
+            //           <span style={style.socialBlockSpan}> 1</span>
+            //       </div>
+            //   </div>
+            //   </div>
+            // </ListItem>
+            // <Divider inset={true} />
+
+            // <ListItem
+            //   leftAvatar={<div style={style.indexHolder}><Avatar style={style.index} src="/images/common/avatar4.png" /></div>}
+            //   style={style.listItem} 
+            //   >
+            //   <div style={style.block}>
+            //   <div style={style.blockTitle}>
+            //     <div className="itemTitle">Suarez Messi</div>
+            //   </div>
+            //   <div style={style.socialBlock}>
+            //       <div >
+            //           <Label style={style.socialBlockIcon} color={colors.ICON_SALE_LABEL_COLOR}  />
+            //           <span style={style.socialBlockSpan}> 5</span>
+            //       </div>
+            //   </div>
+            //   </div>
+            // </ListItem>
+            // <Divider inset={true} />
+
+
+
+
+            // <ListItem
+            //   leftAvatar={<div style={style.indexHolder}><Avatar style={style.index} src="/images/common/avatar3.png" /></div>}
+            //   style={style.listItem}>
+            //   <div style={style.block}>
+            //   <div style={style.blockTitle}>
+            //     <div className="itemTitle">Huang Bowen </div>
+            //   </div>
+            //   <div style={style.socialBlock}>
+            //       <div >
+            //           <Label style={style.socialBlockIcon} color={colors.ICON_SALE_LABEL_COLOR}  />
+            //           <span style={style.socialBlockSpan}> 2</span>
+            //       </div>
+            //   </div>
+            //   </div>
+            // </ListItem>
+            // <Divider inset={true} />

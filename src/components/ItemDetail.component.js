@@ -5,13 +5,13 @@ import Favorite from 'material-ui/svg-icons/action/favorite';
 import FavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 
-import {Tabs, Tab} from 'material-ui/Tabs';
+import { Tabs, Tab } from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
-import {List, ListItem} from 'material-ui/List';
+import { List, ListItem } from 'material-ui/List';
 
 import LikesItem from '../components/LikesItem.component';
 import OwnersItem from '../components/OwnersItem.component';
- 
+
 import Add from 'material-ui/svg-icons/content/add';
 import Remove from 'material-ui/svg-icons/content/remove';
 
@@ -19,146 +19,147 @@ import { addRemoveItem, addFavorite, getFriendsProfilePicture } from "../core/fi
 
 
 const style = {
-  backgroundPaper:{
+  backgroundPaper: {
     width: '100%',
     textAlign: 'center',
     display: 'inline-block',
     borderRadius: 6,
     useSelect: 'none',
-    MozUserSelect:'none',
-    WebkitUserSelect:'none',
-    msUserSelect:'none',
+    MozUserSelect: 'none',
+    WebkitUserSelect: 'none',
+    msUserSelect: 'none',
   },
-  backgroundPaperHeader:{
+  backgroundPaperHeader: {
     width: '100%',
     // minHeight: 240,
-    padding:10,
+    padding: 10,
     flex: 1,
     backgroundSize: 'cover',
     backgroundImage: 'url(/images/common/bg-image.png)'
   },
 
-  block : {
+  block: {
     // background:'#AAFFFF',
     // marginRight:10,
-    display:'flex',
+    display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    height:'100%',
+    height: '100%',
     color: '#FFFFFF',
   },
 
-  stickerHeader : {
-    width:'100%',
-    display:'flex',    
+  stickerHeader: {
+    width: '100%',
+    display: 'flex',
     flexWrap: 'wrap-reverse',
     justifyContent: 'space-between',
-    alignItems: 'center', 
+    alignItems: 'center',
     // background:'#FFAAAA',
 
   },
 
 
-  infoBlock : {
+  infoBlock: {
     // background:'#AA0AFF',
     // width: '100%',
     margin: '20px 0 20px 0',
-    minWidth:'300px',
-    flex:1,
+    minWidth: '300px',
+    flex: 1,
     height: 200,
-    display:'flex',
+    display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-end',
-    alignItems: 'flex-end', 
+    alignItems: 'flex-end',
 
   },
 
-  stickerIndex : {
-    fontSize:100,
-    fontWeight:'bold',
-    marginBottom:40,
+  stickerIndex: {
+    fontSize: 100,
+    fontWeight: 'bold',
+    marginBottom: 40,
 
   },
 
-  stickerName : {
-    fontSize:30,
+  stickerName: {
+    fontSize: 30,
     margin: '0 6px 6px 0',
     // height: 28,
     textAlign: 'right'
   },
 
-  stickerLastname : {
-    fontWeight:'bold',
-    fontSize:32,
+  stickerLastname: {
+    fontWeight: 'bold',
+    fontSize: 32,
 
   },
-  stickerSection : {
-    fontSize:14,
-    marginRight:6,
+  stickerSection: {
+    fontSize: 14,
+    marginRight: 6,
     // background:'#FFAAFF',
     height: 20,
   },
 
-  stickerCollection : {
-    fontSize:14,
-    marginRight:6,
-    marginBottom:10,
+  stickerCollection: {
+    fontSize: 14,
+    marginRight: 6,
+    marginBottom: 10,
     height: 16,
   },
 
 
-  amountNFavBlock:{
+  amountNFavBlock: {
     // background:'#FFAAFF',
     margin: '20px 0 20px 0',
-    flex:1,
-    width:'300px',
-    display:'flex',
+    flex: 1,
+    width: '300px',
+    display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    alignItems: 'center', 
+    alignItems: 'center',
     // marginLeft:20,
   },
 
-  actionBar : {
+  actionBar: {
     //width:200,
     width: '210px',
-    height:56,
-    display:'flex',
+    // height:56,
+    display: 'flex',
     justifyContent: 'space-between',
   },
 
-  lessButton:{
-    height:56,
+  lessButton: {
+    // height:56,
     textAlign: 'center',
-    fontSize:26,
+    fontSize: 26,
   },
-  plusButton:{
-    height:56,
+  plusButton: {
+    // height:56,
     textAlign: 'center',
-    fontSize:26,
+    fontSize: 26,
 
   },
-  amount:{
+  amount: {
+    // height:56,
     // backgroundColor:'#FFFFFF',
     textAlign: 'center',
     color: '#666666',
-    fontSize:26,
+    fontSize: 26,
 
   },
-  addFavoriteButton:{
+  addFavoriteButton: {
     textAlign: 'center',
     marginTop: 20,
 
   },
 
-}; 
+};
 
 
 const colors = {
-    //backgroundColor={colors.plusColor}
-    plusColor: "#66CCCC",
-    lessColor: "#66AA66",
-    amountColor: "#ffffff",
+  //backgroundColor={colors.plusColor}
+  plusColor: "#66CCCC",
+  lessColor: "#66AA66",
+  amountColor: "#ffffff",
 }
 
 
@@ -167,9 +168,9 @@ class ItemDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      item:this.props.item,
+      item: this.props.item,
       slideIndex: 0,
-      isFavorite:false,
+      isFavorite: false,
     };
 
     this.addToFavorite = this.addToFavorite.bind(this);
@@ -182,34 +183,34 @@ class ItemDetail extends Component {
       slideIndex: value,
     });
   }
-  
-  addToFavorite(){
+
+  addToFavorite() {
     addFavorite(this.state.item, !this.state.isFavorite)
-      .then((response)=>{
+      .then((response) => {
         console.log('Adding', response);
         this.props.item.like = response.like;
-        
+
 
         this.setState({
-          isFavorite:response.like,
+          isFavorite: response.like,
         })
       })
   }
   componentWillMount() {
     this.setState({
-      isFavorite:this.props.item.like || false,
+      isFavorite: this.props.item.like || false,
     })
   }
 
   addItem() {
     console.log("addItem");
     addRemoveItem(this.state.item, true)
-      .then((response)=>{
+      .then((response) => {
         console.log('Adding', response);
         this.props.item.count = response.count;
 
         this.setState({
-          item:this.props.item,
+          item: this.props.item,
         });
       })
   }
@@ -217,12 +218,12 @@ class ItemDetail extends Component {
   removeItem() {
     console.log("removeItem");
     addRemoveItem(this.state.item, false)
-      .then((response)=>{
+      .then((response) => {
         console.log('Adding', response);
         this.props.item.count = response.count;
 
         this.setState({
-          item:this.props.item,
+          item: this.props.item,
         });
       })
 
@@ -232,114 +233,137 @@ class ItemDetail extends Component {
     const item = this.state.item;
     const [firstName, ...lastName] = item.itemData.title.split(" ");
 
+    const friendsLike = this.props.friendsWithThisCollection.filter(friend => friend.items[item.itemData.number].like)
+    const friendsOwner = this.props.friendsWithThisCollection.filter(friend => friend.items[item.itemData.number].count > 1)
 
+    console.log("friendsLike:: ", friendsLike, " friendsOwner::", friendsOwner);
 
-    const friendsIdList = this.props.friendsWithThisCollection;//.map(item=>item.friendId);
-    console.log('friendsIdList: ',friendsIdList);
+    const likesList = friendsLike.map(friend => {
+      return (<LikesItem
+        key={friend.friendId}
+        name={friend.name}
+        profileImage={friend.profileImage}
+        items= {friend.items}
+        />)
+    })
+
+    const ownersList = friendsOwner.map(friend => {
+      return (<OwnersItem
+        key={friend.friendId}
+        name={friend.name}
+        count={friend.items[item.itemData.number].count}
+        profileImage={friend.profileImage}
+        items= {friend.items}
+        />)
+    })
 
 
     return (
       <div>
 
-          <div>
-            <Paper style={style.backgroundPaperHeader} zDepth={1}>
-              <div style={style.block}>
+        <div>
+          <Paper style={style.backgroundPaperHeader} zDepth={1}>
+            <div style={style.block}>
 
-                <div style={style.stickerHeader}>
+              <div style={style.stickerHeader}>
 
-                  <div style={style.amountNFavBlock}>
+                <div style={style.amountNFavBlock}>
 
-                    <div style={style.actionBar}>
+                  <div style={style.actionBar}>
 
-                        <FloatingActionButton 
-                        style={style.lessButton}
-                        onTouchTap={this.removeItem}
-                        >
-                          <Remove />
-                        </FloatingActionButton>
-
-
-                        <FloatingActionButton 
-                        style={style.amount}
-                        disabled={true}
-                        >
-                          {item.count || "0"}
-                        </FloatingActionButton>
+                    <FloatingActionButton
+                      style={style.lessButton}
+                      onTouchTap={this.removeItem}
+                      mini={true}
+                      >
+                      <Remove />
+                    </FloatingActionButton>
 
 
-                        <FloatingActionButton 
-                        style={style.plusButton}
-                        onTouchTap={this.addItem}
-                        >
-                          <Add />
-                        </FloatingActionButton>
+                    <FloatingActionButton
+                      style={style.amount}
+                      disabled={true}
+                      mini={true}
+                      >
+                      {item.count || "0"}
+                    </FloatingActionButton>
 
-                    </div>
-                
-                    <FloatingActionButton  
-                    secondary={true} 
-                    style={style.addFavoriteButton}
-                    onTouchTap={this.addToFavorite}
-                    >
-                      {this.state.isFavorite?<Favorite />:<FavoriteBorder />}
+
+                    <FloatingActionButton
+                      style={style.plusButton}
+                      onTouchTap={this.addItem}
+                      mini={true}
+                      >
+                      <Add />
                     </FloatingActionButton>
 
                   </div>
 
-                  <div  style={style.infoBlock}>
-
-                      <div style={style.stickerIndex}>
-                      #{item.itemData.number}
-                      </div>
-
-                      <div style={style.stickerName}>
-                      {firstName} <span style={style.stickerLastname}>{lastName}</span>
-                      </div>
-
-                      <div style={style.stickerSection}>
-                      {this.props.section}
-                      </div>
-
-                      <div style={style.stickerCollection}>
-                      {this.props.collectionTitle}
-                      </div>
-                  </div>
+                  <FloatingActionButton
+                    secondary={true}
+                    style={style.addFavoriteButton}
+                    onTouchTap={this.addToFavorite}
+                    mini={true}
+                    >
+                    {this.state.isFavorite ? <Favorite /> : <FavoriteBorder />}
+                  </FloatingActionButton>
 
                 </div>
-                
+
+                <div style={style.infoBlock}>
+
+                  <div style={style.stickerIndex}>
+                    #{item.itemData.number}
+                  </div>
+
+                  <div style={style.stickerName}>
+                    {firstName} <span style={style.stickerLastname}>{lastName}</span>
+                  </div>
+
+                  <div style={style.stickerSection}>
+                    {this.props.section}
+                  </div>
+
+                  <div style={style.stickerCollection}>
+                    {this.props.collectionTitle}
+                  </div>
+                </div>
+
               </div>
 
+            </div>
 
-            </Paper>
-          </div>
 
-         <Tabs 
+          </Paper>
+        </div>
+
+        <Tabs
           onChange={this.handleChange}
           value={this.state.slideIndex}
           >
-            <Tab
-              icon={<Favorite/>}
-              label="Likes"
-              value={0}
+          <Tab
+            icon={<Favorite />}
+            label="Likes"
+            value={0}
             />
-            <Tab
-              icon={<SupervisorAccount />}
-              label="Owners"
-              value={1}
+          <Tab
+            icon={<SupervisorAccount />}
+            label="Owners"
+            value={1}
             />
-          </Tabs>
+        </Tabs>
 
-          <SwipeableViews
-            index={this.state.slideIndex}
-            onChangeIndex={this.handleChange}
+        <SwipeableViews
+          index={this.state.slideIndex}
+          onChangeIndex={this.handleChange}
           >
-            <div>
-              <LikesItem/> 
-            </div>
-            <div >
-              <OwnersItem/>
-            </div>
-          </SwipeableViews>
+          <div>
+            {likesList}
+          </div>
+          <div >
+            {ownersList}
+          </div>
+        </SwipeableViews>
 
       </div>
     );
@@ -348,7 +372,7 @@ class ItemDetail extends Component {
 
 
 ItemDetail.propTypes = {
-  item:React.PropTypes.object.isRequired,
+  item: React.PropTypes.object.isRequired,
 }
- 
+
 export default ItemDetail;

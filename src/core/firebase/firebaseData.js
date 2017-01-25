@@ -81,7 +81,7 @@ export function getFriendsItems(userid, collectionId) {
                                     // obj to Array
                                     for (let i in friendCollection.val().items) {
                                         arr[i] = friendCollection.val().items[i]
-                                    };
+                                    }
                                     return { friendId: friend.key, items: arr, name: friend.val().name, profileImage: friend.val().profileImage };
                                 })
 
