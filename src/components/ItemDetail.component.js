@@ -246,7 +246,8 @@ class ItemDetail extends Component {
       }
     });
 
-    var noItems = <div className="noItemsToShow">No items to show. <br />Please share the app with your friends.</div>
+    var noLikes = <div className="noItemsToShow">No likes from your friends. <br />Please share the app with your friends.</div>
+    var noOwners = <div className="noItemsToShow">No owners within your friends. <br />Please share the app with your friends.</div>
 
     console.log("friendsLike:: ", friendsLike, " friendsOwner::", friendsOwner);
 
@@ -258,7 +259,7 @@ class ItemDetail extends Component {
         profileImage={friend.profileImage}
         items={friend.items}
         />)
-    }):undefined;
+    }):noLikes;
 
     const ownersList =(friendsOwner.length)? friendsOwner.map(friend => {
       return (<OwnersItem
@@ -269,7 +270,7 @@ class ItemDetail extends Component {
         profileImage={friend.profileImage}
         items={friend.items}
         />)
-    }):undefined;
+    }):noOwners;
 
 
     return (
@@ -372,10 +373,10 @@ class ItemDetail extends Component {
           onChangeIndex={this.handleChange}
           >
           <div>
-            {likesList || noItems}
+            {likesList}
           </div>
           <div >
-            {ownersList || noItems}
+            {ownersList}
           </div>
         </SwipeableViews>
 
