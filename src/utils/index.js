@@ -36,13 +36,15 @@ export function deepExtend(destination, source) {
 export function mergeFriends(destination, source) {
     source.forEach((item, i) => {
         if (destination[i] != -1) {
+            console.log(i, "-- ", item.like);
+
             let likes = (destination[i].likes || 0);
             let owners = (destination[i].owners || 0);
 
-            destination[i].likes = (item.like) ? ++likes : likes;
+            destination[i].likes = (item.hasOwnProperty('like')) ? ++likes : likes;
             destination[i].owners = (item.count > 1) ? ++owners : owners;
 
-            console.log(i, "-- ", destination[i].likes, item.like);
+            console.log(i, "-- ", destination[i].likes);
         }
     });
 }

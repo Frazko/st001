@@ -233,29 +233,43 @@ class ItemDetail extends Component {
     const item = this.state.item;
     const [firstName, ...lastName] = item.itemData.title.split(" ");
 
-    const friendsLike = this.props.friendsWithThisCollection.filter(friend => friend.items[item.itemData.number].like)
-    const friendsOwner = this.props.friendsWithThisCollection.filter(friend => friend.items[item.itemData.number].count > 1)
+    const friendsLike = this.props.friendsWithThisCollection.filter(friend => {
+      console.log(item.itemData.number, friend.items[item.itemData.number]);
+      if (friend.items[item.itemData.number]) {
+        return friend.items[item.itemData.number].hasOwnProperty('like');
+      }
+    });
+
+    const friendsOwner = this.props.friendsWithThisCollection.filter(friend => {
+      if (friend.items[item.itemData.number]) {
+        return friend.items[item.itemData.number].count > 1
+      }
+    });
+
+    var noItems = <div className="noItemsToShow">No items to show. <br />Please share the app with your friends.</div>
 
     console.log("friendsLike:: ", friendsLike, " friendsOwner::", friendsOwner);
 
-    const likesList = friendsLike.map(friend => {
+    const likesList = (friendsLike.length)?friendsLike.map(friend => {
       return (<LikesItem
+        id={friend.friendId}
         key={friend.friendId}
         name={friend.name}
         profileImage={friend.profileImage}
-        items= {friend.items}
+        items={friend.items}
         />)
-    })
+    }):undefined;
 
-    const ownersList = friendsOwner.map(friend => {
+    const ownersList =(friendsOwner.length)? friendsOwner.map(friend => {
       return (<OwnersItem
         key={friend.friendId}
+        id={friend.friendId}
         name={friend.name}
         count={friend.items[item.itemData.number].count}
         profileImage={friend.profileImage}
-        items= {friend.items}
+        items={friend.items}
         />)
-    })
+    }):undefined;
 
 
     return (
@@ -358,10 +372,10 @@ class ItemDetail extends Component {
           onChangeIndex={this.handleChange}
           >
           <div>
-            {likesList}
+            {likesList || noItems}
           </div>
           <div >
-            {ownersList}
+            {ownersList || noItems}
           </div>
         </SwipeableViews>
 

@@ -80,7 +80,7 @@ const LikesItem = (props) => {
 
 
 LikesItem.propTypes = {
-  key: React.PropTypes.number,
+  id: React.PropTypes.string,
   name: React.PropTypes.string,
   profileImage: React.PropTypes.string,
   items: React.PropTypes.array
