@@ -49,43 +49,6 @@ class NewCollections extends Component {
                 console.error("<<<<<  ERROR getNewCollections >>>>>", e);
             });
 
-        // if (this.props.collections.length == 0) {
-        // } else {
-        //     console.log("******************* HAY DATOS DE COLLECTIONS EN STORE **********************")
-        //     console.log("*", this.props.collections)
-        //     this.setState({ collections: this.props.collections });
-        // }
-        /*
-        dataActions.getCollectionsNames()
-            .then(names => {
-                let albumNames = names.map((a) => {
-                    let Aa = Object.keys(a)[0],
-                        obj = {};
-                    obj[Aa] = a[Aa].data.title;
-                    return obj;
-                })
-                this.setState({ albumNames: albumNames });
-                this.props.actions.saveAlbumNames(albumNames);
-            }).catch(function(e) {
-                console.error("<<<<<  ERROR getCollectionsNames >>>>>", e);
-            });
-
-        dataActions.getAccountNames()
-            .then(names => {
-                let accountNames = names.map((a) => {
-                    let Aa = Object.keys(a)[0],
-                        obj = {};
-                    obj[Aa] = a[Aa].account;
-                    return obj;
-                })
-
-                // console.log("accountNames::: ", accountNames);
-                this.setState({ accountNames: accountNames });
-                this.props.actions.saveAccountNames(accountNames);
-            }).catch(function(e) {
-                console.error("<<<<<  ERROR getAccountNames >>>>>", e);
-            });
-        */
         this.setState({accountNames: this.props.accountNames, albumNames: this.props.collectionNames });
 
         window.addEventListener('resize', () => this.updateDimensions(), true);

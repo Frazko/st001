@@ -32,11 +32,19 @@ class Sections extends Component {
 			collectionId:this.props.params.collection,
 			collectionName:"",
 			accountName:"",
+			sections:[],
 		};
 		// console.log("<<<<>>>>> ", this.state);
 	}
 
 	componentWillMount() {
+		console.log('this.props.collections',this.props.collections);
+
+		if (this.props.collections.length===0) {
+			navigateTo('/');
+			return;
+		}
+
 		window.addEventListener('resize', () => this.updateDimensions(), true);
 
 		// console.log(":: Sections::::: ", this.props.collections)
@@ -45,7 +53,6 @@ class Sections extends Component {
 
 		if(!currentCollection.friendsMerged){
 			console.log(" ----------------- Merging Friends -----------------  ");
-
 			currentCollection.friendsWithThisCollection.forEach((friend) => {
 
 				console.log("This collection:: ", currentCollection.data.title, currentCollection.items, friend.items);
@@ -110,7 +117,9 @@ class Sections extends Component {
 
 
 	render(){
+			
 		let collections = this.state.collections;
+
 
 		return (<div 
 			style={styles.root}>

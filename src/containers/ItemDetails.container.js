@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import  ItemDetail  from '../components/ItemDetail.component'
+import  ItemDetail  from '../components/ItemDetail.component';
+import { navigateTo } from '../utils';
 
 class ItemDetails extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {};
+		this.state = {
+			currentCollection:[],
+		};
 	}
 
 	componentWillMount() {
@@ -17,10 +20,14 @@ class ItemDetails extends Component {
 		console.log("section",this.props.params.section)
 		console.log("item",this.props.params.item)
 
+		if (this.props.currentCollection.length === 0) {
+			console.log('>>   roooooot');
+			navigateTo('/');
+			return;
+		}
+
 		this.setState({currentCollection:this.props.currentCollection, currentItem:this.props.currentCollection.data.totalItemsBySection[this.props.params.section][this.props.params.item]})
 	}
-
-
 
 	render() {
 		// console.log(".. ", this.props.params.collection, this.props.params.section, this.props.params.item);

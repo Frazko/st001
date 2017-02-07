@@ -19,6 +19,17 @@ const style = {
 
 class Dashboard extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            collections: [],
+            albumNames: [],
+            accountNames: [],
+        };
+    }
+
+
+
     componentWillMount() {
 
 
@@ -34,7 +45,7 @@ class Dashboard extends Component {
                     let collections = values.map(item => item[Object.keys(item)[0]]);
                     this.props.actions.saveUserData(values);
                     this.setState({ collections: collections });
-                }).catch(function(e) {
+                }).catch(function (e) {
                     console.error("<<<<<  ERROR getCollections in AddStickers >>>>>", e);
                 });
 
@@ -48,7 +59,7 @@ class Dashboard extends Component {
                     })
                     this.setState({ albumNames: albumNames });
                     this.props.actions.saveAlbumNames(albumNames);
-                }).catch(function(e) {
+                }).catch(function (e) {
                     console.error("<<<<<  ERROR getCollectionsNames >>>>>", e);
                 });
 
@@ -63,60 +74,63 @@ class Dashboard extends Component {
 
                     this.setState({ accountNames: accountNames });
                     this.props.actions.saveAccountNames(accountNames);
-                }).catch(function(e) {
+                }).catch(function (e) {
                     console.error("<<<<< collections ERROR getAccountNames >>>>>", e);
                 });
         } else {
             console.log("******************* dashboard HAY DATOS DE COLLECTIONS EN STORE **********************")
             console.log(this.props.collections)
+            this.setState({ collections: this.props.collections });
         }
 
     }
 
 
     render() {
-
-        return ( <div >
-
-            <RaisedButton label = "Display My Collections"
-            style = { style }
-            onClick = {
+        const MyCollections = (props) => <RaisedButton label="Display My Collections"
+            style={style}
+            onClick={
                 () => {
                     utils.navigateTo("/myCollections");
                 }
             }
-            />
+        />;
 
-            <RaisedButton label = "Display New Collections"
-            style = { style }
-            onClick = {
+        const NewCollections = (props) => <RaisedButton label="Display New Collections"
+            style={style}
+            onClick={
                 () => {
                     utils.navigateTo("/newCollections");
                 }
             }
-            />
+        />;
+
+        let Renderhtml = (props) => <div className="noItemsToShow">Loading data...</div>;
+
+        if (this.state.collections.length > 0) {
+            console.log('BUILD DASHBOARD');
+            Renderhtml = (props) => <div > <MyCollections /> <NewCollections /></div>;
+        } 
 
 
-
-
-            </div>);
-        }
+        return (<Renderhtml />);
     }
+}
 
-    function mapStateToProps(state, ownProps) {
-        return {
-            userData: state.auth.data,
-            collections: state.userCollections.collections
-        }
+function mapStateToProps(state, ownProps) {
+    return {
+        userData: state.auth.data,
+        collections: state.userCollections.collections
     }
+}
 
 
-    function mapDispatchToProps(dispatch) {
-        return {
-            actions: bindActionCreators(userDataActions, dispatch),
-            navActions: bindActionCreators(navigationActions, dispatch),
-        }
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(userDataActions, dispatch),
+        navActions: bindActionCreators(navigationActions, dispatch),
     }
+}
 
 
-    export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
