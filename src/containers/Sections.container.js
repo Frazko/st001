@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as userDataActions from '../core/collectionsData/dataActions';
-import { windowResize, navigateTo,mergeFriends } from '../utils';
+import { windowResize, navigateTo, mergeFriends } from '../utils';
 import Section from '../components/Section.component';
-import {GridList, GridTile} from 'material-ui/GridList';
+import { GridList, GridTile } from 'material-ui/GridList';
 import Divider from 'material-ui/Divider';
 
 const styles = {
@@ -15,13 +15,13 @@ const styles = {
 		display: 'flex',
 		flexWrap: 'wrap',
 		justifyContent: 'space-around',
-        //background:'#FFAAAA',
-    },
-    gridList: {
-    	width: '100%',
-    	overflowY: 'auto',
-    	height: windowResize() - 50,
-    },
+		//background:'#FFAAAA',
+	},
+	gridList: {
+		width: '100%',
+		overflowY: 'auto',
+		height: windowResize() - 50,
+	},
 };
 
 class Sections extends Component {
@@ -29,18 +29,18 @@ class Sections extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			collectionId:this.props.params.collection,
-			collectionName:"",
-			accountName:"",
-			sections:[],
+			collectionId: this.props.params.collection,
+			collectionName: "",
+			accountName: "",
+			sections: [],
 		};
 		// console.log("<<<<>>>>> ", this.state);
 	}
 
 	componentWillMount() {
-		console.log('this.props.collections',this.props.collections);
+		console.log('this.props.collections', this.props.collections);
 
-		if (this.props.collections.length===0) {
+		if (this.props.collections.length === 0) {
 			navigateTo('/');
 			return;
 		}
@@ -49,12 +49,13 @@ class Sections extends Component {
 
 		// console.log(":: Sections::::: ", this.props.collections)
 		let currentCollection = this.props.collections.filter((item, i) => item[this.state.collectionId])[0][this.state.collectionId]
-		let sections = currentCollection.sections
+		let sections = currentCollection.sections;
 
-		if(!currentCollection.friendsMerged){
+		currentCollection.friendsWithThisCollection = [];
+		if (!currentCollection.friendsMerged) {
 			console.log(" ----------------- Merging Friends -----------------  ");
+			// if (currentCollection.hasOwnProperty('friendsWithThisCollection')) { 
 			currentCollection.friendsWithThisCollection.forEach((friend) => {
-
 				console.log("This collection:: ", currentCollection.data.title, currentCollection.items, friend.items);
 				mergeFriends(currentCollection.items, friend.items);
 			});
@@ -62,13 +63,13 @@ class Sections extends Component {
 		currentCollection.friendsMerged = true;
 
 		this.state.sections = sections;
-		
-		console.log("currentCollection",currentCollection);
-		console.log("sections",sections);
+
+		console.log("currentCollection", currentCollection);
+		console.log("sections", sections);
 
 		// 
-		let totalItemsBySection = currentCollection.sections.map((sections,i) => currentCollection.items.filter((item) => {
-			if(item.itemData){ 
+		let totalItemsBySection = currentCollection.sections.map((sections, i) => currentCollection.items.filter((item) => {
+			if (item.itemData) {
 				return item.itemData.section === i
 			}
 		}));
@@ -82,8 +83,8 @@ class Sections extends Component {
 		let collectionName = currentCollection.data.title;
 
 		this.state.collectionName = collectionName;
-		this.state.accountName=currentCollection.data.accountName;
-		
+		this.state.accountName = currentCollection.data.accountName;
+
 		console.log("propss ", this.state.collectionName);
 
 		currentCollection.data.totalItemsBySection = totalItemsBySection;
@@ -97,10 +98,10 @@ class Sections extends Component {
 		this.props.actions.saveCurrentCollection(currentCollection);
 
 
-		this.setState({totalItemsBySection, myItemsBySection, currentCollection})
+		this.setState({ totalItemsBySection, myItemsBySection, currentCollection })
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 		windowResize();
 		this.updateDimensions();
 	}
@@ -111,52 +112,52 @@ class Sections extends Component {
 
 	updateDimensions() {
 		let newHeight = windowResize() - 140;
-		this.setState({gridList:Object.assign({}, styles.gridList, {height: newHeight})})
+		this.setState({ gridList: Object.assign({}, styles.gridList, { height: newHeight }) })
 	}
 
 
 
-	render(){
-			
+	render() {
+
 		let collections = this.state.collections;
 
 
-		return (<div 
+		return (<div
 			style={styles.root}>
 			<h1 className="sectionsHeader"> {this.state.collectionName} </h1>
 			<GridList
-			cols={1}
-			cellHeight={70}
-			padding={1}
-			style={this.state.gridList}
+				cols={1}
+				cellHeight={70}
+				padding={1}
+				style={this.state.gridList}
 			>
-			{this.state.sections.map((item, i) => (
-				<div key={i}>
-				<Section 
-				id={i} 
-				title={item}
-				collection={this.state.collectionName}
-				account={this.state.accountName}
-				totalItemsBySection={this.state.totalItemsBySection[i].length}
-				myItemsBySection={this.state.myItemsBySection[i].length}
-				collectionId = {this.state.currentCollection.data.id}
-				navigateTo = {navigateTo}
+				{this.state.sections.map((item, i) => (
+					<div key={i}>
+						<Section
+							id={i}
+							title={item}
+							collection={this.state.collectionName}
+							account={this.state.accountName}
+							totalItemsBySection={this.state.totalItemsBySection[i].length}
+							myItemsBySection={this.state.myItemsBySection[i].length}
+							collectionId={this.state.currentCollection.data.id}
+							navigateTo={navigateTo}
 
-				/>
+						/>
 
-				<Divider inset={true} />
-				</div>
+						<Divider inset={true} />
+					</div>
 				))}
 			</GridList>
 
-			</div>
+		</div>
 
-			);
+		);
 	}
 }
 
-function mapStateToProps(state, ownProps){
-	return{
+function mapStateToProps(state, ownProps) {
+	return {
 		collections: state.userCollections.collections,
 		collectionNames: state.collectionsNames.collectionsNames,
 		accountNames: state.accountsNames.accountNames,
@@ -164,7 +165,7 @@ function mapStateToProps(state, ownProps){
 	}
 }
 
-function mapDispatchToProps(dispatch){
+function mapDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators(userDataActions, dispatch)
 	}
