@@ -15,7 +15,7 @@ import OwnersItem from '../components/OwnersItem.component';
 import Add from 'material-ui/svg-icons/content/add';
 import Remove from 'material-ui/svg-icons/content/remove';
 
-import { addRemoveItem, addFavorite} from '../core/firebase/firebaseData';
+import { addRemoveItem, addFavorite } from '../core/firebase/firebaseData';
 
 
 const style = {
@@ -228,6 +228,7 @@ class ItemDetail extends Component {
       })
 
   }
+
   render() {
     // console.log ('item', this.state.item)
     const item = this.state.item;
@@ -251,17 +252,18 @@ class ItemDetail extends Component {
 
     // console.log ("friendsLike:: ", friendsLike, " friendsOwner::", friendsOwner);
 
-    const likesList = (friendsLike.length)?friendsLike.map(friend => {
+    const likesList = (friendsLike.length) ? friendsLike.map(friend => {
       return (<LikesItem
         id={friend.friendId}
         key={friend.friendId}
         name={friend.name}
         profileImage={friend.profileImage}
         items={friend.items}
-        />)
-    }):noLikes;
+        onTouchTap={()=>console.log('click', this.id)}
+      />)
+    }) : noLikes;
 
-    const ownersList =(friendsOwner.length)? friendsOwner.map(friend => {
+    const ownersList = (friendsOwner.length) ? friendsOwner.map(friend => {
       return (<OwnersItem
         key={friend.friendId}
         id={friend.friendId}
@@ -269,8 +271,8 @@ class ItemDetail extends Component {
         count={friend.items[item.itemData.number].count}
         profileImage={friend.profileImage}
         items={friend.items}
-        />)
-    }):noOwners;
+      />)
+    }) : noOwners;
 
 
     return (
@@ -290,7 +292,7 @@ class ItemDetail extends Component {
                       style={style.lessButton}
                       onTouchTap={this.removeItem}
                       mini={true}
-                      >
+                    >
                       <Remove />
                     </FloatingActionButton>
 
@@ -299,7 +301,7 @@ class ItemDetail extends Component {
                       style={style.amount}
                       disabled={true}
                       mini={true}
-                      >
+                    >
                       {item.count || "0"}
                     </FloatingActionButton>
 
@@ -308,7 +310,7 @@ class ItemDetail extends Component {
                       style={style.plusButton}
                       onTouchTap={this.addItem}
                       mini={true}
-                      >
+                    >
                       <Add />
                     </FloatingActionButton>
 
@@ -319,7 +321,7 @@ class ItemDetail extends Component {
                     style={style.addFavoriteButton}
                     onTouchTap={this.addToFavorite}
                     mini={true}
-                    >
+                  >
                     {this.state.isFavorite ? <Favorite /> : <FavoriteBorder />}
                   </FloatingActionButton>
 
@@ -355,23 +357,23 @@ class ItemDetail extends Component {
         <Tabs
           onChange={this.handleChange}
           value={this.state.slideIndex}
-          >
+        >
           <Tab
             icon={<Favorite />}
             label="Likes"
             value={0}
-            />
+          />
           <Tab
             icon={<SupervisorAccount />}
             label="Owners"
             value={1}
-            />
+          />
         </Tabs>
 
         <SwipeableViews
           index={this.state.slideIndex}
           onChangeIndex={this.handleChange}
-          >
+        >
           <div>
             {likesList}
           </div>

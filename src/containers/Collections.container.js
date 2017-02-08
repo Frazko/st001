@@ -111,6 +111,7 @@ class Collections extends Component {
 		);
 	}
 }
+
 function mapStateToProps(state, ownProps) {
 	// console.log (">>>>>>>>> state collection", state);
 	return {

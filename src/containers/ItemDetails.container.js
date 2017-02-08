@@ -30,6 +30,9 @@ class ItemDetails extends Component {
 	}
 
 	render() {
+		if (this.props.currentCollection.length === 0) {
+			return false;
+		}
 		// // console.log (".. ", this.props.params.collection, this.props.params.section, this.props.params.item);
 		return (<div>
 			<ItemDetail
