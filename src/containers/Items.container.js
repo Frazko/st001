@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+// import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+// import { bindActionCreators } from 'redux';
 
-import { GridList, GridTile } from 'material-ui/GridList';
+import { GridList } from 'material-ui/GridList';
 import { windowResize, navigateTo } from '../utils';
 import Item from '../components/Item.component';
 import Divider from 'material-ui/Divider';
@@ -35,18 +35,18 @@ class Items extends Component {
 	}
 
 	componentDidMount() {
-		console.log("componentDidMount")
+		// console.log ("componentDidMount")
 		windowResize();
 		this.updateDimensions();
 	}
 
 	componentWillMount() {
-		console.log("componentWillMount");
-		// console.log('--- this.props.currentCollection', this.props.currentCollection);
+		// console.log ("componentWillMount");
+		// // console.log ('--- this.props.currentCollection', this.props.currentCollection);
 
 
 		if (this.props.currentCollection.length === 0) {
-			console.log('>>   roooooot');
+			// console.log ('>>   roooooot');
 			navigateTo('/');
 			return;
 		}
@@ -63,12 +63,12 @@ class Items extends Component {
 
 	componentWillUnmount() {
 		this.state.componentIsMounted = false;
-		console.log("items componentWillUnmount")
+		// console.log ("items componentWillUnmount")
 		window.removeEventListener("resize", this.updateDimensions);
 	}
 
 	updateDimensions() {
-		console.log('Items :: updateDimensions mounted:');
+		// console.log ('Items :: updateDimensions mounted:');
 		let newHeight = windowResize() - 140;
 		this.setState({ gridList: Object.assign({}, styles.gridList, { height: newHeight }) })
 	}
@@ -117,7 +117,7 @@ class Items extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-	console.log(">> currentCollection props", state.currentCollection)
+	// console.log (">> currentCollection props", state.currentCollection)
 	return {
 		currentCollection: state.currentCollection.currentCollection
 	}

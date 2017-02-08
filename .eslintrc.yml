@@ -55,7 +55,7 @@ rules:
   id-blacklist: 0
   id-length: 0
   id-match: 0
-  indent: [2, 2, {SwitchCase: 1, VariableDeclarator: 2}]
+  indent: [2, "tab", {SwitchCase: 1, VariableDeclarator: 2}]
   init-declarations: 0
   jsx-quotes: 1
   key-spacing: [2, {beforeColon: false, afterColon: true}]
@@ -245,7 +245,7 @@ rules:
   react/jsx-filename-extension: 0
   react/jsx-first-prop-new-line: [2, "multiline"]
   react/jsx-handler-names: 0
-  react/jsx-indent: [1, 2]
+  react/jsx-indent: [2, "tab"]
   react/jsx-indent-props: [1, 2]
   react/jsx-key: 2
   react/jsx-max-props-per-line: 0

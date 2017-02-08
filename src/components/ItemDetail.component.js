@@ -7,7 +7,7 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 
 import { Tabs, Tab } from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
-import { List, ListItem } from 'material-ui/List';
+// import { List, ListItem } from 'material-ui/List';
 
 import LikesItem from '../components/LikesItem.component';
 import OwnersItem from '../components/OwnersItem.component';
@@ -15,7 +15,7 @@ import OwnersItem from '../components/OwnersItem.component';
 import Add from 'material-ui/svg-icons/content/add';
 import Remove from 'material-ui/svg-icons/content/remove';
 
-import { addRemoveItem, addFavorite, getFriendsProfilePicture } from "../core/firebase/firebaseData"
+import { addRemoveItem, addFavorite} from '../core/firebase/firebaseData';
 
 
 const style = {
@@ -187,7 +187,7 @@ class ItemDetail extends Component {
   addToFavorite() {
     addFavorite(this.state.item, !this.state.isFavorite)
       .then((response) => {
-        console.log('Adding', response);
+        // console.log ('Adding', response);
         this.props.item.like = response.like;
 
 
@@ -203,10 +203,10 @@ class ItemDetail extends Component {
   }
 
   addItem() {
-    console.log("addItem");
+    // console.log ("addItem");
     addRemoveItem(this.state.item, true)
       .then((response) => {
-        console.log('Adding', response);
+        // console.log ('Adding', response);
         this.props.item.count = response.count;
 
         this.setState({
@@ -216,10 +216,10 @@ class ItemDetail extends Component {
   }
 
   removeItem() {
-    console.log("removeItem");
+    // console.log ("removeItem");
     addRemoveItem(this.state.item, false)
       .then((response) => {
-        console.log('Adding', response);
+        // console.log ('Adding', response);
         this.props.item.count = response.count;
 
         this.setState({
@@ -229,12 +229,12 @@ class ItemDetail extends Component {
 
   }
   render() {
-    console.log('item', this.state.item)
+    // console.log ('item', this.state.item)
     const item = this.state.item;
     const [firstName, ...lastName] = item.itemData.title.split(" ");
 
     const friendsLike = this.props.friendsWithThisCollection.filter(friend => {
-      console.log(item.itemData.number, friend.items[item.itemData.number]);
+      // console.log (item.itemData.number, friend.items[item.itemData.number]);
       if (friend.items[item.itemData.number]) {
         return friend.items[item.itemData.number].hasOwnProperty('like');
       }
@@ -249,7 +249,7 @@ class ItemDetail extends Component {
     var noLikes = <div className="noItemsToShow">No likes from your friends. <br />Please share the app with your friends.</div>
     var noOwners = <div className="noItemsToShow">No owners within your friends. <br />Please share the app with your friends.</div>
 
-    console.log("friendsLike:: ", friendsLike, " friendsOwner::", friendsOwner);
+    // console.log ("friendsLike:: ", friendsLike, " friendsOwner::", friendsOwner);
 
     const likesList = (friendsLike.length)?friendsLike.map(friend => {
       return (<LikesItem

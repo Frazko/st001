@@ -6,11 +6,11 @@ import Collection from '../components/Collection.component';
 import * as userDataActions from '../core/collectionsData/dataActions';
 import * as navigationActions from '../core/navigation/navigationActions';
 
-import { GridList, GridTile } from 'material-ui/GridList';
-import IconButton from 'material-ui/IconButton';
-import StarBorder from 'material-ui/svg-icons/toggle/star-border';
+import { GridList } from 'material-ui/GridList';
+// import IconButton from 'material-ui/IconButton';
+// import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 
-import { getCollections, getCollectionsNames, getAccountNames } from "../core/firebase/firebaseData"
+// import { getCollections, getCollectionsNames, getAccountNames } from "../core/firebase/firebaseData"
 import { windowResize, navigateTo } from '../utils';
 
 
@@ -54,7 +54,7 @@ class Collections extends Component {
 	}
 
 	updateDimensions() {
-		console.log('Collections :: updateDimensions mounted:');
+		// console.log ('Collections :: updateDimensions mounted:');
 		let newHeight = windowResize() - 50;
 		this.setState({ gridList: Object.assign({}, styles.gridList, { height: newHeight }) });
 	}
@@ -112,7 +112,7 @@ class Collections extends Component {
 	}
 }
 function mapStateToProps(state, ownProps) {
-	console.log(">>>>>>>>> state collection", state);
+	// console.log (">>>>>>>>> state collection", state);
 	return {
 		userData: state.auth.data,
 		collections: state.userCollections.collections,

@@ -6,14 +6,15 @@ import NewCollectionItem from '../components/NewCollectionItem.component';
 import * as userDataActions from '../core/collectionsData/dataActions';
 import * as navigationActions from '../core/navigation/navigationActions';
 
-import { GridList, GridTile } from 'material-ui/GridList';
-import IconButton from 'material-ui/IconButton';
-import StarBorder from 'material-ui/svg-icons/toggle/star-border';
+import { GridList } from 'material-ui/GridList';
+// import IconButton from 'material-ui/IconButton';
+// import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 
-import * as dataActions from "../core/firebase/firebaseData"
+import * as dataActions from '../core/firebase/firebaseData';
 import { windowResize, navigateTo } from '../utils';
+
 const styles = {
     root: {
         textAlign: 'center',
@@ -34,7 +35,7 @@ class NewCollections extends Component {
         this.state = {
             open: false,
         };
-		this.updateDimensions = this.updateDimensions.bind(this);
+        this.updateDimensions = this.updateDimensions.bind(this);
     }
     componentDidMount() {
         windowResize();
@@ -47,7 +48,7 @@ class NewCollections extends Component {
             .then(values => {
                 this.setState({ collections: values });
                 this.props.actions.saveNewCollections(values);
-                console.log("==>> collections::: ", values);
+                // console.log ("==>> collections::: ", values);
             }).catch(function (e) {
                 console.error("<<<<<  ERROR getNewCollections >>>>>", e);
             });
@@ -67,19 +68,19 @@ class NewCollections extends Component {
     }
 
     addToMyCollections(id) {
-        console.log("addToMyCollections>> ", dataActions.addToMyCollections(this.props.userData.providerData[0].uid, id));
+        // console.log ("addToMyCollections>> ", dataActions.addToMyCollections(this.props.userData.providerData[0].uid, id));
         dataActions.addToMyCollections(this.props.userData.providerData[0].uid, id)
             .then(result => {
-                console.log("result>> ", result);
+                // console.log ("result>> ", result);
                 this.handleOpen();
             })
     }
 
     handleOpen() {
-        console.log("handleOpen()")
+        // console.log ("handleOpen()")
         this.setState({ open: true });
 
-        console.log("state ", this.state)
+        // console.log ("state ", this.state)
     };
 
     handleClose() {
@@ -97,7 +98,7 @@ class NewCollections extends Component {
             />
         ];
 
-        // console.log("***********   Render ************");
+        // // console.log ("***********   Render ************");
         let collections = [];
         // TODO:: send Stickers Numbers by getting items lenght 
 

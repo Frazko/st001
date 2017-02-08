@@ -10,11 +10,11 @@ import SelectField from 'material-ui/SelectField';
 import FlatButton from 'material-ui/FlatButton';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
-import { getCollections, addStickers } from "../core/firebase/firebaseData"
+import { addStickers } from '../core/firebase/firebaseData';
 
 import { validateNumericOnly, validateInRange, outOfRange, uniqueInList } from '../utils';
 
-const style= {
+const style = {
   addedItemsResponse:{
     color:'#339933',
     lineHeight:1.2,
@@ -75,7 +75,7 @@ class AddStickers extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log("******************* addStickers HAY DATOS DE COLLECTIONS EN STORE componentWillReceiveProps*", nextProps.collections)
+    //console.log("******************* addStickers HAY DATOS DE COLLECTIONS EN STORE componentWillReceiveProps*", nextProps.collections)
     let collections = nextProps.collections.map(item => item[Object.keys(item)[0]]);
     this.setState({ collections: collections });
   }
@@ -100,7 +100,7 @@ class AddStickers extends Component {
       return;
     }
 
-    console.log("handleAddStickers()");
+    // console.log ("handleAddStickers()");
 
     if (validateNumericOnly(this.state.textFieldValue)) {
       let collectionLength = this.state.collections[this.state.value].items.length;
@@ -191,7 +191,7 @@ class AddStickers extends Component {
 
 
   render() {
-    console.log("*** RENDER addStickers *** ");
+    // console.log ("*** RENDER addStickers *** ");
     const actions = [ <FlatButton
     label = "Cancel"
     primary = { true }

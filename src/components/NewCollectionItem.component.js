@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import React from 'react';
+// import { bindActionCreators } from 'redux';
+// import { connect } from 'react-redux';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
-import {List, ListItem} from 'material-ui/List';
-import Search from 'material-ui/svg-icons/action/search';
-import LabelOutline from 'material-ui/svg-icons/action/label-outline';
-import DataUsage from 'material-ui/svg-icons/device/data-usage';
-import CircularProgress from 'material-ui/CircularProgress';
+// import {List, ListItem} from 'material-ui/List';
+// import Search from 'material-ui/svg-icons/action/search';
+// import LabelOutline from 'material-ui/svg-icons/action/label-outline';
+// import DataUsage from 'material-ui/svg-icons/device/data-usage';
+// import CircularProgress from 'material-ui/CircularProgress';
 import RaisedButton from 'material-ui/RaisedButton';
 //import * as sectionActions from '../actions/sectionActions.jsx';
 

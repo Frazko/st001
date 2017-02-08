@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
-import { Link } from 'react-router';
+// import { Link } from 'react-router';
 
 import * as utils from '../utils';
-import CollectionItem from '../components/CollectionItem.component';
-import Item from '../components/Item.component';
+// import CollectionItem from '../components/CollectionItem.component';
+import UserDetail from '../containers/UserDetail.container';
+// import Item from '../components/Item.component';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -37,10 +38,10 @@ class Dashboard extends Component {
         this.props.navActions.navBarTitleUpdate("Dashboard");
         //
         if (this.props.collections.length < 1) {
-            console.log("******************* dashboard NO HAY DATOS DE COLLECTIONS.. CREANDO NUEVOS **********************")
+            // console.log ("******************* dashboard NO HAY DATOS DE COLLECTIONS.. CREANDO NUEVOS **********************")
             getCollections(this.props.userData.providerData[0].uid)
                 .then(values => {
-                    console.log("collections::: ", values);
+                    // console.log ("collections::: ", values);
                     if (!values[0]) return undefined
                     let collections = values.map(item => item[Object.keys(item)[0]]);
                     this.props.actions.saveUserData(values);
@@ -78,8 +79,8 @@ class Dashboard extends Component {
                     console.error("<<<<< collections ERROR getAccountNames >>>>>", e);
                 });
         } else {
-            console.log("******************* dashboard HAY DATOS DE COLLECTIONS EN STORE **********************")
-            console.log(this.props.collections)
+            // console.log ("******************* dashboard HAY DATOS DE COLLECTIONS EN STORE **********************")
+            // console.log (this.props.collections)
             this.setState({ collections: this.props.collections });
         }
 
@@ -108,8 +109,8 @@ class Dashboard extends Component {
         let Renderhtml = (props) => <div className="noItemsToShow">Loading data...</div>;
 
         if (this.state.collections.length > 0) {
-            console.log('BUILD DASHBOARD');
-            Renderhtml = (props) => <div > <MyCollections /> <NewCollections /></div>;
+            // console.log ('BUILD DASHBOARD');
+            Renderhtml = (props) => <div > <MyCollections /> <NewCollections /> <UserDetail /></div>;
         } 
 
 

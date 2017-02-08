@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import Paper from 'material-ui/Paper';
-import {List, ListItem} from 'material-ui/List';
-import Avatar from 'material-ui/Avatar';
+import React from 'react';
+// import { bindActionCreators } from 'redux';
+// import { connect } from 'react-redux';
+// import Paper from 'material-ui/Paper';
+import { ListItem} from 'material-ui/List';
+// import Avatar from 'material-ui/Avatar';
 import ChevronRight from 'material-ui/svg-icons/navigation/chevron-right';
 import CircularProgress from 'material-ui/CircularProgress';
-import LinearProgress from 'material-ui/LinearProgress';
-import RaisedButton from 'material-ui/RaisedButton';
+// import LinearProgress from 'material-ui/LinearProgress';
+// import RaisedButton from 'material-ui/RaisedButton';
 //import * as sectionActions from '../actions/sectionActions.jsx';
  
 

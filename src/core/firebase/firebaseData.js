@@ -41,9 +41,9 @@ export function getCollections(userid) {
 
                         getFriendsItems(uid, collectionId.key)
                             .then(values => {
-                                console.log("::::::::::::: ", values);
+                                console.log("getFriendsItems in col :::::::::::: ", collectionId.key, values);
                                 let fwtc = values.filter(Boolean);
-                                console.log("------------- ", fwtc);
+                                console.log("friends w this collection --------- ", fwtc);
                                 // if (fwtc.length > 0) {
                                     obj[collectionId.key].friendsWithThisCollection = fwtc;
                                 // }

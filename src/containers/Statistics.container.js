@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 class Statistics extends Component {
-    render(){
+    render() {
         return (<h1>Statistics Page </h1>);
     }
 }

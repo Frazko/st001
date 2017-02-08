@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+// import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as userDataActions from '../core/collectionsData/dataActions';
 import { windowResize, navigateTo, mergeFriends } from '../utils';
 import Section from '../components/Section.component';
-import { GridList, GridTile } from 'material-ui/GridList';
+import { GridList } from 'material-ui/GridList';
 import Divider from 'material-ui/Divider';
 
 const styles = {
@@ -14,7 +14,7 @@ const styles = {
 		textAlign: 'center',
 		display: 'flex',
 		flexWrap: 'wrap',
-		justifyContent: 'space-around',
+		justifyContent: 'space-around'
 		//background:'#FFAAAA',
 	},
 	gridList: {
@@ -32,15 +32,15 @@ class Sections extends Component {
 			collectionId: this.props.params.collection,
 			collectionName: "",
 			accountName: "",
-			sections: [],
+			sections: []
 		};
-		// console.log("<<<<>>>>> ", this.state);
+		// // console.log ("<<<<>>>>> ", this.state);
 
 		this.updateDimensions = this.updateDimensions.bind(this);
 	}
 
 	componentWillMount() {
-		console.log('this.props.collections', this.props.collections);
+		// console.log ('this.props.collections', this.props.collections);
 
 		if (this.props.collections.length === 0) {
 			navigateTo('/');
@@ -49,16 +49,16 @@ class Sections extends Component {
 
 		window.addEventListener('resize', this.updateDimensions);
 
-		// console.log(":: Sections::::: ", this.props.collections)
+		// // console.log (":: Sections::::: ", this.props.collections)
 		let currentCollection = this.props.collections.filter((item, i) => item[this.state.collectionId])[0][this.state.collectionId]
 		let sections = currentCollection.sections;
 
 		// currentCollection.friendsWithThisCollection = [];
 		if (!currentCollection.friendsMerged) {
-			console.log(" ----------------- Merging Friends -----------------  ");
+			// console.log (" ----------------- Merging Friends -----------------  ");
 			// if (currentCollection.hasOwnProperty('friendsWithThisCollection')) { 
 			currentCollection.friendsWithThisCollection.forEach((friend) => {
-				console.log("This collection:: ", currentCollection.data.title, currentCollection.items, friend.items);
+				// console.log ("This collection:: ", currentCollection.data.title, currentCollection.items, friend.items);
 				mergeFriends(currentCollection.items, friend.items);
 			});
 		}
@@ -66,8 +66,8 @@ class Sections extends Component {
 
 		this.state.sections = sections;
 
-		console.log("currentCollection", currentCollection);
-		console.log("sections", sections);
+		// console.log ("currentCollection", currentCollection);
+		// console.log ("sections", sections);
 
 		// 
 		let totalItemsBySection = currentCollection.sections.map((sections, i) => currentCollection.items.filter((item) => {
@@ -75,10 +75,10 @@ class Sections extends Component {
 				return item.itemData.section === i
 			}
 		}));
-		console.log("LIST:::::: itemsBySection ", totalItemsBySection);
+		// console.log ("LIST:::::: itemsBySection ", totalItemsBySection);
 
 		let myItemsBySection = totalItemsBySection.map((section) => section.filter((item) => item.count));
-		console.log("LIST:::::: myItemsBySection ", myItemsBySection);
+		// console.log ("LIST:::::: myItemsBySection ", myItemsBySection);
 
 
 		currentCollection.data.accountName = this.props.accountNames.filter((account) => account[currentCollection.data.account])[0][currentCollection.data.account];
@@ -87,7 +87,7 @@ class Sections extends Component {
 		this.state.collectionName = collectionName;
 		this.state.accountName = currentCollection.data.accountName;
 
-		console.log("propss ", this.state.collectionName);
+		// console.log ("propss ", this.state.collectionName);
 
 		currentCollection.data.totalItemsBySection = totalItemsBySection;
 		currentCollection.data.myItemsBySection = myItemsBySection;
@@ -110,7 +110,7 @@ class Sections extends Component {
 	}
 
 	updateDimensions() {
-		console.log('Sections :: updateDimensions mounted:');
+		// console.log ('Sections :: updateDimensions mounted:');
 		let newHeight = windowResize() - 140;
 		this.setState({ gridList: Object.assign({}, styles.gridList, { height: newHeight }) })
 	}
