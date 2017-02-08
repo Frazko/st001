@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 import { firebaseAuth } from '../firebase';
-import  * as dataManager  from '../firebase/FirebaseData';
+import  * as dataManager  from '../firebase/firebaseData';
 import {
   INIT_AUTH,
   SIGN_IN_ERROR,

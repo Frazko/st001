@@ -29,19 +29,15 @@ class Items extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			items:[],
+			items: [],
 		};
+		this.updateDimensions = this.updateDimensions.bind(this);
 	}
 
 	componentDidMount() {
 		console.log("componentDidMount")
 		windowResize();
 		this.updateDimensions();
-	}
-
-	componentWillUnmount() {
-		console.log("componentWillUnmount")
-		window.removeEventListener("resize", this.updateDimensions);
 	}
 
 	componentWillMount() {
@@ -55,7 +51,7 @@ class Items extends Component {
 			return;
 		}
 		// debugger
-		window.addEventListener('resize', () => this.updateDimensions(), true);
+		window.addEventListener('resize', this.updateDimensions);
 
 		this.state.items = this.props.currentCollection.data.totalItemsBySection[this.props.params.section]; //
 		this.state.collectionId = this.props.currentCollection.data.id;
@@ -65,12 +61,17 @@ class Items extends Component {
 
 	}
 
+	componentWillUnmount() {
+		this.state.componentIsMounted = false;
+		console.log("items componentWillUnmount")
+		window.removeEventListener("resize", this.updateDimensions);
+	}
+
 	updateDimensions() {
-		console.log("updateDimensions")
+		console.log('Items :: updateDimensions mounted:');
 		let newHeight = windowResize() - 140;
 		this.setState({ gridList: Object.assign({}, styles.gridList, { height: newHeight }) })
 	}
-
 
 
 	render() {

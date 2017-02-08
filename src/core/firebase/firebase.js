@@ -7,4 +7,4 @@ export const firebaseAuth = firebaseApp.auth();
 export const firebaseDb = firebaseApp.database();
 
 
-window.firebase = firebaseApp;
+// window.firebase = firebaseApp;

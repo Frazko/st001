@@ -1,4 +1,4 @@
-import { browserHistory } from 'react-router'
+import { browserHistory } from 'react-router';
 
 import { navBarTitleUpdate } from '../core/navigation/navigationActions.js';
 

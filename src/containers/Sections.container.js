@@ -35,6 +35,8 @@ class Sections extends Component {
 			sections: [],
 		};
 		// console.log("<<<<>>>>> ", this.state);
+
+		this.updateDimensions = this.updateDimensions.bind(this);
 	}
 
 	componentWillMount() {
@@ -45,13 +47,13 @@ class Sections extends Component {
 			return;
 		}
 
-		window.addEventListener('resize', () => this.updateDimensions(), true);
+		window.addEventListener('resize', this.updateDimensions);
 
 		// console.log(":: Sections::::: ", this.props.collections)
 		let currentCollection = this.props.collections.filter((item, i) => item[this.state.collectionId])[0][this.state.collectionId]
 		let sections = currentCollection.sections;
 
-		currentCollection.friendsWithThisCollection = [];
+		// currentCollection.friendsWithThisCollection = [];
 		if (!currentCollection.friendsMerged) {
 			console.log(" ----------------- Merging Friends -----------------  ");
 			// if (currentCollection.hasOwnProperty('friendsWithThisCollection')) { 
@@ -91,9 +93,6 @@ class Sections extends Component {
 		currentCollection.data.myItemsBySection = myItemsBySection;
 
 
-
-
-
 		// SAVING CURRENT COLLECTION TO STORE
 		this.props.actions.saveCurrentCollection(currentCollection);
 
@@ -111,6 +110,7 @@ class Sections extends Component {
 	}
 
 	updateDimensions() {
+		console.log('Sections :: updateDimensions mounted:');
 		let newHeight = windowResize() - 140;
 		this.setState({ gridList: Object.assign({}, styles.gridList, { height: newHeight }) })
 	}

@@ -44,9 +44,9 @@ export function getCollections(userid) {
                                 console.log("::::::::::::: ", values);
                                 let fwtc = values.filter(Boolean);
                                 console.log("------------- ", fwtc);
-                                if (fwtc.length > 0) {
+                                // if (fwtc.length > 0) {
                                     obj[collectionId.key].friendsWithThisCollection = fwtc;
-                                }
+                                // }
                             }).catch(function(e) {
                                 console.error("<<<<<  ERROR getFriendsItems in AddStickers >>>>>", e);
                             });
