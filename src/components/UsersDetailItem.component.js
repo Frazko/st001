@@ -2,6 +2,7 @@ import React from 'react';
 import Divider from 'material-ui/Divider';
 import { List, ListItem } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
+
 import * as colors from '../constants/Colors.constants.js';
 
 const style = {
@@ -27,7 +28,9 @@ const style = {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    minHeight: 100
+    minHeight: 100,
+    // background:'#FFFFAA',
+    // border: 'solid 1px #0000AA ',
   },
   block: {
     marginLeft: 15,
@@ -35,18 +38,18 @@ const style = {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
+    // background:'#AAFFFF',
   },
 
   blockTitle: {
   }
 };
 
-const LikesItem = (props) => {
+const UsersDetailItem = (props) => {
   return (
       <List>
         <ListItem
-          onTouchTap={()=>props.clickHandler(props.id)}
           leftAvatar={<div style={style.picHolder}><Avatar style={style.pic} src={props.profileImage} /></div>}
           style={style.listItem}
           >
@@ -61,12 +64,11 @@ const LikesItem = (props) => {
   );
 }
 
-LikesItem.propTypes = {
+UsersDetailItem.propTypes = {
   id: React.PropTypes.string,
   name: React.PropTypes.string,
   profileImage: React.PropTypes.string,
-  items: React.PropTypes.array,
-  clickHandler: React.PropTypes.func,
+  items: React.PropTypes.array
 }
 
-export default LikesItem;
+export default UsersDetailItem;

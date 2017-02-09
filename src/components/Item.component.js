@@ -115,7 +115,7 @@ const Item = (props) => {
               rightIcon={<div style={style.amountHolder}><div style={style.amount}>{props.itemNumber}</div></div>}
               style={style.listItem}
 
-              onTouchTap={props.navigateTo.bind(this, "/"+props.collectionid+"/"+props.sectionId+"/"+props.id)}
+              onTouchTap={props.navigateTo.bind(this, "/col/"+props.collectionid+"/"+props.sectionId+"/"+props.id)}
               >
               
               <div style={style.block}>

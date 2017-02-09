@@ -1,28 +1,14 @@
 import React, { Component } from 'react';
-// import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Paper from 'material-ui/Paper';
-// import Divider from 'material-ui/Divider';
-// import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
-// import SupervisorAccount from 'material-ui/svg-icons/action/supervisor-account';
-// import Favorite from 'material-ui/svg-icons/action/favorite';
-// import FavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
 import QuestionAnswer from 'material-ui/svg-icons/action/question-answer';
-
 import { windowResize, navigateTo } from '../utils';
-
-
 import {Tabs, Tab} from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
-// import {List, ListItem} from 'material-ui/List';
-// import Subheader from 'material-ui/Subheader';
 import Avatar from 'material-ui/Avatar';
-// import Section from '../components/Section.component';
-import Item from '../components/Item.component';
-//import * as sectionActions from '../actions/sectionActions.jsx';
- 
-
+import UsersDetailItem from '../components/UsersDetailItem.component';
+import UsersDetailCollection from '../components/UsersDetailCollection.component';
 
 const style = {
 
@@ -70,8 +56,6 @@ const style = {
     // background:'#AAAAFF',
 
   },
-
-
   avatar : {
     width: 100,
     height: 100,
@@ -172,22 +156,13 @@ class UserDetail extends Component {
             onChangeIndex={this.handleChange}
           >
             <div>
-              <Item
-							id={7}
+              <UsersDetailItem
 							title="title"
-							itemNumber={489}
-							collection="los pichudos"
-							collectionid={8779}
-							sectionId={3}
-							count={3}
-							iLike={false}
-							owners={false}
-							likes={false}
 							navigateTo={navigateTo}
               />
             </div>
             <div >
-              <Item
+              <UsersDetailCollection
 							navigateTo={navigateTo}
               />
             </div>

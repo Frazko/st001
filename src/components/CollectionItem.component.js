@@ -67,8 +67,6 @@ class CollectionItem extends Component {
     return (
       <div>
         <Paper style={style.backgroundPaper} zDepth={2} rounded={true}>
-          
-
           <List>
             <ListItem
               leftAvatar={<div style={style.circularProgressSettings.circularProgressHolder}><CircularProgress
@@ -85,87 +83,7 @@ class CollectionItem extends Component {
               secondaryText={"PANINI, 2017"}
               style={style.listItem}
             />
-
-            
-{/*
-            <Divider inset={true} />
-            
-            <ListItem
-              leftAvatar={<div style={style.circularProgressSettings.circularProgressHolder}><CircularProgress
-              mode="determinate"
-              value={50}
-              size={style.circularProgressSettings.size}
-              thickness={style.circularProgressSettings.thickness}
-              style={style.circularProgressSettings.circularProgress}
-              color={circularProgressColor()}
-              /></div>}
-              rightIcon={<div style={style.chevronHolder}><ChevronRight /></div>}
-
-              primaryText="DREAMWORKS TROLLS STICKERALBUM"
-              secondaryText={"TOPPS, 2016"}
-              style={style.listItem}
-            />
-
-            <Divider inset={true} />
-            
-            <ListItem
-              leftAvatar={<div style={style.circularProgressSettings.circularProgressHolder}><CircularProgress
-              mode="determinate"
-              value={100}
-              size={style.circularProgressSettings.size}
-              thickness={style.circularProgressSettings.thickness}
-              style={style.circularProgressSettings.circularProgress}
-              color={circularProgressColor()}
-              /></div>}
-              rightIcon={<div style={style.chevronHolder}><ChevronRight /></div>}
-              
-              primaryText={"NBA STICKER COLLECTION 2016/2017 - EUROPEAN VERSION "}
-              secondaryText={"PANINI, 2016"}
-              style={style.listItem}
-            />
-
-            <Divider inset={true} />
-
-            <ListItem
-              leftAvatar={<div style={style.circularProgressSettings.circularProgressHolder}><CircularProgress
-              mode="determinate"
-              value={40}
-              size={style.circularProgressSettings.size}
-              thickness={style.circularProgressSettings.thickness}
-              style={style.circularProgressSettings.circularProgress}
-              color={circularProgressColor()}
-              /></div>}
-              rightIcon={<div style={style.chevronHolder}><ChevronRight /></div>}
-              
-              primaryText={"WWE SLAM ATTAX - TAKEOVER"}
-              secondaryText={"TOPPS, 2015"}
-              style={style.listItem}
-            />
-
-            <Divider inset={true} />
-
-            <ListItem
-              leftAvatar={<div style={style.circularProgressSettings.circularProgressHolder}><CircularProgress
-              mode="determinate"
-              value={85}
-              size={style.circularProgressSettings.size}
-              thickness={style.circularProgressSettings.thickness}
-              style={style.circularProgressSettings.circularProgress}
-              color={circularProgressColor()}
-              /></div>}
-              rightIcon={<div style={style.chevronHolder}><ChevronRight /></div>}
-              
-              primaryText={"SPANISH LIGA 2016/2017 - MEGACRACKS"}
-              secondaryText={"PANINI, 2016"}
-
-              style={style.listItem}
-            />
-*/}
           </List>
-
-
-
-
         </Paper>
       </div>
     );

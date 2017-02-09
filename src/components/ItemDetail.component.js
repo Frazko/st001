@@ -176,6 +176,7 @@ class ItemDetail extends Component {
     this.addToFavorite = this.addToFavorite.bind(this);
     this.addItem = this.addItem.bind(this);
     this.removeItem = this.removeItem.bind(this);
+    this.handleUserClick = this.handleUserClick.bind(this);
   }
 
   handleChange = (value) => {
@@ -229,6 +230,12 @@ class ItemDetail extends Component {
 
   }
 
+
+  handleUserClick(uid) {
+    console.log('click', uid);
+    this.props.navigateTo('/user/'+uid);
+  }
+
   render() {
     // console.log ('item', this.state.item)
     const item = this.state.item;
@@ -259,7 +266,7 @@ class ItemDetail extends Component {
         name={friend.name}
         profileImage={friend.profileImage}
         items={friend.items}
-        onTouchTap={()=>console.log('click', this.id)}
+        clickHandler={this.handleUserClick}
       />)
     }) : noLikes;
 

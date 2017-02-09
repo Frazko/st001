@@ -111,7 +111,7 @@ const Collection = (props) => {
           <div style={style.cta}>
             <RaisedButton label="View Sections" 
             fullWidth={true} 
-            onTouchTap={props.navigateTo.bind(this, "/"+props.id)} 
+            onTouchTap={props.navigateTo.bind(this, "/col/"+props.id)} 
             />
           </div>
 

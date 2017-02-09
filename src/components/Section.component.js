@@ -82,7 +82,7 @@ const Section = (props) => {
               secondaryText={props.collection +", " + props.account}
               style={style.listItem}
 
-              onTouchTap={props.navigateTo.bind(this, "/"+props.collectionId+"/"+props.id)}
+              onTouchTap={props.navigateTo.bind(this, "/col/"+props.collectionId+"/"+props.id)}
             />
     );
 }

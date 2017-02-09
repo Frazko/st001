@@ -28,6 +28,7 @@ const styles = {
 class Items extends Component {
 	constructor(props) {
 		super(props);
+		console.log ("Items ");
 		this.state = {
 			items: [],
 		};
@@ -41,7 +42,7 @@ class Items extends Component {
 	}
 
 	componentWillMount() {
-		// console.log ("componentWillMount");
+		console.log ("Items - componentWillMount");
 		// // console.log ('--- this.props.currentCollection', this.props.currentCollection);
 
 

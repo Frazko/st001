@@ -41,6 +41,7 @@ class ItemDetails extends Component {
 				accountName={this.state.currentCollection.data.accountName}
 				section={this.state.currentCollection.sections[this.props.params.section]}
 				item={this.state.currentItem}
+				navigateTo={navigateTo}
 			/>
 		</div>);
 	}
