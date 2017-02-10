@@ -134,6 +134,18 @@ export function getNewCollections(uid) {
         });
 }
 
+
+//-------------------------------------------------------------------------- GET NEW COLLECTIONS DATA FROM FIREBASE  
+export function getUserData(uid) {
+    console.log(">>>> getUserData", uid);
+    //TODO :: get albums not in my list 
+    // ----------------------------------------------------------- save user collections to list
+    return usersRef.child(uid).once("value")
+        .then(snapshot => {
+            return snapshot.val();
+        })
+}
+
 //-------------------------------------------------------------------------- ADD MY COLLECTIONS   
 export function addToMyCollections(uid, collectionId) {
     var ref = usersRef.child(uid);

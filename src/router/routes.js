@@ -16,8 +16,8 @@ import UserDetail from '../containers/UserDetail.container';
 
 export const paths = {
     ROOT:           '/',
-    SIGN_IN:        '/sign-in',
     DASHBOARD:      '/',
+    SIGN_IN:        '/sign-in',
     MY_COLLECTIONS: '/myCollections',
     NEW_COLLECTIONS:'/newCollections',
 
@@ -30,6 +30,7 @@ export const paths = {
     ITEM:           '/col/:collection/:section/:item',
 };
 
+const useChildren = (props) => <div>{props.children}</div>;
 
 const requireAuth = getState => {
     return (nextState, replace) => {
@@ -47,13 +48,12 @@ const requireUnauth = getState => {
     };
 };
 
-const useChildren = (props) => <div>{props.children}</div>;
 //  ------------------  !IMPORTANT  route changes in App.js
 
 export const getRoutes = getState => {
     console.log('getState', getState);
     return {
-        path: paths.ROOT,
+        path: paths.DASHBOARD,
         component: App,
         childRoutes: [{
             indexRoute: {
@@ -101,27 +101,3 @@ export const getRoutes = getState => {
         }]
     };
 };
-/*
-const routes = {
-    path: '/',
-    component: App,
-    indexRoute: { component: Dashboard },
-    childRoutes: [
-        { path: 'about', component: About },
-        {
-            path: 'inbox',
-            component: Inbox,
-            childRoutes: [{
-                path: 'messages/:id',
-                onEnter: ({ params }, replace) => replace(`/messages/${params.id}`)
-            }]
-        },
-        {
-            component: Inbox,
-            childRoutes: [{
-                path: 'messages/:id', component: Message
-            }]
-        }
-    ]
-}
-*/

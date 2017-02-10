@@ -278,6 +278,7 @@ class ItemDetail extends Component {
         count={friend.items[item.itemData.number].count}
         profileImage={friend.profileImage}
         items={friend.items}
+        clickHandler={this.handleUserClick}
       />)
     }) : noOwners;
 

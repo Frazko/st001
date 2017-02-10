@@ -110,7 +110,7 @@ class Dashboard extends Component {
 
         if (this.state.collections.length > 0) {
             // console.log ('BUILD DASHBOARD');
-            Renderhtml = (props) => <div > <MyCollections /> <NewCollections /> <UserDetail /></div>;
+            Renderhtml = (props) => <div > <MyCollections /> <NewCollections /></div>;
         } 
 
 

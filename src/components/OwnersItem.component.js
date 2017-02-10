@@ -83,8 +83,10 @@ const style = {
 
 const OwnersItem = (props) => {
     return (<List>
-        <ListItem leftAvatar={<div style={style.indexHolder}>
-            <Avatar style={style.index} src={props.profileImage} /></div>}
+        <ListItem
+            onTouchTap={() => props.clickHandler(props.id)}
+            leftAvatar={<div style={style.indexHolder}>
+                <Avatar style={style.index} src={props.profileImage} /></div>}
             style={style.listItem}>
             <div style={style.block}>
                 <div style={style.blockTitle}>
