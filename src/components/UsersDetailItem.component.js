@@ -48,19 +48,23 @@ const style = {
 
 const UsersDetailItem = (props) => {
   return (
-      <List>
-        <ListItem
-          leftAvatar={<div style={style.picHolder}><Avatar style={style.pic} src={props.profileImage} /></div>}
-          style={style.listItem}
-          >
-          <div style={style.block}>
-            <div style={style.blockTitle}>
-              <div className="itemTitle">{props.name}</div>
-            </div>
+    <List>
+      <ListItem
+        leftAvatar={<div style={style.picHolder}><b> {props.number}</b></div>}
+        style={style.listItem}
+      >
+        <div style={style.block}>
+          <div style={style.blockTitle}>
+            <div className="itemTitle"> {props.title}</div>
+            <div className="itemTitle"> {props.year}</div>
+            <div className="itemTitle"> {props.sectionName}</div>
+            <div className="itemTitle"> {props.collectionName}</div>
+            <div className="itemTitle"> {'Account:' + props.accountName}</div>
           </div>
-        </ListItem>
-        <Divider inset={true} />
-      </List>
+        </div>
+      </ListItem>
+      <Divider inset={true} />
+    </List>
   );
 }
 

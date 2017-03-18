@@ -9,17 +9,18 @@ var token = '';
 
 Object.filter = (obj, predicate) =>
     Object.keys(obj)
-    .filter(key => predicate(obj[key]))
-    .reduce((res, key) => (res[key] = obj[key], res), {});
+        .filter(key => predicate(obj[key]))
+        .reduce((res, key) => (res[key] = obj[key], res), {});
 
 
 //-------------------------------------------------------------------------- GET COLLECTIONS DATA FROM FIREBASE  
-export function getCollections(userid) {
+export function getCollections(userid, saveUid = true) {
     console.log(">>>> getCollections", userid);
-    uid = userid;
+    if (saveUid)
+        uid = userid;
     //TODO:: make flag for new albums added to myAlbums to load info again.
     // ----------------------------------------------------------- get user collections
-    return usersRef.child(uid + "/myCollections").once("value")
+    return usersRef.child(userid + "/myCollections").once("value")
         .then(snapshot => {
             var reads = [];
             let userCollectiosObj = snapshot.val();
@@ -35,27 +36,28 @@ export function getCollections(userid) {
                         obj[collectionId.key].data.id = collectionId.key;
                         obj[collectionId.key].iHave = Object.keys(items).length;
                         obj[collectionId.key].iChange = Object.keys(Object.filter(items, item => item.count > 1)).length;
-                        // console.log('    items ');
                         deepExtend(obj[collectionId.key].items, userCollectiosObj[collectionId.key].items);
-                        // console.log('    ------ getCollections obj ', obj[collectionId.key].items);
 
-                        getFriendsItems(uid, collectionId.key)
+                        getFriendsItems(userid, collectionId.key)
                             .then(values => {
                                 console.log("getFriendsItems in col :::::::::::: ", collectionId.key, values);
                                 let fwtc = values.filter(Boolean);
                                 console.log("friends w this collection --------- ", fwtc);
                                 // if (fwtc.length > 0) {
-                                    obj[collectionId.key].friendsWithThisCollection = fwtc;
+                                obj[collectionId.key].friendsWithThisCollection = fwtc;
                                 // }
-                            }).catch(function(e) {
+                            }).catch(function (e) {
                                 console.error("<<<<<  ERROR getFriendsItems in AddStickers >>>>>", e);
                             });
+
 
 
                         return obj;
                     });
                 reads.push(promise);
             });
+            // console.log("1.5 ::::::::::::::::::::", Promise.all(reads));
+
             return Promise.all(reads);
         });
 
@@ -143,7 +145,7 @@ export function getUserData(uid) {
     return usersRef.child(uid).once("value")
         .then(snapshot => {
             return snapshot.val();
-        })
+        });
 }
 
 //-------------------------------------------------------------------------- ADD MY COLLECTIONS   
@@ -165,7 +167,7 @@ export function addToMyCollections(uid, collectionId) {
             }
             return true;
         })
-        .catch(function(e) {
+        .catch(function (e) {
             console.error("<<<<<  ERROR addToMyCollections >>>>>", e);
             return false;
         });
@@ -184,12 +186,41 @@ export function getCollectionsNames() {
                 let obj = {};
                 obj[collectionId.key] = collectionId.val();
                 names.push(obj);
-                // console.log('    ------ getCollectionsNames obj ', obj);
+                console.log('    ------ getCollectionsNames obj ', obj);
             });
             // console.log('    ');
             return Promise.resolve(names);
         });
 
+}
+
+//-------------------------------------------------------------------------- GET COLLECTIONS NAMES BY USER ID
+export function getCollectionsNamesByUser(userid) {
+    return usersRef.child(userid + "/myCollections").once("value")
+        .then(snapshot => {
+            var reads = [];
+            snapshot.forEach(collectionId => {
+                var promise1 = collectionsRef.child(collectionId.key).once("value")
+                    .then(collection => {
+                        console.log('>>col.val()', collection.val());
+                        let obj = {};
+                        obj[collection.key] = collection.val();
+                        return obj;
+                    });
+                reads.push(promise1);
+            });
+            return Promise.all(reads);
+        });
+}
+//-------------------------------------------------------------------------- GET COLLECTIONS NAMES BY USER ID
+export function getCollectionNameByID(collectionId) {
+    console.log('getCollectionNameByID >>>> ', collectionId);
+    var collectionReference = collectionsRef.child(collectionId).once("value")
+        .then(collection => {
+            console.log('>>getCollectionNameByID', collection.val().data.title);
+            return collection.val().data.title;
+        });
+    return collectionReference;
 }
 
 //-------------------------------------------------------------------------- GET ACCOUNT NAMES FROM FIREBASE  
@@ -209,6 +240,14 @@ export function getAccountNames() {
             return Promise.resolve(names);
         });
 
+}
+//-------------------------------------------------------------------------- GET ACCOUNT NAMES  BY ID FROM FIREBASE  
+export function getAccountNameByID(accountId) {
+    console.log('    ------ getAccountNameByID accountId ', accountId);
+    return accountsRef.child(accountId).once("value")
+        .then(snapshot => {
+            return snapshot.val().account;
+        });
 }
 
 //-------------------------------------------------------------------------- ADD STICKERS  
@@ -243,9 +282,9 @@ export function addStickers(uid, collection, newItems) {
             ref.set(obj)
             return Promise.resolve({ repeated, notRepeated });
         })
-        // .catch(function(e) {
-        //     console.error("<<<<<  ERROR addStickers >>>>>", e);
-        // });
+    // .catch(function(e) {
+    //     console.error("<<<<<  ERROR addStickers >>>>>", e);
+    // });
 }
 
 
@@ -295,7 +334,7 @@ export function addRemoveItem(itemOrigin, add) {
             }
             return Promise.resolve(obj);
         })
-        .catch(function(e) {
+        .catch(function (e) {
             console.error("<<<<<  ERROR addRemoveItem >>>>>", e);
         });
 }
@@ -338,7 +377,7 @@ export function addFavorite(itemOrigin, add) {
             }
             return Promise.resolve(obj);
         })
-        .catch(function(e) {
+        .catch(function (e) {
             console.error("<<<<<  ERROR addFavorite >>>>>", e);
         });
 }

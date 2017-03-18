@@ -9,7 +9,7 @@ import SwipeableViews from 'react-swipeable-views';
 import Avatar from 'material-ui/Avatar';
 import UsersDetailItem from '../components/UsersDetailItem.component';
 import UsersDetailCollection from '../components/UsersDetailCollection.component';
-import { getUserData } from '../core/firebase/firebaseData';
+import { getUserData, getCollections, getAccountNameByID } from '../core/firebase/firebaseData';
 
 const style = {
 
@@ -95,19 +95,43 @@ class UserDetail extends Component {
     super(props);
     this.state = {
       slideIndex: 0,
-      userData:undefined,
-      userCollections:undefined
+      userData: undefined,
+      userCollections: undefined
     };
 
-    console.log('udi::', this.props.params.uid)
+    //console.log('udi::', this.props.params.uid)
   }
 
   componentWillMount() {
     var userData = getUserData(this.props.params.uid);
     userData.then((data) => {
-      console.log('the data:: ', data);
-      this.setState({ userData: data.userData, userCollections: data.myCollections });
-    })
+      //console.log('the data:: ', data);
+      this.setState({ userData: data.userData });
+    });
+
+    getCollections(this.props.params.uid, false)
+      .then((collections) => {
+        // //console.log('the data::collections ', collections);
+
+        collections.map(collection => {
+
+          for (var key in collection) {
+            console.log('the data::collection ', collection[key]);
+            getAccountNameByID(collection[key].data.account)
+              .then(accountName => {
+                console.log('    ------ getAccountNameByID accountName ', accountName);
+                collection[key].data.accountName = accountName;
+                console.log('    ------ getAccountNameByID accountName ', collection[key].data.accountName);
+                // console.log('    ------ getAccountNameByID accountName ', obj);
+                let userCollectionsItems = this.flatternItems(collections);
+                console.log('1:::::::::::::::::::::::::::   the data::userCollectionsItems ', userCollectionsItems);
+                this.setState({ userCollections: collections, userCollectionsItems: userCollectionsItems });
+              });
+
+          }
+        })
+
+      });
   }
 
   handleChange = (value) => {
@@ -115,10 +139,108 @@ class UserDetail extends Component {
       slideIndex: value,
     });
   };
+
+  flatternItems(collections) {
+    //console.log('the data flatternItems', collections);
+    var items = [];
+    collections.map((collection) => {
+      //console.log('the collection >>', collection);
+      for (var key in collection) {
+        //console.log('the collection[key] >>', key);
+        if (collection.hasOwnProperty(key)) {
+          let currentCollectionItems = collection[key].items.filter(item => item.count > 1);
+          currentCollectionItems.map((item) => {
+            //console.log('currentCollectionItems  item >> ', item, collection[key].data.title);
+            item.itemData.collectionName = collection[key].data.title;
+            item.itemData.sectionName = collection[key].sections[item.itemData.section];
+            item.itemData.year = collection[key].data.year;
+            item.itemData.accountName = collection[key].data.accountName;
+            //console.log('::::::: collection[key].data', collection[key].data.accountName);
+          })
+
+          // //console.log('...items >> ', ...items, '...currentCollectionItems', ...currentCollectionItems);
+          items = [...items, ...currentCollectionItems];
+        }
+      }
+
+    })
+    //console.log('the data flatternItems >>', items);
+    return items;
+  }
+
   render() {
     const photoURL = (this.state.userData) ? this.state.userData.photoURL : "";
     const displayName = (this.state.userData) ? this.state.userData.displayName : "";
     const description = (this.state.userData) ? this.state.userData.description : "";
+
+    let noItems = <div className="noItemsToShow">No items to show.</div>
+    var UserDetailItems = noItems;
+    var UsersDetailCollections = noItems;
+
+
+
+
+
+
+
+    console.log('2:::::::::::::::::::::  >>>', this.state.userCollectionsItems)
+
+
+
+
+
+    if (this.state.userCollections) {
+      //console.log('debug Building userCollections');
+      const userCollections = this.state.userCollections.map(collection => {
+        return { collection: collection, items: collection[Object.keys(collection)[0]].items.filter(item => { return item.count >= 2 }) };
+      });
+
+      UserDetailItems = this.state.userCollectionsItems.map((item, i) => {
+        return <UsersDetailItem
+          key={i}
+          id={item.itemData.id}
+          title={item.itemData.title}
+          number={item.itemData.number}
+          section={item.itemData.section}
+          sectionName={item.itemData.sectionName}
+          collection={item.itemData.collection}
+          collectionName={item.itemData.collectionName}
+          account={item.itemData.account}
+          accountName={item.itemData.accountName}
+          year={item.itemData.year}
+          navigateTo={navigateTo}
+        />
+      });
+
+      //console.log('debug 3', this.state.userCollectionsList);
+
+      if (this.state.userCollections)
+        UsersDetailCollections = this.state.userCollections.map((collection, i) => {
+          let id = Object.keys(collection)[0];
+          collection = collection[Object.keys(collection)];
+          return <UsersDetailCollection
+            key={i}
+            id={id}
+            title={collection.data.title}
+            navigateTo={navigateTo}
+          />
+        }
+        )
+
+      //console.log('debug UserDetailItems', UserDetailItems);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     return (
       <div>
@@ -173,15 +295,10 @@ class UserDetail extends Component {
             onChangeIndex={this.handleChange}
           >
             <div>
-              <UsersDetailItem
-                title="title"
-                navigateTo={navigateTo}
-              />
+              {UserDetailItems}
             </div>
             <div >
-              <UsersDetailCollection
-                navigateTo={navigateTo}
-              />
+              {UsersDetailCollections}
             </div>
           </SwipeableViews>
 

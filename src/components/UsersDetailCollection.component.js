@@ -50,7 +50,7 @@ const UsersDetailCollection = (props) => {
       >
         <div style={style.block}>
           <div style={style.blockTitle}>
-            <div className="itemTitle">{props.name}</div>
+            <div className="itemTitle">{props.title}</div>
           </div>
         </div>
       </ListItem>
