@@ -5,6 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import * as utils from '../utils';
 // import CollectionItem from '../components/CollectionItem.component';
 import UserDetail from '../containers/UserDetail.container';
+import DashboardComponent from '../components/Dashboard.component';
 // import Item from '../components/Item.component';
 
 import { connect } from 'react-redux';
@@ -114,7 +115,8 @@ class Dashboard extends Component {
         } 
 
 
-        return (<Renderhtml />);
+        // return (<Renderhtml />);
+        return (<DashboardComponent />);
     }
 }
 
